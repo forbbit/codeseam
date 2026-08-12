@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from script_boundary.core.analyzer import analyze_program
-from script_boundary.core.features import FeatureConfig
-from script_boundary.core.ir import AnalysisResult
-from script_boundary.core.scoring import ScoringConfig
-from script_boundary.languages.matlab import MatlabFrontend
-from script_boundary.languages.matlab.project import MatlabProjectIndex, apply_project_context
+from codeseam.core.analyzer import analyze_program
+from codeseam.core.features import FeatureConfig
+from codeseam.core.ir import AnalysisResult
+from codeseam.core.scoring import ScoringConfig
+from codeseam.languages.matlab import MatlabFrontend
+from codeseam.languages.matlab.project import MatlabProjectIndex, apply_project_context
 
 
 def analyze_file(

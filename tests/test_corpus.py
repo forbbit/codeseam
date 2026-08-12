@@ -1,6 +1,6 @@
 import json
 
-from script_boundary.corpus.generator import (
+from codeseam.corpus.generator import (
     FAMILIES,
     FAMILY_SPLITS,
     audit_corpus,

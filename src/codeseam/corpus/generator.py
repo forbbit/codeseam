@@ -6,16 +6,16 @@ import random
 from dataclasses import dataclass
 from pathlib import Path
 
-from script_boundary.corpus.metrics import aggregate_matches, match_boundaries_with_ignored
-from script_boundary.corpus.schema import (
+from codeseam.corpus.metrics import aggregate_matches, match_boundaries_with_ignored
+from codeseam.corpus.schema import (
     AuxiliaryFile,
     BoundaryLabel,
     BoundaryTruth,
     CorpusRecord,
     SegmentTruth,
 )
-from script_boundary.corpus.structure import structure_fingerprint
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.corpus.structure import structure_fingerprint
+from codeseam.languages.matlab import MatlabFrontend
 
 
 @dataclass(frozen=True, slots=True)
@@ -125,7 +125,7 @@ def generate_corpus(output: Path, *, count: int = 40, seed: int = 1729) -> list[
                 auxiliary_files=auxiliary_files,
                 tags=sample.tags,
                 provenance={
-                    "generator": "script-boundary",
+                    "generator": "codeseam",
                     "recipe_version": "3",
                     "structure_fingerprint": structure_fingerprint(program),
                 },
@@ -271,7 +271,7 @@ def evaluate_corpus(
     tolerance: int = 2,
     scoring_config=None,
 ) -> dict[str, float | int | str | dict[str, float | int]]:
-    from script_boundary.core.analyzer import analyze_program
+    from codeseam.core.analyzer import analyze_program
 
     manifest = output / "manifest.jsonl"
     if not manifest.exists():

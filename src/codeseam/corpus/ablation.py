@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from script_boundary.core.scoring import DEFAULT_WEIGHTS
-from script_boundary.corpus.training import TrainingExample, load_examples
+from codeseam.core.scoring import DEFAULT_WEIGHTS
+from codeseam.corpus.training import TrainingExample, load_examples
 
 LEGACY_FEATURES = (
     "variable_death",

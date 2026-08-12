@@ -4,7 +4,7 @@ from collections.abc import Callable
 
 from tree_sitter import Node
 
-from script_boundary.core.ir import (
+from codeseam.core.ir import (
     ControlEffect,
     ControlFlowEdge,
     ControlFlowEdgeKind,

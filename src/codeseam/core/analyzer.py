@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from script_boundary.core.features import FeatureConfig, extract_boundaries
-from script_boundary.core.ir import AnalysisResult, ProgramIR
-from script_boundary.core.scoring import ScoringConfig, score_boundaries, select_recommendations
+from codeseam.core.features import FeatureConfig, extract_boundaries
+from codeseam.core.ir import AnalysisResult, ProgramIR
+from codeseam.core.scoring import ScoringConfig, score_boundaries, select_recommendations
 
 
 def analyze_program(

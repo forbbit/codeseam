@@ -1,12 +1,12 @@
 import json
 from pathlib import Path
 
-from script_boundary.corpus.annotations import (
+from codeseam.corpus.annotations import (
     agreement,
     create_annotation_template,
     validate_annotation,
 )
-from script_boundary.corpus.real_projects import _matches, validate_registry
+from codeseam.corpus.real_projects import _matches, validate_registry
 
 
 def test_registry_requires_pinned_revision_and_license(tmp_path) -> None:

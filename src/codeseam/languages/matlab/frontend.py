@@ -6,7 +6,7 @@ from pathlib import Path
 import tree_sitter_matlab
 from tree_sitter import Node
 
-from script_boundary.core.ir import (
+from codeseam.core.ir import (
     ControlEffect,
     Effect,
     ExecutableRegion,
@@ -16,9 +16,9 @@ from script_boundary.core.ir import (
     SourceRange,
     StatementIR,
 )
-from script_boundary.languages.matlab.control_flow import MatlabControlFlowBuilder
-from script_boundary.languages.matlab.symbols import BUILTIN_FUNCTIONS
-from script_boundary.parsing.tree_sitter_runtime import TreeSitterRuntime
+from codeseam.languages.matlab.control_flow import MatlabControlFlowBuilder
+from codeseam.languages.matlab.symbols import BUILTIN_FUNCTIONS
+from codeseam.parsing.tree_sitter_runtime import TreeSitterRuntime
 
 COMMENT_NODES = {"comment"}
 COMPOUND_NODES = {

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from script_boundary.core.ir import Effect, OperationRole, Risk
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.core.ir import Effect, OperationRole, Risk
+from codeseam.languages.matlab import MatlabFrontend
 
 FIXTURES = Path(__file__).parent / "fixtures" / "matlab"
 

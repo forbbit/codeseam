@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from script_boundary.core.dependencies import projected_dependence_edges, symbol_occurrences
-from script_boundary.core.ir import DependenceKind, ExecutableRegion, ModuleQuality
+from codeseam.core.dependencies import projected_dependence_edges, symbol_occurrences
+from codeseam.core.ir import DependenceKind, ExecutableRegion, ModuleQuality
 
 MODULE_WEIGHTS = {
     "internal_cohesion": 0.27,

@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from script_boundary.core.completion import completion_frontiers
-from script_boundary.core.dependencies import semantic_def_use_edges, symbol_occurrences
-from script_boundary.core.ir import BoundaryAnalysis, ExecutableRegion, Risk
-from script_boundary.core.module_quality import attach_adjacent_module_quality
+from codeseam.core.completion import completion_frontiers
+from codeseam.core.dependencies import semantic_def_use_edges, symbol_occurrences
+from codeseam.core.ir import BoundaryAnalysis, ExecutableRegion, Risk
+from codeseam.core.module_quality import attach_adjacent_module_quality
 
 NORMALIZATION_VERSION = "boundary-features-v6"
 

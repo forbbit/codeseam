@@ -1,6 +1,6 @@
-from script_boundary.corpus.generator import generate_corpus
-from script_boundary.corpus.selection_tuning import load_selection_config, tune_selection
-from script_boundary.corpus.training import train_weights
+from codeseam.corpus.generator import generate_corpus
+from codeseam.corpus.selection_tuning import load_selection_config, tune_selection
+from codeseam.corpus.training import train_weights
 
 
 def test_selection_tuning_uses_validation_and_writes_artifact(tmp_path) -> None:

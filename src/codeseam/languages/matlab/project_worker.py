@@ -4,7 +4,7 @@ import json
 import sys
 from pathlib import Path
 
-from script_boundary.languages.matlab.frontend import MatlabFrontend
+from codeseam.languages.matlab.frontend import MatlabFrontend
 
 
 def main() -> int:

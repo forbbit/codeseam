@@ -144,7 +144,7 @@ def _fetch_github_raw(spec: ProjectSpec, project_dir: Path) -> None:
         raise ValueError(f"github_raw requires a GitHub repository: {spec.project_id}")
     slug = spec.repository.removeprefix(prefix).removesuffix(".git")
     api = f"https://api.github.com/repos/{slug}/git/trees/{spec.revision}?recursive=1"
-    request = urllib.request.Request(api, headers={"User-Agent": "script-boundary-corpus"})
+    request = urllib.request.Request(api, headers={"User-Agent": "codeseam-corpus"})
     with urllib.request.urlopen(request) as response:
         tree = json.load(response)
     paths = [item["path"] for item in tree.get("tree", []) if item.get("type") == "blob"]
@@ -182,7 +182,7 @@ def _matches(path: Path, pattern: str) -> bool:
 
 def _isolated_parse(path: Path) -> dict[str, object]:
     completed = subprocess.run(
-        [sys.executable, "-m", "script_boundary.languages.matlab.project_worker", str(path)],
+        [sys.executable, "-m", "codeseam.languages.matlab.project_worker", str(path)],
         capture_output=True,
         text=True,
         check=False,

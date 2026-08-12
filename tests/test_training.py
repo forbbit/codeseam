@@ -1,5 +1,5 @@
-from script_boundary.corpus.generator import generate_corpus
-from script_boundary.corpus.training import evaluate_weight_artifact, train_weights
+from codeseam.corpus.generator import generate_corpus
+from codeseam.corpus.training import evaluate_weight_artifact, train_weights
 
 
 def test_training_is_deterministic_and_emits_nonnegative_normalized_weights(tmp_path) -> None:

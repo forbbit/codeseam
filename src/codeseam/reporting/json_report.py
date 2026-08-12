@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from script_boundary.core.ir import AnalysisResult
+from codeseam.core.ir import AnalysisResult
 
 
 def write_json(result: AnalysisResult, path: Path) -> None:

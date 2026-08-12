@@ -1,8 +1,10 @@
-# Script Boundary
+# CodeSeam
+
+**Find natural function boundaries in long scripts.**
 
 Deterministic, explainable function-boundary suggestions for long MATLAB scripts.
 
-Script Boundary parses `.m` files with Tree-sitter, lowers them into a
+CodeSeam parses `.m` files with Tree-sitter, lowers them into a
 language-neutral IR, builds control-flow and program-dependence graphs, scores every
 legal top-level statement boundary, and selects a globally coherent set of suggested
 cuts. It does not require MATLAB and does not rewrite source files.
@@ -35,21 +37,21 @@ uv sync --extra dev
 Analyze a single script:
 
 ```bash
-script-boundary analyze path/to/script.m
-script-boundary analyze path/to/script.m --json analysis.json
+codeseam analyze path/to/script.m
+codeseam analyze path/to/script.m --json analysis.json
 ```
 
 Explain a legal boundary:
 
 ```bash
-script-boundary explain path/to/script.m --after-line 120
+codeseam explain path/to/script.m --after-line 120
 ```
 
 Build project context so external and local MATLAB calls can be resolved:
 
 ```bash
-script-boundary project-scan path/to/project --json project-index.json
-script-boundary analyze path/to/project/script.m --project-index project-index.json
+codeseam project-scan path/to/project --json project-index.json
+codeseam analyze path/to/project/script.m --project-index project-index.json
 ```
 
 The JSON report includes scores, normalized and raw features, dependency crossings,
@@ -60,11 +62,11 @@ module quality, constraints, risks, prominence, and selection reasons.
 Generated and downloaded corpora are intentionally not committed.
 
 ```bash
-script-boundary corpus generate corpus/generated --count 340 --seed 1729
-script-boundary corpus audit corpus/generated
-script-boundary corpus evaluate corpus/generated --split test
-script-boundary corpus train corpus/generated --artifact weights/generated.json
-script-boundary corpus tune-selection corpus/generated \
+codeseam corpus generate corpus/generated --count 340 --seed 1729
+codeseam corpus audit corpus/generated
+codeseam corpus evaluate corpus/generated --split test
+codeseam corpus train corpus/generated --artifact weights/generated.json
+codeseam corpus tune-selection corpus/generated \
   --weights weights/generated.json --artifact weights/selection.json
 ```
 
@@ -72,8 +74,8 @@ The real-project registry contains full commit SHAs and license metadata. Downlo
 remain local:
 
 ```bash
-script-boundary corpus registry corpus/real-projects.json
-script-boundary corpus fetch-real corpus/real-projects.json corpus/real-downloaded
+codeseam corpus registry corpus/real-projects.json
+codeseam corpus fetch-real corpus/real-projects.json corpus/real-downloaded
 ```
 
 ## Architecture

@@ -1,5 +1,5 @@
-from script_boundary.languages.matlab import MatlabFrontend
-from script_boundary.languages.matlab.project import apply_project_context, scan_matlab_project
+from codeseam.languages.matlab import MatlabFrontend
+from codeseam.languages.matlab.project import apply_project_context, scan_matlab_project
 
 
 def test_project_scan_resolves_local_matlab_provider(tmp_path) -> None:

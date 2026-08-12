@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from script_boundary.core.ir import (
+from codeseam.core.ir import (
     ControlFlowGraph,
     DependenceKind,
     ProgramDependenceEdge,

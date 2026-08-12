@@ -4,11 +4,11 @@ import itertools
 import json
 from pathlib import Path
 
-from script_boundary.core.analyzer import analyze_program
-from script_boundary.core.scoring import ScoringConfig
-from script_boundary.corpus.metrics import aggregate_matches, match_boundaries_with_ignored
-from script_boundary.corpus.schema import BoundaryLabel
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.core.analyzer import analyze_program
+from codeseam.core.scoring import ScoringConfig
+from codeseam.corpus.metrics import aggregate_matches, match_boundaries_with_ignored
+from codeseam.corpus.schema import BoundaryLabel
+from codeseam.languages.matlab import MatlabFrontend
 
 
 def tune_selection(

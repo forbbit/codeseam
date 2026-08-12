@@ -6,7 +6,7 @@ import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-from script_boundary.core.ir import Risk
+from codeseam.core.ir import Risk
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,7 +53,7 @@ def scan_matlab_project(root: Path) -> MatlabProjectIndex:
     for path in sorted(root.rglob("*.m")):
         relative = path.relative_to(root).as_posix()
         completed = subprocess.run(
-            [sys.executable, "-m", "script_boundary.languages.matlab.project_worker", str(path)],
+            [sys.executable, "-m", "codeseam.languages.matlab.project_worker", str(path)],
             capture_output=True,
             text=True,
             check=False,

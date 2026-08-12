@@ -4,24 +4,24 @@ import argparse
 import json
 from pathlib import Path
 
-from script_boundary.corpus.ablation import ablation_report
-from script_boundary.corpus.annotations import (
+from codeseam.corpus.ablation import ablation_report
+from codeseam.corpus.annotations import (
     agreement,
     create_annotation_template,
     validate_annotation,
 )
-from script_boundary.corpus.generator import audit_corpus, evaluate_corpus, generate_corpus
-from script_boundary.corpus.real_projects import fetch_projects, validate_registry
-from script_boundary.corpus.selection_tuning import load_selection_config, tune_selection
-from script_boundary.corpus.training import evaluate_weight_artifact, train_weights
-from script_boundary.languages.matlab.project import MatlabProjectIndex, scan_matlab_project
-from script_boundary.reporting.console import render_analysis, render_explanation
-from script_boundary.reporting.json_report import write_json
-from script_boundary.service import analyze_file
+from codeseam.corpus.generator import audit_corpus, evaluate_corpus, generate_corpus
+from codeseam.corpus.real_projects import fetch_projects, validate_registry
+from codeseam.corpus.selection_tuning import load_selection_config, tune_selection
+from codeseam.corpus.training import evaluate_weight_artifact, train_weights
+from codeseam.languages.matlab.project import MatlabProjectIndex, scan_matlab_project
+from codeseam.reporting.console import render_analysis, render_explanation
+from codeseam.reporting.json_report import write_json
+from codeseam.service import analyze_file
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="script-boundary")
+    parser = argparse.ArgumentParser(prog="codeseam")
     subparsers = parser.add_subparsers(dest="command", required=True)
     analyze = subparsers.add_parser("analyze", help="analyze all legal boundaries")
     _common_arguments(analyze)

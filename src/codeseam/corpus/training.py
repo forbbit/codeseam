@@ -4,9 +4,9 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from script_boundary.core.features import extract_boundaries
-from script_boundary.core.scoring import DEFAULT_WEIGHTS
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.core.features import extract_boundaries
+from codeseam.core.scoring import DEFAULT_WEIGHTS
+from codeseam.languages.matlab import MatlabFrontend
 
 
 @dataclass(frozen=True, slots=True)

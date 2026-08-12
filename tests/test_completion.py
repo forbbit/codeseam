@@ -1,5 +1,5 @@
-from script_boundary.core.analyzer import analyze_program
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.core.analyzer import analyze_program
+from codeseam.languages.matlab import MatlabFrontend
 
 
 def analyze(source: bytes):

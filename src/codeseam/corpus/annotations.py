@@ -4,8 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
-from script_boundary.corpus.schema import BoundaryLabel
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.corpus.schema import BoundaryLabel
+from codeseam.languages.matlab import MatlabFrontend
 
 
 def create_annotation_template(source_path: Path, output: Path, annotator: str) -> dict:

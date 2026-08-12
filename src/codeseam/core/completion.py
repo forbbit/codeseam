@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from script_boundary.core.dependencies import semantic_def_use_edges
-from script_boundary.core.ir import ExecutableRegion, OperationRole
+from codeseam.core.dependencies import semantic_def_use_edges
+from codeseam.core.ir import ExecutableRegion, OperationRole
 
 COMPLETION_ROLES = {
     OperationRole.AGGREGATION,

@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from statistics import median
 
-from script_boundary.core.ir import BoundaryAnalysis, ExecutableRegion
-from script_boundary.core.module_quality import evaluate_module
+from codeseam.core.ir import BoundaryAnalysis, ExecutableRegion
+from codeseam.core.module_quality import evaluate_module
 
 DEFAULT_WEIGHTS = {
     "variable_death": 0.06572769953051644,

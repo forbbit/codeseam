@@ -1,5 +1,5 @@
-from script_boundary.corpus.structure import structure_fingerprint
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.corpus.structure import structure_fingerprint
+from codeseam.languages.matlab import MatlabFrontend
 
 
 def test_structure_fingerprint_ignores_identifier_names_and_literals() -> None:

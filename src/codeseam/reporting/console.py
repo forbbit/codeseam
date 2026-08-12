@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from script_boundary.core.ir import AnalysisResult, BoundaryAnalysis
+from codeseam.core.ir import AnalysisResult, BoundaryAnalysis
 
 
 def render_analysis(result: AnalysisResult) -> str:

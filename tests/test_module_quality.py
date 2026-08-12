@@ -1,5 +1,5 @@
-from script_boundary.core.module_quality import evaluate_module
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.core.module_quality import evaluate_module
+from codeseam.languages.matlab import MatlabFrontend
 
 
 def test_module_quality_exposes_raw_interface_and_locality_facts() -> None:

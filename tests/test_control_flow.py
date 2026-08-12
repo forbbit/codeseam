@@ -1,7 +1,7 @@
-from script_boundary.core.dependencies import projected_dependence_edges, semantic_def_use_edges
-from script_boundary.core.flow import program_dependence_graph, reaching_definition_edges
-from script_boundary.core.ir import ControlFlowEdgeKind, DependenceKind
-from script_boundary.languages.matlab import MatlabFrontend
+from codeseam.core.dependencies import projected_dependence_edges, semantic_def_use_edges
+from codeseam.core.flow import program_dependence_graph, reaching_definition_edges
+from codeseam.core.ir import ControlFlowEdgeKind, DependenceKind
+from codeseam.languages.matlab import MatlabFrontend
 
 
 def _cfg(source: bytes):

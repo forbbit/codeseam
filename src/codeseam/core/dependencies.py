@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from script_boundary.core.flow import program_dependence_graph
-from script_boundary.core.ir import (
+from codeseam.core.flow import program_dependence_graph
+from codeseam.core.ir import (
     DependenceKind,
     DependencyEdge,
     ExecutableRegion,

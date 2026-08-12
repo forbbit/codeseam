@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from script_boundary.service import analyze_file
+from codeseam.service import analyze_file
 
 FIXTURES = Path(__file__).parent / "fixtures" / "matlab"
 

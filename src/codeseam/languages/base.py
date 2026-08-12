@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from script_boundary.core.ir import ProgramIR
+from codeseam.core.ir import ProgramIR
 
 
 class LanguageFrontend(Protocol):

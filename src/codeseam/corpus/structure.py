@@ -3,8 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 
-from script_boundary.core.dependencies import def_use_edges
-from script_boundary.core.ir import ProgramIR
+from codeseam.core.dependencies import def_use_edges
+from codeseam.core.ir import ProgramIR
 
 
 def structure_fingerprint(program: ProgramIR) -> str:

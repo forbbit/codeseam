@@ -1,4 +1,4 @@
-from script_boundary.corpus.metrics import (
+from codeseam.corpus.metrics import (
     aggregate_matches,
     match_boundaries,
     match_boundaries_with_ignored,

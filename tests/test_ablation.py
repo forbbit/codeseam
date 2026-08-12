@@ -1,5 +1,5 @@
-from script_boundary.corpus.ablation import ablation_report
-from script_boundary.corpus.generator import generate_corpus
+from codeseam.corpus.ablation import ablation_report
+from codeseam.corpus.generator import generate_corpus
 
 
 def test_ablation_reports_old_and_new_feature_performance_by_family(tmp_path) -> None:
