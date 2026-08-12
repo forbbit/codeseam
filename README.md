@@ -2,37 +2,75 @@
 
 **Find natural function boundaries in long scripts.**
 
-Deterministic, explainable function-boundary suggestions for long MATLAB scripts.
+[![CI](https://github.com/forbbit/codeseam/actions/workflows/ci.yml/badge.svg)](https://github.com/forbbit/codeseam/actions/workflows/ci.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-3da639)](LICENSE)
+[![MATLAB first](https://img.shields.io/badge/language-MATLAB-e16737)](https://www.mathworks.com/products/matlab.html)
 
-CodeSeam parses `.m` files with Tree-sitter, lowers them into a
-language-neutral IR, builds control-flow and program-dependence graphs, scores every
-legal top-level statement boundary, and selects a globally coherent set of suggested
-cuts. It does not require MATLAB and does not rewrite source files.
+CodeSeam is a deterministic, explainable static analyzer that finds places where a
+long MATLAB script can naturally become separate functions.
 
-Comments, `%%` sections, blank lines, and formatting are deliberately excluded from
-all scoring decisions.
+![CodeSeam finds a natural function boundary between MATLAB signal preparation and spectral analysis](docs/assets/demo.svg)
+
+```bash
+uvx --from git+https://github.com/forbbit/codeseam codeseam analyze your_script.m
+```
+
+```text
+Recommended boundaries:
+  script:top-level after line 9, score=0.754
+    local peak: True, prominence=0.106
+    cross: normalized
+    constraints: -
+```
+
+The example above is committed at [`examples/energy_pipeline.m`](examples/energy_pipeline.m)
+and can be reproduced locally. CodeSeam only suggests boundaries: it never executes
+MATLAB code and never rewrites the input file.
+
+## Why CodeSeam?
+
+Splitting a script at every blank line, comment section, or locally high score creates
+too many fragments. CodeSeam instead asks whether adjacent statements form coherent
+modules and chooses a globally compatible set of seams.
+
+- **Semantic, not cosmetic:** comments, `%%` sections, blank lines, and formatting are
+  deliberately excluded from every scoring decision.
+- **Explainable:** every candidate reports its score, prominence, data crossing the
+  seam, extraction constraints, risks, and adjacent module quality.
+- **Globally selected:** dynamic programming chooses a continuous partition instead
+  of accepting independent local peaks.
+- **Project-aware:** an optional project index resolves calls into other `.m` files.
+- **No MATLAB required:** parsing uses Tree-sitter; source is analyzed, never executed.
+- **Designed to grow:** MATLAB semantics live in one frontend while the IR, CFG/PDG,
+  scoring, and selection core remain language-neutral.
 
 ## Status
 
-This is an experimental MATLAB-first release. It supports analysis and suggestions,
-not automatic extraction. The core IR and graph algorithms are language-neutral so
-additional Tree-sitter frontends can be added later.
+CodeSeam is an experimental MATLAB-first release. It supports analysis and
+suggestions, not automatic function extraction. Treat recommendations as review
+targets, especially around dynamic workspace behavior and ambiguous calls.
 
-## Installation
+## Quick start
 
-Python 3.11 or newer is required.
+Python 3.11 or newer is required. Run the latest GitHub revision without cloning:
 
 ```bash
-pip install .
+uvx --from git+https://github.com/forbbit/codeseam codeseam analyze path/to/script.m
 ```
 
-For development with [uv](https://docs.astral.sh/uv/):
+Or install a local checkout with [uv](https://docs.astral.sh/uv/):
 
 ```bash
+git clone https://github.com/forbbit/codeseam.git
+cd codeseam
 uv sync --extra dev
+uv run codeseam analyze examples/energy_pipeline.m
 ```
 
-## Usage
+PyPI packages and standalone binaries are planned but are not published yet.
+
+## Commands
 
 Analyze a single script:
 
@@ -57,6 +95,36 @@ codeseam analyze path/to/project/script.m --project-index project-index.json
 The JSON report includes scores, normalized and raw features, dependency crossings,
 module quality, constraints, risks, prominence, and selection reasons.
 
+## How it works
+
+```text
+.m source
+  -> Tree-sitter MATLAB frontend
+  -> language-neutral executable-region IR
+  -> control-flow and program-dependence graphs
+  -> semantic boundary features and extraction constraints
+  -> adjacent-module quality
+  -> global dynamic-programming selector
+  -> ranked, explainable recommendations
+```
+
+See [Architecture](docs/ARCHITECTURE.md), [Features](docs/FEATURES.md), and
+[Selection](docs/SELECTION.md) for the definitions and formulas.
+
+## Benchmark
+
+The frozen v0.1 configuration scores the held-out synthetic test split as follows:
+
+| Scripts | Precision | Recall | F1 | Forbidden cuts | Excess cuts |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 100 | 0.667 | 0.667 | 0.667 | 0.000 | 0.000 |
+
+These are reproducible regression metrics over generated structural families—not a
+claim of real-project accuracy. The generator covers scripts mixed with local
+functions, loops, branches, external calls, workspace effects, large interfaces,
+and adversarial candidate peaks. See the complete [benchmark protocol and
+limitations](docs/BENCHMARKS.md).
+
 ## Reproducible corpus workflow
 
 Generated and downloaded corpora are intentionally not committed.
@@ -78,19 +146,6 @@ codeseam corpus registry corpus/real-projects.json
 codeseam corpus fetch-real corpus/real-projects.json corpus/real-downloaded
 ```
 
-## Architecture
-
-- `languages/matlab` owns MATLAB grammar and semantic adaptation.
-- `core` contains language-neutral IR, CFG/PDG analysis, features, module quality,
-  scoring, and global dynamic-programming selection.
-- `corpus` contains reproducible generation, labeling, evaluation, training, and
-  licensed real-project acquisition tools.
-- Comments and source layout never enter semantic features.
-- Hard extraction hazards are constraints; uncertainty is reported as risk.
-
-See [Architecture](docs/ARCHITECTURE.md), [Features](docs/FEATURES.md),
-[Selection](docs/SELECTION.md), and [Corpus](docs/CORPUS.md).
-
 ## Validation
 
 ```bash
@@ -102,6 +157,17 @@ uv build
 Synthetic metrics are regression diagnostics, not a production accuracy claim.
 Real-project model annotations are kept separate from training until independently
 reviewed.
+
+## Current limits
+
+- MATLAB scripts are the only supported input language today.
+- Recommendations identify seams but do not generate function signatures or edits.
+- Dynamic MATLAB behavior (`eval`, workspace mutation, ambiguous call/index syntax)
+  can only be represented as constraints or risks by static analysis.
+- Independent human annotation of the pinned real-project set is still needed.
+
+See the [roadmap](docs/ROADMAP.md) for the planned validation, reporting, packaging,
+editor integration, and additional language work.
 
 ## Contributing
 

@@ -1,0 +1,38 @@
+name: Boundary quality report
+description: Report a missed, incorrect, or unsafe MATLAB boundary suggestion.
+title: "[boundary] "
+labels: ["boundary-quality"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve CodeSeam. Remove confidential code before submitting.
+  - type: textarea
+    id: source
+    attributes:
+      label: Minimal MATLAB example
+      description: Include executable code, not screenshots. Comments are ignored by the analyzer.
+      render: matlab
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: CodeSeam output
+      description: Paste the output of `codeseam analyze` or attach its JSON report.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: Expected boundary lines
+      placeholder: "After lines 18 and 47; line 31 should not be selected"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: CodeSeam and Python versions
+      placeholder: "CodeSeam 0.1.0, Python 3.12"
+    validations:
+      required: true
