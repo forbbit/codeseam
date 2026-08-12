@@ -1,0 +1,50 @@
+{
+  "constraints": {
+    "non_negative": true,
+    "normalized_sum": 1.0
+  },
+  "feature_order": [
+    "variable_death",
+    "variable_birth",
+    "interface_compactness",
+    "dependency_drop",
+    "medium_dependency_drop",
+    "vocabulary_shift",
+    "structural_completion",
+    "input_interface_compactness",
+    "output_interface_compactness",
+    "local_cohesion_support",
+    "call_set_change",
+    "effect_set_change",
+    "control_followup_completion",
+    "dependency_target_dispersion",
+    "task_completion"
+  ],
+  "feature_schema": "boundary-features-v6",
+  "method": "deterministic_constrained_grid_search",
+  "metrics": {
+    "train_examples": 1263,
+    "train_pairwise_accuracy": 0.7468460891505467,
+    "validation_examples": 820,
+    "validation_pairwise_accuracy": 0.5714285714285714
+  },
+  "note": "Synthetic-corpus artifact; real-project validation is still required.",
+  "schema_version": "1.0",
+  "weights": {
+    "call_set_change": 0.056338028169014086,
+    "control_followup_completion": 0.10328638497652583,
+    "dependency_drop": 0.07511737089201878,
+    "dependency_target_dispersion": 0.07042253521126761,
+    "effect_set_change": 0.018779342723004695,
+    "input_interface_compactness": 0.06572769953051644,
+    "interface_compactness": 0.07511737089201878,
+    "local_cohesion_support": 0.08450704225352113,
+    "medium_dependency_drop": 0.056338028169014086,
+    "output_interface_compactness": 0.06572769953051644,
+    "structural_completion": 0.018779342723004695,
+    "task_completion": 0.11267605633802817,
+    "variable_birth": 0.06572769953051644,
+    "variable_death": 0.06572769953051644,
+    "vocabulary_shift": 0.06572769953051644
+  }
+}

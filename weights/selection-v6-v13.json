@@ -1,0 +1,62 @@
+{
+  "config": {
+    "boundary_reward_weight": 0.85,
+    "cut_penalty": 0.03,
+    "module_deficit_penalty": 0.2,
+    "module_quality_floor": 0.6,
+    "minimum_prominence": 0.055,
+    "prominence_radius": 5,
+    "threshold": 0.58
+  },
+  "development": {
+    "f0_5": 0.6274900398406374,
+    "f1": 0.5650224215246636,
+    "false_negative": 134,
+    "false_positive": 60,
+    "family_f1": {
+      "adversarial_large_interface": 0.0,
+      "branch_merge_finalize": 1.0,
+      "composed_pipeline": 0.8679245283018869,
+      "conditional_postprocess": 1.0,
+      "linear_pipeline": 0.5,
+      "loop_carried_branch": 0.0,
+      "loop_with_finalize": 1.0,
+      "mixed_local_function": 0.0,
+      "multi_output_shared_config": 0.0,
+      "nested_branch_pipeline": 0.0,
+      "nested_state_machine": 0.0
+    },
+    "family_macro_f0_5": 0.39338530322136883,
+    "forbidden_recommendation_rate": 0.0,
+    "precision": 0.6774193548387096,
+    "recall": 0.4846153846153846,
+    "true_positive": 126
+  },
+  "feature_schema": "boundary-features-v6",
+  "schema_version": "selection-policy-v6",
+  "search_candidates": 288,
+  "test_split_used": false,
+  "tolerance_statements": 2,
+  "tuned_on_splits": [
+    "train",
+    "validation"
+  ],
+  "weights": {
+    "call_set_change": 0.056338028169014086,
+    "control_followup_completion": 0.10328638497652583,
+    "dependency_drop": 0.07511737089201878,
+    "dependency_target_dispersion": 0.07042253521126761,
+    "effect_set_change": 0.018779342723004695,
+    "input_interface_compactness": 0.06572769953051644,
+    "interface_compactness": 0.07511737089201878,
+    "local_cohesion_support": 0.08450704225352113,
+    "medium_dependency_drop": 0.056338028169014086,
+    "output_interface_compactness": 0.06572769953051644,
+    "structural_completion": 0.018779342723004695,
+    "task_completion": 0.11267605633802817,
+    "variable_birth": 0.06572769953051644,
+    "variable_death": 0.06572769953051644,
+    "vocabulary_shift": 0.06572769953051644
+  },
+  "weights_artifact": "weights\\boundary-v6-v13.json"
+}

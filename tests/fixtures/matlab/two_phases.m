@@ -1,0 +1,11 @@
+samples = randn(1, 1000);
+offset = mean(samples);
+centered = samples - offset;
+energy = sum(abs(centered).^2);
+normalized = centered / sqrt(energy);
+features = abs(fft(normalized));
+threshold = median(features);
+mask = features > threshold;
+selected = features(mask);
+summary = [mean(selected), std(selected)];
+disp(summary);

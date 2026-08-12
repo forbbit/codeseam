@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "projects": [
+    {
+      "project_id": "musaelab-amplitude-modulation",
+      "repository": "https://github.com/MuSAELab/amplitude-modulation-analysis-matlab",
+      "revision": "9107f7cf7986b3e5387e1252856b1968c42a0223",
+      "license_spdx": "MIT",
+      "license_file": "LICENSE.md",
+      "fetch_method": "github_raw",
+      "include_globs": ["**/*.m"]
+    },
+    {
+      "project_id": "alsad-pw-wvd",
+      "repository": "https://github.com/Al-Sad/PW-WVD",
+      "revision": "65a4527a1a4a19a586874ea1ac7b5c84b5f2f652",
+      "license_spdx": "MIT",
+      "license_file": "LICENSE",
+      "fetch_method": "github_raw",
+      "include_globs": ["**/*.m"]
+    },
+    {
+      "project_id": "compneuro-rshrf",
+      "repository": "https://github.com/compneuro-da/rsHRF",
+      "revision": "85618cbc9449cf7456e1f6416ae55b3e27d5ff1e",
+      "license_spdx": "BSD-3-Clause",
+      "license_file": "LICENSE",
+      "fetch_method": "github_raw",
+      "include_globs": ["**/*.m"],
+      "exclude_globs": ["demo_codes/rsHRF_demo_UCLA/RVR/**/*.m"]
+    },
+    {
+      "project_id": "mathworks-climatedatastore",
+      "repository": "https://github.com/mathworks/climatedatastore",
+      "revision": "04510fcaafa1e0ea765202313e2b9f200207a2e2",
+      "license_spdx": "BSD-3-Clause",
+      "license_file": "license.txt",
+      "fetch_method": "github_raw",
+      "include_globs": ["**/*.m"],
+      "exclude_globs": ["tests/**/*.m"]
+    }
+  ]
+}
