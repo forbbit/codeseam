@@ -113,3 +113,10 @@ end
     assert Risk.INDIRECT_CALL in statements[2].risks
     assert Risk.INDIRECT_CALL in statements[3].risks
     assert {Risk.DYNAMIC_EVALUATION, Risk.INDIRECT_CALL} <= statements[4].risks
+
+
+def test_deeply_nested_cell_index_fixture_is_stable() -> None:
+    path = Path(__file__).parent / "fixtures" / "matlab" / "nested_cell_index.m"
+    program = MatlabFrontend().analyze_source(path.read_bytes(), str(path))
+    assert program.regions
+    assert any(statement.mutations for region in program.regions for statement in region.statements)

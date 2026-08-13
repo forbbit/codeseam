@@ -51,6 +51,21 @@ def build_parser() -> argparse.ArgumentParser:
     train = corpus_subparsers.add_parser("train", help="fit explainable non-negative weights")
     train.add_argument("output", type=Path, help="generated corpus directory")
     train.add_argument("--artifact", type=Path, required=True)
+    structured_train = corpus_subparsers.add_parser(
+        "train-structured", help="fit the V2 structured energy model with Adam"
+    )
+    structured_train.add_argument("output", type=Path)
+    structured_train.add_argument("--artifact", type=Path, required=True)
+    structured_train.add_argument("--epochs", type=int, default=30)
+    structured_train.add_argument("--learning-rate", type=float, default=0.01)
+    structured_evaluate = corpus_subparsers.add_parser(
+        "evaluate-structured", help="evaluate V2 Hard-DP using a structured artifact"
+    )
+    structured_evaluate.add_argument("output", type=Path)
+    structured_evaluate.add_argument("--artifact", type=Path, required=True)
+    structured_evaluate.add_argument(
+        "--split", choices=("train", "validation", "test"), default="test"
+    )
     registry = corpus_subparsers.add_parser("registry", help="validate real-project registry")
     registry.add_argument("path", type=Path)
     fetch = corpus_subparsers.add_parser("fetch-real", help="fetch pinned licensed projects")
@@ -89,6 +104,7 @@ def _common_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--cut-penalty", type=float, default=0.03)
     parser.add_argument("--selection-policy", type=Path)
     parser.add_argument("--project-index", type=Path)
+    parser.add_argument("--structured-model", type=Path)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -106,6 +122,37 @@ def main(argv: list[str] | None = None) -> int:
             index.write_json(args.json_path)
         return 0
     if args.command == "corpus":
+        if args.corpus_command == "train-structured":
+            from codeseam.evaluation.structured_report import evaluate_structured
+            from codeseam.training.config import TrainingConfig, save_artifact
+            from codeseam.training.corpus import load_structured_examples
+            from codeseam.training.trainer import train_structured
+
+            config = TrainingConfig(
+                learning_rate=args.learning_rate, epochs=args.epochs
+            )
+            model, metrics = train_structured(
+                load_structured_examples(args.output, "train"), config=config
+            )
+            validation = evaluate_structured(
+                model, load_structured_examples(args.output, "validation")
+            )
+            metrics["validation"] = validation
+            save_artifact(args.artifact, model, config, metrics)
+            print(json.dumps(metrics, indent=2, sort_keys=True))
+            return 0
+        if args.corpus_command == "evaluate-structured":
+            from codeseam.core.structured_energy import StructuredScorer
+            from codeseam.evaluation.structured_report import evaluate_structured
+            from codeseam.training.config import load_artifact
+            from codeseam.training.corpus import load_structured_examples
+
+            model = StructuredScorer()
+            load_artifact(args.artifact, model)
+            print(json.dumps(evaluate_structured(
+                model, load_structured_examples(args.output, args.split)
+            ), indent=2, sort_keys=True))
+            return 0
         if args.corpus_command == "registry":
             errors = validate_registry(args.path)
             if errors:
@@ -191,17 +238,28 @@ def main(argv: list[str] | None = None) -> int:
         project_index = (
             MatlabProjectIndex.from_json(args.project_index) if args.project_index else None
         )
-        result = analyze_file(
-            args.file,
-            window=args.window,
-            threshold=args.threshold,
-            minimum_prominence=args.min_prominence,
-            prominence_radius=args.prominence_radius,
-            boundary_reward_weight=args.boundary_reward_weight,
-            cut_penalty=args.cut_penalty,
-            scoring_config=scoring_config,
-            project_index=project_index,
-        )
+        if args.structured_model:
+            from codeseam.core.structured_analyzer import analyze_program_structured
+            from codeseam.core.structured_energy import StructuredScorer
+            from codeseam.languages.matlab import MatlabFrontend
+            from codeseam.training.config import load_artifact
+
+            model = StructuredScorer()
+            load_artifact(args.structured_model, model)
+            program = MatlabFrontend().analyze_source(args.file.read_bytes(), str(args.file))
+            result = analyze_program_structured(program, model).result
+        else:
+            result = analyze_file(
+                args.file,
+                window=args.window,
+                threshold=args.threshold,
+                minimum_prominence=args.min_prominence,
+                prominence_radius=args.prominence_radius,
+                boundary_reward_weight=args.boundary_reward_weight,
+                cut_penalty=args.cut_penalty,
+                scoring_config=scoring_config,
+                project_index=project_index,
+            )
     except (OSError, ValueError) as error:
         raise SystemExit(f"error: {error}") from error
     if args.command == "analyze":

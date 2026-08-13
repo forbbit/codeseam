@@ -40,6 +40,7 @@ Documentation = "https://github.com/forbbit/codeseam#readme"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.3", "ruff>=0.11"]
+structured = ["numpy>=2.0", "torch>=2.4"]
 
 [project.scripts]
 codeseam = "codeseam.cli:main"

@@ -19,3 +19,5 @@ corpus/annotations/private/
 htmlcov/
 .idea/
 .vscode/
+.codex-v2-baseline/
+.codex-v2-real/
