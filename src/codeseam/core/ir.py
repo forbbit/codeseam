@@ -76,6 +76,10 @@ class FlowNode:
     definitions: set[str] = field(default_factory=set)
     reads: set[str] = field(default_factory=set)
     mutations: set[str] = field(default_factory=set)
+    roles: set[OperationRole] = field(default_factory=set)
+    calls: set[str] = field(default_factory=set)
+    effects: set[Effect] = field(default_factory=set)
+    risks: set[Risk] = field(default_factory=set)
     synthetic: bool = False
 
 

@@ -1,0 +1,30 @@
+{
+  "case_id": "overwrite",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": [
+          "x"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "overwrite.m",
+  "source_sha256": "2c7e5938a937dc1dcbae345ef2848cd5f8a0926cb15f6ae428e2f6d661542204"
+}

@@ -1,0 +1,30 @@
+{
+  "case_id": "normalization",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": [
+          "y"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "normalization.m",
+  "source_sha256": "f6d99431db13f2a97cd3eed9c7ffda464065b05e4e97faa6fb46166ca8cabeb1"
+}

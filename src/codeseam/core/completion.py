@@ -37,10 +37,8 @@ def completion_frontiers(
         producer = statements[boundary]
         if not producer.is_compound:
             continue
-        chain_roles: set[str] = set()
-        chain_symbols: set[str] = set()
+        chain: list[tuple[int, set[str], set[str]]] = []
         frontier_sources = {boundary}
-        through = boundary
         for target in range(
             boundary + 1,
             min(len(statements), boundary + 1 + maximum_followup_statements),
@@ -58,13 +56,16 @@ def completion_frontiers(
             incoming_symbols = {edge.symbol for edge in target_edges}
             if len(feeding_symbols) / max(1, len(incoming_symbols)) <= 0.5:
                 break
-            through = target
             frontier_sources.add(target)
-            chain_roles.update(role.value for role in roles)
-            chain_symbols.update(feeding_symbols)
+            chain.append((target, {role.value for role in roles}, feeding_symbols))
+        # Each boundary preceding a member sees the complete unfinished suffix.
+        # The previous implementation stored ``through=target`` immediately,
+        # making every observed chain length exactly one.
+        for offset, (target, _, _) in enumerate(chain):
+            suffix = chain[offset:]
             evidence[target - 1] = CompletionEvidence(
-                through_statement=through,
-                roles=tuple(sorted(chain_roles)),
-                symbols=tuple(sorted(chain_symbols)),
+                through_statement=chain[-1][0],
+                roles=tuple(sorted(set().union(*(item[1] for item in suffix)))),
+                symbols=tuple(sorted(set().union(*(item[2] for item in suffix)))),
             )
     return evidence

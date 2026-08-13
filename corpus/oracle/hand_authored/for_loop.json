@@ -1,0 +1,31 @@
+{
+  "case_id": "for_loop",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "s"
+        ],
+        "1": [
+          "i",
+          "s"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "s"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "for_loop.m",
+  "source_sha256": "13eedffd3479939b0347ed0ffa70db5f7b49ca3dfdf1bbfb7022bfedcb7c2e49"
+}

@@ -123,24 +123,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "corpus":
         if args.corpus_command == "train-structured":
-            from codeseam.evaluation.structured_report import evaluate_structured
-            from codeseam.training.config import TrainingConfig, save_artifact
-            from codeseam.training.corpus import load_structured_examples
-            from codeseam.training.trainer import train_structured
-
-            config = TrainingConfig(
-                learning_rate=args.learning_rate, epochs=args.epochs
+            raise SystemExit(
+                "formal V2 structured training is frozen until reports/"
+                "TRAINING_READINESS_GATE.md says READY FOR FORMAL TRAINING: YES; "
+                "use the test-suite smoke checks for pipeline validation"
             )
-            model, metrics = train_structured(
-                load_structured_examples(args.output, "train"), config=config
-            )
-            validation = evaluate_structured(
-                model, load_structured_examples(args.output, "validation")
-            )
-            metrics["validation"] = validation
-            save_artifact(args.artifact, model, config, metrics)
-            print(json.dumps(metrics, indent=2, sort_keys=True))
-            return 0
         if args.corpus_command == "evaluate-structured":
             from codeseam.core.structured_energy import StructuredScorer
             from codeseam.evaluation.structured_report import evaluate_structured
@@ -149,9 +136,13 @@ def main(argv: list[str] | None = None) -> int:
 
             model = StructuredScorer()
             load_artifact(args.artifact, model)
-            print(json.dumps(evaluate_structured(
-                model, load_structured_examples(args.output, args.split)
-            ), indent=2, sort_keys=True))
+            print(
+                json.dumps(
+                    evaluate_structured(model, load_structured_examples(args.output, args.split)),
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
             return 0
         if args.corpus_command == "registry":
             errors = validate_registry(args.path)

@@ -1,0 +1,28 @@
+{
+  "case_id": "index_mutation",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": []
+      },
+      "mutations": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "reads": {
+        "0": [],
+        "1": []
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "index_mutation.m",
+  "source_sha256": "d6418b741c16bae3386c161d0ca793dbf7012134905e8a98134c619cd1d653b7"
+}

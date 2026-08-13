@@ -1,0 +1,65 @@
+{
+  "cases": [
+    {
+      "case_id": "assignment",
+      "source": "assignment.m",
+      "truth": "assignment.json"
+    },
+    {
+      "case_id": "overwrite",
+      "source": "overwrite.m",
+      "truth": "overwrite.json"
+    },
+    {
+      "case_id": "index_mutation",
+      "source": "index_mutation.m",
+      "truth": "index_mutation.json"
+    },
+    {
+      "case_id": "field_mutation",
+      "source": "field_mutation.m",
+      "truth": "field_mutation.json"
+    },
+    {
+      "case_id": "builtin_call",
+      "source": "builtin_call.m",
+      "truth": "builtin_call.json"
+    },
+    {
+      "case_id": "if_condition",
+      "source": "if_condition.m",
+      "truth": "if_condition.json"
+    },
+    {
+      "case_id": "while_condition",
+      "source": "while_condition.m",
+      "truth": "while_condition.json"
+    },
+    {
+      "case_id": "for_loop",
+      "source": "for_loop.m",
+      "truth": "for_loop.json"
+    },
+    {
+      "case_id": "aggregation",
+      "source": "aggregation.m",
+      "truth": "aggregation.json"
+    },
+    {
+      "case_id": "normalization",
+      "source": "normalization.m",
+      "truth": "normalization.json"
+    },
+    {
+      "case_id": "shaping",
+      "source": "shaping.m",
+      "truth": "shaping.json"
+    },
+    {
+      "case_id": "external_call",
+      "source": "external_call.m",
+      "truth": "external_call.json"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2"
+}

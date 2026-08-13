@@ -1,0 +1,94 @@
+{
+  "gates": [
+    {
+      "artifact_refs": [
+        "reports/ANALYZER_ORACLE_ACCURACY.json"
+      ],
+      "gate": "A",
+      "reasons": [
+        "oracle exact-set accuracy=0.9130; required calls/roles/edges/completion families are not all present"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "artifact_refs": [
+        "reports/FINGERPRINT_COVERAGE.json"
+      ],
+      "gate": "B",
+      "reasons": [
+        "predeclared factor\u00d7label and required Cartesian cells must all be populated"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "artifact_refs": [
+        "reports/COUNTERFACTUAL_COVERAGE.md"
+      ],
+      "gate": "C",
+      "reasons": [
+        "all eight families require four quadrants"
+      ],
+      "status": "PASS"
+    },
+    {
+      "artifact_refs": [
+        "reports/FEATURE_REDUNDANCY.md"
+      ],
+      "gate": "D",
+      "reasons": [
+        "controlled activation and suppression pairs are not yet demonstrated for every feature"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "artifact_refs": [
+        "reports/FINGERPRINT_COLLISIONS.md"
+      ],
+      "gate": "E",
+      "reasons": [
+        "unexplainable opposite-label near/exact pairs=439"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "artifact_refs": [
+        "reports/REAL_DATA_SPOT_CHECK.json"
+      ],
+      "gate": "F",
+      "reasons": [
+        "real MATLAB is intentionally limited to five selected-file spot checks; population-level reliability is not inferred"
+      ],
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "artifact_refs": [
+        "reports/FINGERPRINT_COVERAGE.json"
+      ],
+      "gate": "G",
+      "reasons": [
+        "semantic graph split leakage=0"
+      ],
+      "status": "PASS"
+    },
+    {
+      "artifact_refs": [
+        "reports/V2_DATASET_VALIDATION_SUMMARY.md"
+      ],
+      "gate": "H",
+      "reasons": [
+        "finite loss and finite nonzero gradients; existing parity tests cover Soft/Hard DP"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "metadata": {
+    "command": "python -m codeseam.evaluation.dataset_validation",
+    "dataset_hash": "10ae1868a31451a6918632e0b1b8fadd88c7af83a642b1e29fad284f13a7371f",
+    "fingerprint_schema_hash": "4f289c4030c5e1c3d013cfeea491253ca6dff081bc9de18861060635da9e1e8f",
+    "generated_at": "2026-08-13T02:40:12.617509+00:00",
+    "policy_version": "training-readiness-v2",
+    "threshold_source": "CODESEAM_V2_DATASET_ANALYZER_VALIDATION_TASK.md; thresholds fixed before report evaluation"
+  },
+  "overall": "READY FOR FORMAL TRAINING: NO",
+  "policy_version": "training-readiness-v2"
+}

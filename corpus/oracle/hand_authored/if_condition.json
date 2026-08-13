@@ -1,0 +1,30 @@
+{
+  "case_id": "if_condition",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "flag"
+        ],
+        "1": [
+          "x"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "flag"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "if_condition.m",
+  "source_sha256": "8bbed1f4c23e197591b05145b13b2037a71847fec4a1bc7c6b534f76ac261c29"
+}

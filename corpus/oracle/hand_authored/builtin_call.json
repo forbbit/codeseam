@@ -1,0 +1,30 @@
+{
+  "case_id": "builtin_call",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": [
+          "y"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "builtin_call.m",
+  "source_sha256": "0f0b850df306c37da77ee036e6019877b0505e8019c62308d1f4cedaf977efb3"
+}

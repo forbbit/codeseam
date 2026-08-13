@@ -1,0 +1,30 @@
+{
+  "case_id": "field_mutation",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [],
+        "1": [
+          "y"
+        ]
+      },
+      "mutations": {
+        "0": [
+          "s"
+        ],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "s"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "field_mutation.m",
+  "source_sha256": "9046d5252db27e593da34f36108994a208feb144b8541740c10995b1e8cc5c61"
+}

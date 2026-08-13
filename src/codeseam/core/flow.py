@@ -52,10 +52,7 @@ def reaching_definition_edges(graph: ControlFlowGraph) -> list[ProgramDependence
     for node in graph.nodes:
         for symbol in node.reads | node.mutations:
             for definition in incoming[node.id].get(symbol, set()):
-                if definition != node.id:
-                    edges.add(
-                        ProgramDependenceEdge(definition, node.id, DependenceKind.DATA, symbol)
-                    )
+                edges.add(ProgramDependenceEdge(definition, node.id, DependenceKind.DATA, symbol))
     return sorted(edges, key=lambda edge: (edge.source, edge.target, edge.symbol or ""))
 
 

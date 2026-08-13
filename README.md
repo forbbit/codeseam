@@ -127,6 +127,11 @@ limitations](docs/BENCHMARKS.md).
 
 ## Reproducible corpus workflow
 
+> **V2 validation freeze:** formal structured training is currently disabled.
+> `train-structured` exits without fitting until all gates in
+> `reports/TRAINING_READINESS_GATE.md` pass. Architecture validation remains
+> available through the finite-loss/gradient and Soft/Hard-DP smoke tests.
+
 Generated and downloaded corpora are intentionally not committed.
 
 ```bash

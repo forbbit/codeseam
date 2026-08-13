@@ -1,0 +1,30 @@
+{
+  "case_id": "while_condition",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": [
+          "x"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "while_condition.m",
+  "source_sha256": "be144bf14654bb0ece725d38e0fe4d12af7a69d0cdf2d513cee7b72a236c9b32"
+}

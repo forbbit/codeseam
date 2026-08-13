@@ -1,0 +1,326 @@
+{
+  "coverage": {
+    "counterfactual": {
+      "completion": {
+        "complete": true,
+        "missing_quadrants": []
+      },
+      "control": {
+        "complete": true,
+        "missing_quadrants": []
+      },
+      "dependency": {
+        "complete": true,
+        "missing_quadrants": []
+      },
+      "interface": {
+        "complete": true,
+        "missing_quadrants": []
+      },
+      "long_range": {
+        "complete": true,
+        "missing_quadrants": []
+      },
+      "module_size": {
+        "complete": true,
+        "missing_quadrants": []
+      },
+      "role": {
+        "complete": true,
+        "missing_quadrants": []
+      },
+      "vocabulary": {
+        "complete": true,
+        "missing_quadrants": []
+      }
+    },
+    "factor_label": {
+      "completion": {
+        "cells": {
+          "high|ambiguous": 0,
+          "high|cut": 13,
+          "high|no_cut": 13,
+          "low|ambiguous": 0,
+          "low|cut": 66,
+          "low|no_cut": 66
+        },
+        "coverage_ratio": 0.6666666666666667,
+        "empty_cells": [
+          [
+            "low",
+            "ambiguous"
+          ],
+          [
+            "high",
+            "ambiguous"
+          ]
+        ]
+      },
+      "control": {
+        "cells": {
+          "high|ambiguous": 0,
+          "high|cut": 2,
+          "high|no_cut": 2,
+          "low|ambiguous": 0,
+          "low|cut": 77,
+          "low|no_cut": 77
+        },
+        "coverage_ratio": 0.6666666666666667,
+        "empty_cells": [
+          [
+            "low",
+            "ambiguous"
+          ],
+          [
+            "high",
+            "ambiguous"
+          ]
+        ]
+      },
+      "dependency": {
+        "cells": {
+          "high|ambiguous": 0,
+          "high|cut": 4,
+          "high|no_cut": 4,
+          "low|ambiguous": 0,
+          "low|cut": 75,
+          "low|no_cut": 75
+        },
+        "coverage_ratio": 0.6666666666666667,
+        "empty_cells": [
+          [
+            "low",
+            "ambiguous"
+          ],
+          [
+            "high",
+            "ambiguous"
+          ]
+        ]
+      },
+      "interface": {
+        "cells": {
+          "high|ambiguous": 0,
+          "high|cut": 4,
+          "high|no_cut": 4,
+          "low|ambiguous": 0,
+          "low|cut": 75,
+          "low|no_cut": 75
+        },
+        "coverage_ratio": 0.6666666666666667,
+        "empty_cells": [
+          [
+            "low",
+            "ambiguous"
+          ],
+          [
+            "high",
+            "ambiguous"
+          ]
+        ]
+      },
+      "role": {
+        "cells": {
+          "high|ambiguous": 0,
+          "high|cut": 4,
+          "high|no_cut": 4,
+          "low|ambiguous": 0,
+          "low|cut": 75,
+          "low|no_cut": 75
+        },
+        "coverage_ratio": 0.6666666666666667,
+        "empty_cells": [
+          [
+            "low",
+            "ambiguous"
+          ],
+          [
+            "high",
+            "ambiguous"
+          ]
+        ]
+      }
+    },
+    "leakage": {
+      "count": 0,
+      "leaked_semantic_programs": [],
+      "pass": true
+    },
+    "novelty": {
+      "test": {
+        "count": 4,
+        "exact_duplicate_rate": 0.0,
+        "max": 0.09848516692268486,
+        "p0": 0.09544537304971697,
+        "p25": 0.09544537304971697,
+        "p50": 0.09848516692268486,
+        "p90": 0.09848516692268486,
+        "p95": 0.09848516692268486
+      },
+      "train": {
+        "count": 74,
+        "exact_duplicate_rate": 1.0,
+        "max": 0.0,
+        "p0": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "p95": 0.0
+      },
+      "validation": {
+        "count": 80,
+        "exact_duplicate_rate": 0.9,
+        "max": 0.03333657824194484,
+        "p0": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "p95": 0.02199423634426941
+      }
+    },
+    "pairwise": {
+      "control\u00d7completion": {
+        "counts": {
+          "high|high": 0,
+          "high|low": 4,
+          "low|high": 26,
+          "low|low": 128
+        },
+        "empty_cells": [
+          [
+            "high",
+            "high"
+          ]
+        ],
+        "expected_cells": 4,
+        "observed_cells": 3
+      },
+      "control\u00d7dependency": {
+        "counts": {
+          "high|high": 0,
+          "high|low": 4,
+          "low|high": 8,
+          "low|low": 146
+        },
+        "empty_cells": [
+          [
+            "high",
+            "high"
+          ]
+        ],
+        "expected_cells": 4,
+        "observed_cells": 3
+      },
+      "dependency\u00d7completion": {
+        "counts": {
+          "high|high": 0,
+          "high|low": 8,
+          "low|high": 26,
+          "low|low": 124
+        },
+        "empty_cells": [
+          [
+            "high",
+            "high"
+          ]
+        ],
+        "expected_cells": 4,
+        "observed_cells": 3
+      },
+      "interface\u00d7dependency": {
+        "counts": {
+          "high|high": 0,
+          "high|low": 8,
+          "low|high": 8,
+          "low|low": 142
+        },
+        "empty_cells": [
+          [
+            "high",
+            "high"
+          ]
+        ],
+        "expected_cells": 4,
+        "observed_cells": 3
+      },
+      "interface\u00d7role": {
+        "counts": {
+          "high|high": 0,
+          "high|low": 8,
+          "low|high": 8,
+          "low|low": 142
+        },
+        "empty_cells": [
+          [
+            "high",
+            "high"
+          ]
+        ],
+        "expected_cells": 4,
+        "observed_cells": 3
+      },
+      "role\u00d7completion": {
+        "counts": {
+          "high|high": 0,
+          "high|low": 8,
+          "low|high": 26,
+          "low|low": 124
+        },
+        "empty_cells": [
+          [
+            "high",
+            "high"
+          ]
+        ],
+        "expected_cells": 4,
+        "observed_cells": 3
+      }
+    },
+    "three_way": {
+      "interface\u00d7dependency\u00d7completion": {
+        "counts": {
+          "high|high|high": 0,
+          "high|high|low": 0,
+          "high|low|high": 0,
+          "high|low|low": 8,
+          "low|high|high": 0,
+          "low|high|low": 8,
+          "low|low|high": 26,
+          "low|low|low": 116
+        },
+        "empty_cells": [
+          [
+            "low",
+            "high",
+            "high"
+          ],
+          [
+            "high",
+            "low",
+            "high"
+          ],
+          [
+            "high",
+            "high",
+            "low"
+          ],
+          [
+            "high",
+            "high",
+            "high"
+          ]
+        ],
+        "expected_cells": 8,
+        "observed_cells": 4
+      }
+    }
+  },
+  "metadata": {
+    "command": "python -m codeseam.evaluation.dataset_validation",
+    "dataset_hash": "10ae1868a31451a6918632e0b1b8fadd88c7af83a642b1e29fad284f13a7371f",
+    "fingerprint_schema_hash": "4f289c4030c5e1c3d013cfeea491253ca6dff081bc9de18861060635da9e1e8f",
+    "generated_at": "2026-08-13T02:40:12.617509+00:00",
+    "policy_version": "training-readiness-v2",
+    "threshold_source": "CODESEAM_V2_DATASET_ANALYZER_VALIDATION_TASK.md; thresholds fixed before report evaluation"
+  }
+}

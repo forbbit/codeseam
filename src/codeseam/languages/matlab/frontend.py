@@ -145,7 +145,13 @@ class MatlabFrontend:
                 statement.resolved_indexes = statement.calls & known_variables
                 remaining = statement.calls - statement.resolved_indexes
                 if statement.kind == "command":
-                    statement.resolved_calls = set(remaining)
+                    statement.resolved_calls = remaining & (
+                        BUILTIN_FUNCTIONS
+                        | WORKSPACE_COMMANDS
+                        | FILE_WRITE_COMMANDS
+                        | PATH_COMMANDS
+                        | OUTPUT_COMMANDS
+                    )
                 else:
                     statement.resolved_calls = remaining & BUILTIN_FUNCTIONS
                 statement.unresolved_calls = remaining - statement.resolved_calls
@@ -242,6 +248,9 @@ class MatlabFrontend:
             return
         if node.type in CONTROL_NODES:
             statement.control_effects.add(CONTROL_NODES[node.type])
+        if node.type == "identifier":
+            statement.reads.add(_text(node, source))
+            return
         for child in node.named_children:
             self._collect(child, statement, source)
 

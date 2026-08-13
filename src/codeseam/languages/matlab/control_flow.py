@@ -157,6 +157,10 @@ class MatlabControlFlowBuilder:
                 definitions=set(summary.definitions),
                 reads=set(summary.reads),
                 mutations=set(summary.mutations),
+                roles=set(summary.roles),
+                calls=set(summary.calls),
+                effects=set(summary.effects),
+                risks=set(summary.risks),
             )
         )
         return node_id

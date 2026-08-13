@@ -1,0 +1,30 @@
+{
+  "case_id": "shaping",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": [
+          "y"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "shaping.m",
+  "source_sha256": "c8a4bd6e7a1f564c212bc743bfb4276e3112dec5159a3fbc95eda6270cefef4e"
+}

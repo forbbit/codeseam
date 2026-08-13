@@ -1,0 +1,30 @@
+{
+  "case_id": "assignment",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": [
+          "y"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "assignment.m",
+  "source_sha256": "9203d98eb9dc5b2d66f05e4a7203d29efbdbf97b3d4cbb76fbaff917fafa36ea"
+}

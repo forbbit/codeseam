@@ -1,0 +1,25 @@
+{
+  "case_id": "external_call",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ]
+      },
+      "mutations": {
+        "0": []
+      },
+      "reads": {
+        "0": [
+          "input"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "external_call.m",
+  "source_sha256": "9bda0965727e14f68cbb0193c35149a8e3fd59314c04133fed93b7839e772422"
+}

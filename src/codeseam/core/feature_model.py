@@ -76,16 +76,26 @@ class ContinuousFeatureModel(nn.Module):
         alpha = F.softplus(self.raw_alpha) + 1e-6
         dead_ratio = value(facts.dead_symbol_count / max(1, facts.left_symbol_count))
         born_ratio = value(facts.born_symbol_count / max(1, facts.right_symbol_count))
-        overlap = value(facts.cross_symbol_count)
-        union = value(max(1, facts.left_symbol_count + facts.right_symbol_count - facts.cross_symbol_count))
+        # Cross symbols are computed globally while the side counts are window-local.
+        # Clamp the overlap to the local sets so the Jaccard-like distance cannot
+        # become negative when a long-range symbol is outside one local window.
+        local_overlap = min(
+            facts.cross_symbol_count, facts.left_symbol_count, facts.right_symbol_count
+        )
+        overlap = value(local_overlap)
+        union = value(max(1, facts.left_symbol_count + facts.right_symbol_count - local_overlap))
         interface = value(facts.input_interface_count + facts.output_interface_count)
         cross = value(facts.cross_dependency_count)
         nearby = value(facts.nearby_dependency_count)
         mass = value(facts.dependency_reuse_mass)
         span = value(facts.dependency_span_mean)
-        role = value(_histogram_cosine_distance(facts.left_role_histogram, facts.right_role_histogram))
+        role = value(
+            _histogram_cosine_distance(facts.left_role_histogram, facts.right_role_histogram)
+        )
         calls = value(_set_distance(facts.left_calls, facts.right_calls))
-        effects = value(_histogram_set_distance(facts.left_effect_histogram, facts.right_effect_histogram))
+        effects = value(
+            _histogram_set_distance(facts.left_effect_histogram, facts.right_effect_histogram)
+        )
         unfinished = value(facts.unfinished_work_mass)
         tau = F.softplus(self.raw_dependency_tau) + 1e-6
         completion = torch.sigmoid(self.raw_completion_bias - alpha[4] * unfinished / tau)
@@ -95,9 +105,11 @@ class ContinuousFeatureModel(nn.Module):
                 1.0 - torch.exp(-alpha[1] * born_ratio),
                 1.0 - overlap / union,
                 torch.exp(-alpha[2] * interface),
-                1.0 - cross / (nearby + 1.0),
-                1.0 - torch.exp(-alpha[3] * mass),
-                1.0 - torch.exp(-span / tau),
+                1.0 - torch.clamp(cross / torch.clamp(nearby, min=1.0), 0.0, 1.0),
+                # These are cut-support features: stronger coupling must not
+                # increase them.  The former formulas had the opposite direction.
+                torch.exp(-alpha[3] * mass),
+                torch.exp(-span / tau),
                 role,
                 calls,
                 effects,
@@ -109,8 +121,18 @@ class ContinuousFeatureModel(nn.Module):
     def _reliability(self, facts: BoundaryRawFacts) -> Tensor:
         r = facts.reliability
         values = (
-            r.parse, r.parse, r.parse, r.dependency, r.dependency, r.dependency,
-            r.dependency, r.role, r.call_resolution, r.effect, r.dependency, r.parse,
+            r.parse,
+            r.parse,
+            r.parse,
+            r.dependency,
+            r.dependency,
+            r.dependency,
+            r.dependency,
+            r.role,
+            r.call_resolution,
+            r.effect,
+            r.dependency,
+            r.parse,
         )
         return self.weights.new_tensor(values)
 

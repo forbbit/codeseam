@@ -1,0 +1,30 @@
+{
+  "case_id": "aggregation",
+  "case_kind": "hand_authored",
+  "regions": [
+    {
+      "definitions": {
+        "0": [
+          "x"
+        ],
+        "1": [
+          "y"
+        ]
+      },
+      "mutations": {
+        "0": [],
+        "1": []
+      },
+      "reads": {
+        "0": [],
+        "1": [
+          "x"
+        ]
+      },
+      "region_key": "top-level"
+    }
+  ],
+  "schema_version": "semantic-oracle-v2",
+  "source_path": "aggregation.m",
+  "source_sha256": "6e6b038f69c55d5377251d30b83fe49daae5fd7d08582918c0d2cc98212c0b15"
+}

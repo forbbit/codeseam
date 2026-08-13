@@ -6,7 +6,7 @@ from dataclasses import asdict, dataclass
 
 from codeseam.core.completion import completion_frontiers
 from codeseam.core.dependencies import semantic_def_use_edges, symbol_occurrences
-from codeseam.core.ir import DependencyEdge, ExecutableRegion, Risk
+from codeseam.core.ir import DependencyEdge, ExecutableRegion, OperationRole, Risk
 
 RAW_FACT_SCHEMA_VERSION = "boundary-raw-facts-v2"
 
@@ -22,6 +22,7 @@ class Reliability:
     effect: float = 1.0
     dynamic_workspace_risk: float = 0.0
     alias_uncertainty: float = 0.0
+    dependency_reason_codes: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         for name in (
@@ -189,9 +190,7 @@ def extract_raw_facts(
         output_symbols = {
             symbol
             for symbol in input_symbols
-            if any(
-                symbol in item.definitions or symbol in item.mutations for item in left_slice
-            )
+            if any(symbol in item.definitions or symbol in item.mutations for item in left_slice)
         }
         followup = tuple(
             edge
@@ -204,13 +203,9 @@ def extract_raw_facts(
         reuse = Counter(edge.symbol for edge in cross_edges)
         reliability = _reliability(left_slice + right_slice)
         constraints = set(
-            statements[boundary].forbid_cut_after
-            | statements[boundary + 1].forbid_cut_before
+            statements[boundary].forbid_cut_after | statements[boundary + 1].forbid_cut_before
         )
-        if (
-            not statements[boundary].parse_reliable
-            or not statements[boundary + 1].parse_reliable
-        ):
+        if not statements[boundary].parse_reliable or not statements[boundary + 1].parse_reliable:
             constraints.add("adjacent_parse_error")
         risks = {
             risk.value
@@ -262,13 +257,10 @@ def extract_raw_facts(
                 compound_ends_here=statements[boundary].is_compound,
                 control_followup_edge_count=len(followup),
                 unfinished_work_mass=sum(
-                    (1.0 + reuse[edge.symbol]) /
-                    max(1, edge.target_statement - boundary)
+                    (1.0 + reuse[edge.symbol]) / max(1, edge.target_statement - boundary)
                     for edge in cross_edges
                 ),
-                completion_chain_length=(
-                    evidence.through_statement - boundary if evidence else 0
-                ),
+                completion_chain_length=(evidence.through_statement - boundary if evidence else 0),
                 completion_roles=evidence.roles if evidence else (),
                 completion_symbols=evidence.symbols if evidence else (),
                 constraints=tuple(sorted(constraints)),
@@ -280,9 +272,7 @@ def extract_raw_facts(
 
 
 def _symbols(statements: Iterable) -> set[str]:
-    return set().union(
-        *(item.definitions | item.reads | item.mutations for item in statements)
-    )
+    return set().union(*(item.definitions | item.reads | item.mutations for item in statements))
 
 
 def _calls(statements: Iterable) -> set[str]:
@@ -300,7 +290,9 @@ def _histogram(values: Iterable[str]) -> tuple[tuple[str, int], ...]:
 
 def _reliability(statements: list) -> Reliability:
     parse = min(float(item.parse_reliable) for item in statements)
-    call_resolution = sum(item.call_resolution_available for item in statements) / len(statements)
+    resolved = sum(len(item.resolved_calls) + len(item.resolved_indexes) for item in statements)
+    unresolved = sum(len(item.unresolved_calls) for item in statements)
+    call_resolution = resolved / (resolved + unresolved) if resolved + unresolved else 1.0
     risks = {risk for item in statements for risk in item.risks}
     dynamic = bool(
         risks
@@ -312,8 +304,28 @@ def _reliability(statements: list) -> Reliability:
         }
     )
     alias = bool(risks & {Risk.AMBIGUOUS_CALL_OR_INDEX, Risk.INDIRECT_CALL})
+    reasons = []
+    if parse < 1.0:
+        reasons.append("parse_error")
+    if unresolved:
+        reasons.append("unresolved_call")
+    if Risk.AMBIGUOUS_CALL_OR_INDEX in risks:
+        reasons.append("ambiguous_call_index")
+    if Risk.INDIRECT_CALL in risks:
+        reasons.append("indirect_call")
+    if dynamic:
+        reasons.append("dynamic_workspace")
+    if Risk.EXTERNAL_DEPENDENCY in risks:
+        reasons.append("external_dependency")
+    if Risk.PATH_DEPENDENCY in risks:
+        reasons.append("path_dependency")
+    if Risk.GLOBAL_STATE in risks or Risk.PERSISTENT_STATE in risks:
+        reasons.append("global_persistent_state")
+    unknown_role = any(OperationRole.UNKNOWN in item.roles or not item.roles for item in statements)
+    if unknown_role:
+        reasons.append("unknown_role")
     dependency = parse * (0.35 if dynamic else 1.0) * (0.7 if alias else 1.0)
-    role = parse * (0.7 if any(not item.roles for item in statements) else 1.0)
+    role = parse * (0.7 if unknown_role else 1.0)
     return Reliability(
         parse=parse,
         call_resolution=call_resolution,
@@ -322,4 +334,5 @@ def _reliability(statements: list) -> Reliability:
         effect=parse,
         dynamic_workspace_risk=float(dynamic),
         alias_uncertainty=float(alias),
+        dependency_reason_codes=tuple(reasons),
     )

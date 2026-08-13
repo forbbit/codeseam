@@ -1,0 +1,3079 @@
+{
+  "metadata": {
+    "command": "python -m codeseam.evaluation.dataset_validation",
+    "dataset_hash": "10ae1868a31451a6918632e0b1b8fadd88c7af83a642b1e29fad284f13a7371f",
+    "fingerprint_schema_hash": "4f289c4030c5e1c3d013cfeea491253ca6dff081bc9de18861060635da9e1e8f",
+    "generated_at": "2026-08-13T02:40:12.617509+00:00",
+    "policy_version": "training-readiness-v2",
+    "threshold_source": "CODESEAM_V2_DATASET_ANALYZER_VALIDATION_TASK.md; thresholds fixed before report evaluation"
+  },
+  "samples": [
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:0",
+      "sample_id": "validation-base:vocabulary:cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:0",
+      "sample_id": "validation-base:vocabulary:cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:0",
+      "sample_id": "validation-base:vocabulary:cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:0",
+      "sample_id": "validation-base:vocabulary:cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:1",
+      "sample_id": "validation-base:vocabulary:cut:high:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:1",
+      "sample_id": "validation-base:vocabulary:cut:high:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:1",
+      "sample_id": "validation-base:vocabulary:cut:high:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:vocabulary:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:1",
+      "sample_id": "validation-base:vocabulary:cut:high:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:2",
+      "sample_id": "validation-base:vocabulary:no_cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:2",
+      "sample_id": "validation-base:vocabulary:no_cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:2",
+      "sample_id": "validation-base:vocabulary:no_cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:2",
+      "sample_id": "validation-base:vocabulary:no_cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:3",
+      "sample_id": "validation-base:vocabulary:no_cut:high:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:3",
+      "sample_id": "validation-base:vocabulary:no_cut:high:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:3",
+      "sample_id": "validation-base:vocabulary:no_cut:high:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "vocabulary",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low",
+        "vocabulary": "high"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:vocabulary:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:3",
+      "sample_id": "validation-base:vocabulary:no_cut:high:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:4",
+      "sample_id": "validation-base:interface:cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:4",
+      "sample_id": "validation-base:interface:cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:4",
+      "sample_id": "validation-base:interface:cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:4",
+      "sample_id": "validation-base:interface:cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:5",
+      "sample_id": "validation-base:interface:cut:high:b1",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:5",
+      "sample_id": "validation-base:interface:cut:high:b2",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:5",
+      "sample_id": "validation-base:interface:cut:high:b3",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:interface:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:5",
+      "sample_id": "validation-base:interface:cut:high:b4",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:6",
+      "sample_id": "validation-base:interface:no_cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:6",
+      "sample_id": "validation-base:interface:no_cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:6",
+      "sample_id": "validation-base:interface:no_cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:6",
+      "sample_id": "validation-base:interface:no_cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:7",
+      "sample_id": "validation-base:interface:no_cut:high:b1",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:7",
+      "sample_id": "validation-base:interface:no_cut:high:b2",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:7",
+      "sample_id": "validation-base:interface:no_cut:high:b3",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "interface",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "high",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:interface:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:7",
+      "sample_id": "validation-base:interface:no_cut:high:b4",
+      "semantic_program_id": "efb0ff6499db8febad3471f334b13b076f5103fb36b968c98a1dca95156f4f0c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:8",
+      "sample_id": "validation-base:dependency:cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:8",
+      "sample_id": "validation-base:dependency:cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:8",
+      "sample_id": "validation-base:dependency:cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:8",
+      "sample_id": "validation-base:dependency:cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:9",
+      "sample_id": "validation-base:dependency:cut:high:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:9",
+      "sample_id": "validation-base:dependency:cut:high:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:9",
+      "sample_id": "validation-base:dependency:cut:high:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:dependency:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:9",
+      "sample_id": "validation-base:dependency:cut:high:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:10",
+      "sample_id": "validation-base:dependency:no_cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:10",
+      "sample_id": "validation-base:dependency:no_cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:10",
+      "sample_id": "validation-base:dependency:no_cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:10",
+      "sample_id": "validation-base:dependency:no_cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:11",
+      "sample_id": "validation-base:dependency:no_cut:high:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:11",
+      "sample_id": "validation-base:dependency:no_cut:high:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:11",
+      "sample_id": "validation-base:dependency:no_cut:high:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "dependency",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "high",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:dependency:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:11",
+      "sample_id": "validation-base:dependency:no_cut:high:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "b84001491203ab443f01bc15becedd160f5d25b706bf5ca6cc53ec7eaf9d9af6",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:12",
+      "sample_id": "validation-base:role:cut:low:b1",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "6ed6c18f4d73ea38c24d30da5f7d14c9a83b4797332692d0a363a70bae78606c",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:12",
+      "sample_id": "validation-base:role:cut:low:b2",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "4dd19f1e8e033dae426fee4e14d4f5d52350ae5d16721e71ea9490968e5a80ce",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:12",
+      "sample_id": "validation-base:role:cut:low:b3",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "235b2b6b901593a454f6f2a7e326bb0de791467bed46fd602b6405a557d770c1",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:12",
+      "sample_id": "validation-base:role:cut:low:b4",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "high"
+      },
+      "fingerprint_id": "161a9855d13c7fc102231514b3930d97d008004d3107a3fa6f814692d844d57c",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:13",
+      "sample_id": "validation-base:role:cut:high:b1",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "high"
+      },
+      "fingerprint_id": "3a2fa85a446b983730d5d8f2f22a3d3c59891af4612fa40d66583e13279d59e3",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:13",
+      "sample_id": "validation-base:role:cut:high:b2",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "high"
+      },
+      "fingerprint_id": "eadf3ce90cab794c0af9fb38707a2ef999db43188855ca65aae5352ec1df2992",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:13",
+      "sample_id": "validation-base:role:cut:high:b3",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "high"
+      },
+      "fingerprint_id": "99a04175dce8a3cb0d0699c474c6a9ede12581099a7db830525b589b95725239",
+      "label": "cut",
+      "pair_id": "validation-base:role:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:13",
+      "sample_id": "validation-base:role:cut:high:b4",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "b84001491203ab443f01bc15becedd160f5d25b706bf5ca6cc53ec7eaf9d9af6",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:14",
+      "sample_id": "validation-base:role:no_cut:low:b1",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "6ed6c18f4d73ea38c24d30da5f7d14c9a83b4797332692d0a363a70bae78606c",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:14",
+      "sample_id": "validation-base:role:no_cut:low:b2",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "4dd19f1e8e033dae426fee4e14d4f5d52350ae5d16721e71ea9490968e5a80ce",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:14",
+      "sample_id": "validation-base:role:no_cut:low:b3",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "235b2b6b901593a454f6f2a7e326bb0de791467bed46fd602b6405a557d770c1",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:14",
+      "sample_id": "validation-base:role:no_cut:low:b4",
+      "semantic_program_id": "ac18133051840f16f1533476c99adc84a2b5630508ea84cd0568e7d90ad4bd47",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "high"
+      },
+      "fingerprint_id": "161a9855d13c7fc102231514b3930d97d008004d3107a3fa6f814692d844d57c",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:15",
+      "sample_id": "validation-base:role:no_cut:high:b1",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "high"
+      },
+      "fingerprint_id": "3a2fa85a446b983730d5d8f2f22a3d3c59891af4612fa40d66583e13279d59e3",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:15",
+      "sample_id": "validation-base:role:no_cut:high:b2",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "high"
+      },
+      "fingerprint_id": "eadf3ce90cab794c0af9fb38707a2ef999db43188855ca65aae5352ec1df2992",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:15",
+      "sample_id": "validation-base:role:no_cut:high:b3",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "role",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "high"
+      },
+      "fingerprint_id": "99a04175dce8a3cb0d0699c474c6a9ede12581099a7db830525b589b95725239",
+      "label": "no_cut",
+      "pair_id": "validation-base:role:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:15",
+      "sample_id": "validation-base:role:no_cut:high:b4",
+      "semantic_program_id": "250e34341ca39458fc9deff1a4aaa837085491183b26a081bddb4b2b2d62137b",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:16",
+      "sample_id": "validation-base:completion:cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:16",
+      "sample_id": "validation-base:completion:cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:16",
+      "sample_id": "validation-base:completion:cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:16",
+      "sample_id": "validation-base:completion:cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "8678d9426faf9671a495a5a7ddca5d551eb542c79136c41550d030cd3f14465d",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b1",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9a28a88a565dbc8fca13a83d1e37cc1bea7d5351630d4a0e5832970cbd6ad518",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b2",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "cb75ff986fd4dbac5b57b6a390ccdd6edb032c77d27f5a7226a8d102a488ea0b",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b3",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "47717cebf5f4f99ac028df4abb713ced39544a0f623712e0a5e2868ff9646d40",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b4",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "8388240712278ac3b23d351c12baee25362187633a4857e4e0d4add7ad462ad2",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b5",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "674cc442a9bad774a7dd8264338770a9d915fe80b10a988ad6ec5ab8d721504a",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b6",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "723ccbd20203cd5dfeb65c5b1d83b92ac8d964037ad8b491fb284b38a6f79c0d",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b7",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "8c4a993e8b197a4b8f7f9483c1ae1080582a88b98b1bfdd0a5638ff8b57e6446",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b8",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "6f6a510c4c3efd6c6341610385d10f8f5a1c4dade44ebb51da7ec60b5311a217",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b9",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "6077aea1d34f33614d7d0aa35ee8eef824ed876cb976bb91a1884d3421f0b674",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b10",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "ff1a78c1870bea93a1dae51344714463afbe2fb975c8f1d158934d345087db3e",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b11",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "ef7395e992322ac7063168ae85bec4ef9161379de8bb9b394a3dd4c2075ced05",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b12",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "fee289162e67614666c620e381a3d528f53f32de7cf201f8056e30c52f19fd75",
+      "label": "cut",
+      "pair_id": "validation-base:completion:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:17",
+      "sample_id": "validation-base:completion:cut:high:b13",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:18",
+      "sample_id": "validation-base:completion:no_cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:18",
+      "sample_id": "validation-base:completion:no_cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:18",
+      "sample_id": "validation-base:completion:no_cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:18",
+      "sample_id": "validation-base:completion:no_cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "8678d9426faf9671a495a5a7ddca5d551eb542c79136c41550d030cd3f14465d",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b1",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9a28a88a565dbc8fca13a83d1e37cc1bea7d5351630d4a0e5832970cbd6ad518",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b2",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "cb75ff986fd4dbac5b57b6a390ccdd6edb032c77d27f5a7226a8d102a488ea0b",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b3",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "47717cebf5f4f99ac028df4abb713ced39544a0f623712e0a5e2868ff9646d40",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b4",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "8388240712278ac3b23d351c12baee25362187633a4857e4e0d4add7ad462ad2",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b5",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "674cc442a9bad774a7dd8264338770a9d915fe80b10a988ad6ec5ab8d721504a",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b6",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "723ccbd20203cd5dfeb65c5b1d83b92ac8d964037ad8b491fb284b38a6f79c0d",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b7",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "8c4a993e8b197a4b8f7f9483c1ae1080582a88b98b1bfdd0a5638ff8b57e6446",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b8",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "6f6a510c4c3efd6c6341610385d10f8f5a1c4dade44ebb51da7ec60b5311a217",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b9",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "6077aea1d34f33614d7d0aa35ee8eef824ed876cb976bb91a1884d3421f0b674",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b10",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "ff1a78c1870bea93a1dae51344714463afbe2fb975c8f1d158934d345087db3e",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b11",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "ef7395e992322ac7063168ae85bec4ef9161379de8bb9b394a3dd4c2075ced05",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b12",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "completion",
+      "factors": {
+        "completion": "high",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "fee289162e67614666c620e381a3d528f53f32de7cf201f8056e30c52f19fd75",
+      "label": "no_cut",
+      "pair_id": "validation-base:completion:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:19",
+      "sample_id": "validation-base:completion:no_cut:high:b13",
+      "semantic_program_id": "c4ed5e0e5a1bd0387a42a0a77dd608021bc838092252b6540beba1986e99cc56",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:20",
+      "sample_id": "validation-base:long_range:cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:20",
+      "sample_id": "validation-base:long_range:cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:20",
+      "sample_id": "validation-base:long_range:cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:20",
+      "sample_id": "validation-base:long_range:cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:21",
+      "sample_id": "validation-base:long_range:cut:high:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:21",
+      "sample_id": "validation-base:long_range:cut:high:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:21",
+      "sample_id": "validation-base:long_range:cut:high:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:long_range:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:21",
+      "sample_id": "validation-base:long_range:cut:high:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:22",
+      "sample_id": "validation-base:long_range:no_cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:22",
+      "sample_id": "validation-base:long_range:no_cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:22",
+      "sample_id": "validation-base:long_range:no_cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:22",
+      "sample_id": "validation-base:long_range:no_cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:23",
+      "sample_id": "validation-base:long_range:no_cut:high:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:23",
+      "sample_id": "validation-base:long_range:no_cut:high:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:23",
+      "sample_id": "validation-base:long_range:no_cut:high:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "long_range",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "long_range": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:long_range:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:23",
+      "sample_id": "validation-base:long_range:no_cut:high:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "b14bbec4b11668058805e8d5b43db3fc11140f4ae597a83bc67885eec36199e1",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:24",
+      "sample_id": "validation-base:module_size:cut:low:b1",
+      "semantic_program_id": "6333928a15d24dfa488b2fc1c2ebfe2c67ea778db6450e441862636345badb89",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "e9e41bbc2ee5474b8712239fb0e5c6330b6d07b8d5c35f84d04cfa6c3727fdc3",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:24",
+      "sample_id": "validation-base:module_size:cut:low:b2",
+      "semantic_program_id": "6333928a15d24dfa488b2fc1c2ebfe2c67ea778db6450e441862636345badb89",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "09efc655fe63f68f7617a047493d3b79c1bef2e29fa9086bac4fe4a739f4bf03",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b1",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "034fdcbd0d0dcfc08cc4f8b6706847ef2e1be497cb666f867c59d77bb7b863b5",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b2",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "128e4b73a0d91026f9dcf71a2442684c86d7f247bc303bbb95f930291489e669",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b3",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "28d00efe746a1823ed4f4431dc2dee8a1ce813d43006cd370885dfb19f61f75c",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b4",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "b8020af962bfe646ac0f0c56582a0749e095a4d654b369c1a162ae49c9f9dc94",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b5",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "481c416612e7f7add14143adedb372c3e3fcf15a4319415205eac2a0d3f1ffde",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b6",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "84e5f10bd4f883c84f58f9b1c07e6d2e17501ee7a2dfaedc5337c8dfd6c25011",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b7",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "d1aa9131e44e3e05aca4a13c2d7324afc07000d87d8daeef4ff6edd1635b3338",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b8",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "197d03faff0621665ad96a60795f4ccc05268a8d49c07cdddccfcf430984cd36",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b9",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "359c365cbd77c3c2f24f21c89fd1ed5cb1afd5f8ad7dfdd74c607b8aa5a6e676",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b10",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "bd80745026886cfb187b2101d4356362af22475b242b20de77937578c59666ef",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b11",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "f3b0c18089d61f30d34932bf8800f3087ff732fff424b263dbab96fe9a77fab0",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b12",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "7361aac115dde452fa169409c7daf0a6cb957408e38ef85e87a8c9c837a8985d",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b13",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "51895c27b5afe8709ee9680d6cc25f8a8823565de458d52810f13c91375e79e4",
+      "label": "cut",
+      "pair_id": "validation-base:module_size:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:25",
+      "sample_id": "validation-base:module_size:cut:high:b14",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "b14bbec4b11668058805e8d5b43db3fc11140f4ae597a83bc67885eec36199e1",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:26",
+      "sample_id": "validation-base:module_size:no_cut:low:b1",
+      "semantic_program_id": "6333928a15d24dfa488b2fc1c2ebfe2c67ea778db6450e441862636345badb89",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "low",
+        "role": "low"
+      },
+      "fingerprint_id": "e9e41bbc2ee5474b8712239fb0e5c6330b6d07b8d5c35f84d04cfa6c3727fdc3",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:26",
+      "sample_id": "validation-base:module_size:no_cut:low:b2",
+      "semantic_program_id": "6333928a15d24dfa488b2fc1c2ebfe2c67ea778db6450e441862636345badb89",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "09efc655fe63f68f7617a047493d3b79c1bef2e29fa9086bac4fe4a739f4bf03",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b1",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "034fdcbd0d0dcfc08cc4f8b6706847ef2e1be497cb666f867c59d77bb7b863b5",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b2",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "128e4b73a0d91026f9dcf71a2442684c86d7f247bc303bbb95f930291489e669",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b3",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "28d00efe746a1823ed4f4431dc2dee8a1ce813d43006cd370885dfb19f61f75c",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b4",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "b8020af962bfe646ac0f0c56582a0749e095a4d654b369c1a162ae49c9f9dc94",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b5",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "481c416612e7f7add14143adedb372c3e3fcf15a4319415205eac2a0d3f1ffde",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b6",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "84e5f10bd4f883c84f58f9b1c07e6d2e17501ee7a2dfaedc5337c8dfd6c25011",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b7",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "d1aa9131e44e3e05aca4a13c2d7324afc07000d87d8daeef4ff6edd1635b3338",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b8",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "197d03faff0621665ad96a60795f4ccc05268a8d49c07cdddccfcf430984cd36",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b9",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "359c365cbd77c3c2f24f21c89fd1ed5cb1afd5f8ad7dfdd74c607b8aa5a6e676",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b10",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "bd80745026886cfb187b2101d4356362af22475b242b20de77937578c59666ef",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b11",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "f3b0c18089d61f30d34932bf8800f3087ff732fff424b263dbab96fe9a77fab0",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b12",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "7361aac115dde452fa169409c7daf0a6cb957408e38ef85e87a8c9c837a8985d",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b13",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "module_size",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "module_size": "high",
+        "role": "low"
+      },
+      "fingerprint_id": "51895c27b5afe8709ee9680d6cc25f8a8823565de458d52810f13c91375e79e4",
+      "label": "no_cut",
+      "pair_id": "validation-base:module_size:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:27",
+      "sample_id": "validation-base:module_size:no_cut:high:b14",
+      "semantic_program_id": "ecd7eae82b03a9d26e4eb91a19f0f3eada12bb52febeeb65805e6e356d9f5b7c",
+      "split": "train"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "cut",
+      "pair_id": "validation-base:control:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:28",
+      "sample_id": "validation-base:control:cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "cut",
+      "pair_id": "validation-base:control:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:28",
+      "sample_id": "validation-base:control:cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "cut",
+      "pair_id": "validation-base:control:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:28",
+      "sample_id": "validation-base:control:cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "cut",
+      "pair_id": "validation-base:control:cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:28",
+      "sample_id": "validation-base:control:cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "high",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "443aa9e53e31d2cd2fae90941820021ea3b2f204beaec9624545cd922b0a55d3",
+      "label": "cut",
+      "pair_id": "validation-base:control:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:29",
+      "sample_id": "validation-base:control:cut:high:b1",
+      "semantic_program_id": "3c3ed99b39efa6b4a41ab1104ac45f8468b32d84e4cfbdbb88a4bc5f06e0a20e",
+      "split": "test"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "high",
+        "dependency": "low",
+        "interface": "low",
+        "label": "cut",
+        "role": "low"
+      },
+      "fingerprint_id": "b49c572f49acb31f22acd62baf23626d8ade207b6164ba311aee9b79d3af6e91",
+      "label": "cut",
+      "pair_id": "validation-base:control:cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:29",
+      "sample_id": "validation-base:control:cut:high:b2",
+      "semantic_program_id": "3c3ed99b39efa6b4a41ab1104ac45f8468b32d84e4cfbdbb88a4bc5f06e0a20e",
+      "split": "test"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9f7032f4930b2edda453c1245469dafcb847d5cfcb88c0d17ae2c8d540fc8c87",
+      "label": "no_cut",
+      "pair_id": "validation-base:control:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:30",
+      "sample_id": "validation-base:control:no_cut:low:b1",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "9ee87ba3e4a27ccf47bf76405895a7c75b3d4d58c537fa142b95f88976dfbc7e",
+      "label": "no_cut",
+      "pair_id": "validation-base:control:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:30",
+      "sample_id": "validation-base:control:no_cut:low:b2",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "392e0c5160746f3d376d24adb66893c0b6e21bba0c565f7e56f74aaa992b7f30",
+      "label": "no_cut",
+      "pair_id": "validation-base:control:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:30",
+      "sample_id": "validation-base:control:no_cut:low:b3",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "low",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "e469683c7b525a1d1d30d8001042df1cc1f59979f035ca950efb2d20598d0d41",
+      "label": "no_cut",
+      "pair_id": "validation-base:control:no_cut",
+      "polarity": "low",
+      "renderer_variant_id": "descriptive:30",
+      "sample_id": "validation-base:control:no_cut:low:b4",
+      "semantic_program_id": "48bf536f059591380e234d1c9992ad186b07d701ece01fc09b6fc1fdbe84c439",
+      "split": "validation"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "high",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "443aa9e53e31d2cd2fae90941820021ea3b2f204beaec9624545cd922b0a55d3",
+      "label": "no_cut",
+      "pair_id": "validation-base:control:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:31",
+      "sample_id": "validation-base:control:no_cut:high:b1",
+      "semantic_program_id": "3c3ed99b39efa6b4a41ab1104ac45f8468b32d84e4cfbdbb88a4bc5f06e0a20e",
+      "split": "test"
+    },
+    {
+      "counterfactual_family": "control",
+      "factors": {
+        "completion": "low",
+        "control": "high",
+        "dependency": "low",
+        "interface": "low",
+        "label": "no_cut",
+        "role": "low"
+      },
+      "fingerprint_id": "b49c572f49acb31f22acd62baf23626d8ade207b6164ba311aee9b79d3af6e91",
+      "label": "no_cut",
+      "pair_id": "validation-base:control:no_cut",
+      "polarity": "high",
+      "renderer_variant_id": "reused:31",
+      "sample_id": "validation-base:control:no_cut:high:b2",
+      "semantic_program_id": "3c3ed99b39efa6b4a41ab1104ac45f8468b32d84e4cfbdbb88a4bc5f06e0a20e",
+      "split": "test"
+    }
+  ],
+  "schema_version": "semantic-dataset-manifest-v2"
+}
