@@ -4,7 +4,11 @@ import pytest
 
 from codeseam.core.completion import completion_frontiers
 from codeseam.core.raw_facts import extract_raw_facts
-from codeseam.corpus.counterfactual import COUNTERFACTUAL_FAMILIES, generate_counterfactual_suite
+from codeseam.corpus.counterfactual import (
+    COUNTERFACTUAL_FAMILIES,
+    generate_counterfactual_suite,
+    generate_pairwise_suite,
+)
 from codeseam.corpus.coverage import CoverageDesign, FingerprintSample, audit_coverage
 from codeseam.corpus.fingerprint import (
     fit_fingerprint_schema,
@@ -46,8 +50,80 @@ def test_eight_counterfactual_families_have_four_quadrants():
     assert {item.family for item in suite} == set(COUNTERFACTUAL_FAMILIES)
     for family in COUNTERFACTUAL_FAMILIES:
         assert {
-            (item.label, item.semantic_polarity) for item in suite if item.family == family
+            (item.target_boundary_truth.label, item.semantic_polarity)
+            for item in suite
+            if item.family == family
         } == {("cut", "low"), ("cut", "high"), ("no_cut", "low"), ("no_cut", "high")}
+
+
+def test_candidate_labels_come_from_true_cuts_and_no_cut_is_semantic():
+    cases = generate_counterfactual_suite(_graph())
+    chosen = [
+        item for item in cases if item.family == "interface" and item.semantic_polarity == "low"
+    ]
+    cut = next(item for item in chosen if item.target_boundary_truth.label == "cut")
+    no_cut = next(item for item in chosen if item.target_boundary_truth.label == "no_cut")
+    cut_render, no_cut_render = render_matlab(cut.graph), render_matlab(no_cut.graph)
+    cut_index = dict(cut_render.boundary_cuts)[cut.target_boundary_id]
+    no_cut_index = dict(no_cut_render.boundary_cuts)[no_cut.target_boundary_id]
+    assert dict(cut_render.candidate_labels)[cut_index] == "cut"
+    assert dict(no_cut_render.candidate_labels)[no_cut_index] == "no_cut"
+    assert cut_index in cut_render.true_cuts and no_cut_index not in no_cut_render.true_cuts
+    assert cut.graph.tasks[0].module_id != cut.graph.tasks[1].module_id
+    assert no_cut.graph.tasks[0].module_id == no_cut.graph.tasks[1].module_id
+
+
+def test_renderer_reads_all_semantic_inputs_and_maps_boundary():
+    case = next(
+        item
+        for item in generate_counterfactual_suite(_graph())
+        if item.family == "interface"
+        and item.semantic_polarity == "high"
+        and item.target_boundary_truth.label == "cut"
+    )
+    rendered = render_matlab(case.graph)
+    for semantic_input in ("primary", "interface_a", "interface_b"):
+        assert dict(rendered.symbol_map)[semantic_input] in rendered.source
+    assert dict(rendered.boundary_cuts)[case.target_boundary_id] in rendered.true_cuts
+
+
+def test_core_factor_and_pairwise_raw_observability():
+    frontend, cases = MatlabFrontend(), generate_counterfactual_suite(_graph())
+
+    def target(family, polarity):
+        case = next(
+            item
+            for item in cases
+            if item.family == family
+            and item.semantic_polarity == polarity
+            and item.target_boundary_truth.label == "cut"
+        )
+        rendered = render_matlab(case.graph)
+        region = frontend.analyze_source(rendered.source.encode(), "factor.m").regions[0]
+        return extract_raw_facts(region)[dict(rendered.boundary_cuts)[case.target_boundary_id] - 1]
+
+    dep_low, dep_high = target("dependency", "low"), target("dependency", "high")
+    assert dep_high.cross_dependency_count > dep_low.cross_dependency_count
+    assert dep_high.dependency_reuse_mass > dep_low.dependency_reuse_mass
+    assert (
+        target("interface", "high").input_interface_count
+        > target("interface", "low").input_interface_count
+    )
+    assert target("role", "low").right_role_histogram != target("role", "high").right_role_histogram
+    assert len(target("completion", "high").right_role_histogram) > len(
+        target("completion", "low").right_role_histogram
+    )
+    pair = next(
+        item
+        for item in generate_pairwise_suite()
+        if dict(item.requested_factors) == {"dependency": "high", "interface": "high"}
+    )
+    rendered = render_matlab(pair.graph)
+    facts = extract_raw_facts(
+        frontend.analyze_source(rendered.source.encode(), "pair.m").regions[0]
+    )
+    fact = facts[dict(rendered.boundary_cuts)[pair.target_boundary_id] - 1]
+    assert fact.input_interface_count >= 3 and fact.cross_dependency_count >= 3
 
 
 def test_fingerprint_fit_is_train_only_and_schema_mismatch_is_rejected():

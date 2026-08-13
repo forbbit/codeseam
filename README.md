@@ -131,6 +131,11 @@ limitations](docs/BENCHMARKS.md).
 > `train-structured` exits without fitting until all gates in
 > `reports/TRAINING_READINESS_GATE.md` pass. Architecture validation remains
 > available through the finite-loss/gradient and Soft/Hard-DP smoke tests.
+>
+> GitHub/registry MATLAB projects are **never current training truth**. They are
+> limited to parser/analyzer stress tests and selected detection spot checks.
+> They may become external validation data only after independent human labels;
+> CodeSeam predictions must never be recycled as ground truth.
 
 Generated and downloaded corpora are intentionally not committed.
 

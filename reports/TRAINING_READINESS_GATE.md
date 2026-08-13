@@ -2,13 +2,13 @@
 
 Policy: training-readiness-v2
 
-- Gate A: **FAIL** — oracle exact-set accuracy=0.9130; required calls/roles/edges/completion families are not all present
-- Gate B: **FAIL** — predeclared factor×label and required Cartesian cells must all be populated
-- Gate C: **PASS** — all eight families require four quadrants
-- Gate D: **FAIL** — controlled activation and suppression pairs are not yet demonstrated for every feature
-- Gate E: **FAIL** — unexplainable opposite-label near/exact pairs=439
-- Gate F: **NOT_EVALUATED** — real MATLAB is intentionally limited to five selected-file spot checks; population-level reliability is not inferred
-- Gate G: **PASS** — semantic graph split leakage=0
+- Gate A: **FAIL** — oracle exact-set accuracy=0.9375; required calls/roles/edges/completion families are not all present
+- Gate B: **PASS** — predeclared factor×label and required Cartesian cells must all be populated
+- Gate C: **PASS** — requires candidate truth, faithful rendering and requested/observed agreement
+- Gate D: **PASS** — computed from controlled target deltas and non-target drift
+- Gate E: **FAIL** — potential missing-observation pairs=936; data bugs=0
+- Gate F: **PASS** — controlled clean and deliberately uncertain cases only
+- Gate G: **PASS** — semantic graph split leakage=0; renderer leakage=0
 - Gate H: **PASS** — finite loss and finite nonzero gradients; existing parity tests cover Soft/Hard DP
 
 ## Final decision

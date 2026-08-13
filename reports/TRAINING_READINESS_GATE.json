@@ -6,7 +6,7 @@
       ],
       "gate": "A",
       "reasons": [
-        "oracle exact-set accuracy=0.9130; required calls/roles/edges/completion families are not all present"
+        "oracle exact-set accuracy=0.9375; required calls/roles/edges/completion families are not all present"
       ],
       "status": "FAIL"
     },
@@ -18,7 +18,7 @@
       "reasons": [
         "predeclared factor\u00d7label and required Cartesian cells must all be populated"
       ],
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "artifact_refs": [
@@ -26,7 +26,7 @@
       ],
       "gate": "C",
       "reasons": [
-        "all eight families require four quadrants"
+        "requires candidate truth, faithful rendering and requested/observed agreement"
       ],
       "status": "PASS"
     },
@@ -36,9 +36,9 @@
       ],
       "gate": "D",
       "reasons": [
-        "controlled activation and suppression pairs are not yet demonstrated for every feature"
+        "computed from controlled target deltas and non-target drift"
       ],
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "artifact_refs": [
@@ -46,19 +46,19 @@
       ],
       "gate": "E",
       "reasons": [
-        "unexplainable opposite-label near/exact pairs=439"
+        "potential missing-observation pairs=936; data bugs=0"
       ],
       "status": "FAIL"
     },
     {
       "artifact_refs": [
-        "reports/REAL_DATA_SPOT_CHECK.json"
+        "reports/CONTROLLED_RELIABILITY.json"
       ],
       "gate": "F",
       "reasons": [
-        "real MATLAB is intentionally limited to five selected-file spot checks; population-level reliability is not inferred"
+        "controlled clean and deliberately uncertain cases only"
       ],
-      "status": "NOT_EVALUATED"
+      "status": "PASS"
     },
     {
       "artifact_refs": [
@@ -66,7 +66,7 @@
       ],
       "gate": "G",
       "reasons": [
-        "semantic graph split leakage=0"
+        "semantic graph split leakage=0; renderer leakage=0"
       ],
       "status": "PASS"
     },
@@ -83,9 +83,9 @@
   ],
   "metadata": {
     "command": "python -m codeseam.evaluation.dataset_validation",
-    "dataset_hash": "10ae1868a31451a6918632e0b1b8fadd88c7af83a642b1e29fad284f13a7371f",
-    "fingerprint_schema_hash": "4f289c4030c5e1c3d013cfeea491253ca6dff081bc9de18861060635da9e1e8f",
-    "generated_at": "2026-08-13T02:40:12.617509+00:00",
+    "dataset_hash": "953f9dffa7855244f9d349eaef3bd0e77aebc02121be44053dbf7acb5e1fb6fd",
+    "fingerprint_schema_hash": "c91fd2fa90fd4b3beb530cf58b2e74bef45b572839aa156351dee4632160caab",
+    "generated_at": "2026-08-13T03:15:59.516032+00:00",
     "policy_version": "training-readiness-v2",
     "threshold_source": "CODESEAM_V2_DATASET_ANALYZER_VALIDATION_TASK.md; thresholds fixed before report evaluation"
   },

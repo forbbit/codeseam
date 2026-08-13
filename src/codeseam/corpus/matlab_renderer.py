@@ -17,6 +17,9 @@ class RenderedMatlab:
     symbol_map: tuple[tuple[str, str], ...] = ()
     operation_statements: tuple[tuple[str, int], ...] = ()
     boundary_cuts: tuple[tuple[str, int], ...] = ()
+    candidate_labels: tuple[tuple[int, str], ...] = ()
+    ambiguous_boundaries: tuple[int, ...] = ()
+    renderer_trace_id: str = ""
 
 
 def render_matlab(
@@ -28,8 +31,10 @@ def render_matlab(
     cuts: list[int] = []
     operation_statements: list[tuple[str, int]] = []
     boundary_cuts: list[tuple[str, int]] = []
+    candidate_labels: dict[int, str] = {}
     symbol_map: dict[str, str] = {}
     used_names: set[str] = set()
+    statement_total = 0
     operations = graph.resolved_operations()
     by_task = {task.task_id: [] for task in graph.tasks}
     for operation in operations:
@@ -37,24 +42,39 @@ def render_matlab(
     for task_index, task in enumerate(graph.tasks):
         start = len(lines) + 1
         task_operations = by_task.get(task.task_id, [])
-        rendered = [
-            _render_operation(op, symbol_map, used_names, rng, style) for op in task_operations
+        main_operations = [op for op in task_operations if ".completion" not in op.op_id]
+        completion_operations = [op for op in task_operations if ".completion" in op.op_id]
+        rendered_main = [
+            _render_operation(op, symbol_map, used_names, rng, style) for op in main_operations
         ]
-        block, offsets = _wrap_control(task, rendered, symbol_map, used_names, rng, style)
+        block, offsets = _wrap_control(task, rendered_main, symbol_map, used_names, rng, style)
         base = len(lines)
         lines.extend(block)
-        for operation, offset in zip(task_operations, offsets, strict=True):
+        for operation, offset in zip(main_operations, offsets, strict=True):
             operation_statements.append((operation.op_id, base + offset))
+        statement_total += 1 if task.control != "none" else len(main_operations)
+        for operation in completion_operations:
+            lines.append(_render_operation(operation, symbol_map, used_names, rng, style))
+            operation_statements.append((operation.op_id, len(lines)))
+            statement_total += 1
         ranges.append((start, len(lines)))
         if task_index < len(graph.tasks) - 1:
-            cut = len(lines)
-            cuts.append(cut)
-            boundary_id = (
-                graph.boundaries[task_index].boundary_id
-                if task_index < len(graph.boundaries)
-                else f"{task.task_id}->{graph.tasks[task_index + 1].task_id}"
-            )
+            cut = statement_total
+            truth = graph.boundary_truth(task.task_id, graph.tasks[task_index + 1].task_id)
+            if truth.label == "cut":
+                cuts.append(cut)
+            candidate_labels[cut] = truth.label
+            boundary_id = truth.boundary_id
             boundary_cuts.append((boundary_id, cut))
+    for candidate in range(1, statement_total):
+        candidate_labels.setdefault(candidate, "no_cut")
+    trace_payload = "|".join(
+        [graph.semantic_program_id, style, str(seed)]
+        + [f"{op}:{statement}" for op, statement in operation_statements]
+        + [f"{boundary}:{cut}" for boundary, cut in boundary_cuts]
+    )
+    import hashlib
+
     return RenderedMatlab(
         "\n".join(lines) + "\n",
         tuple(cuts),
@@ -65,6 +85,9 @@ def render_matlab(
         tuple(sorted(symbol_map.items())),
         tuple(operation_statements),
         tuple(boundary_cuts),
+        tuple(sorted(candidate_labels.items())),
+        tuple(index for index, label in sorted(candidate_labels.items()) if label == "ambiguous"),
+        hashlib.sha256(trace_payload.encode()).hexdigest(),
     )
 
 
@@ -91,6 +114,20 @@ def _wrap_control(task: SemanticTask, statements: list[str], names, used, rng, s
     offsets = list(range(2, len(statements) + 2))
     if task.control == "ifelse":
         body.extend(["else", "    fallback_value = 0;"])
+    elif task.control == "nested":
+        body = (
+            [header, f"    if all({condition}(:))"]
+            + [f"        {line}" for line in statements]
+            + ["    end"]
+        )
+        offsets = list(range(3, len(statements) + 3))
+    elif task.control == "loop_branch":
+        body = (
+            ["for loop_index = 1:2", f"    if any({condition}(:))"]
+            + [f"        {line}" for line in statements]
+            + ["    end"]
+        )
+        offsets = list(range(3, len(statements) + 3))
     body.append("end")
     return body, offsets
 
@@ -99,15 +136,16 @@ def _render_operation(op: SemanticOperation, names, used, rng, style: str) -> st
     reads = [_name(item, names, used, rng, style) for item in op.reads]
     outputs = [_name(item, names, used, rng, style) for item in op.definitions]
     source = reads[0] if reads else "randn(16, 1)"
+    all_inputs = source if len(reads) < 2 else " + ".join(f"({item})" for item in reads)
     expression = {
         "acquisition": "randn(16, 1)",
-        "transformation": f"fft({source})",
-        "aggregation": f"mean({source})",
-        "normalization": f"{source} / (norm({source}) + eps)",
-        "shaping": f"reshape({source}, [], 1)",
-        "decision": f"{source} > median({source})",
-        "output": source,
-    }.get(op.role.lower(), f"{source} + 1")
+        "transformation": f"fft({all_inputs})",
+        "aggregation": f"mean({all_inputs})",
+        "normalization": f"({all_inputs}) / (norm({all_inputs}) + eps)",
+        "shaping": f"reshape({all_inputs}, [], 1)",
+        "decision": f"({all_inputs}) > median({all_inputs})",
+        "output": all_inputs,
+    }.get(op.role.lower(), f"{all_inputs} + 1")
     if op.calls:
         expression = f"{op.calls[0]}({source})"
     if op.role.lower() == "output" and not outputs:

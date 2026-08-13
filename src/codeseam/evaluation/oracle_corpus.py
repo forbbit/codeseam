@@ -20,6 +20,9 @@ class HandOracleCase:
     expected_definitions: dict[int, set[str]]
     expected_reads: dict[int, set[str]]
     expected_mutations: dict[int, set[str]]
+    expected_calls: dict[int, set[str]] | None = None
+    expected_roles: dict[int, set[str]] | None = None
+    expected_effects: dict[int, set[str]] | None = None
 
 
 def hand_oracle_cases() -> tuple[HandOracleCase, ...]:
@@ -108,11 +111,49 @@ def hand_oracle_cases() -> tuple[HandOracleCase, ...]:
     )
 
 
+def _enrich_oracle_cases(cases: tuple[HandOracleCase, ...]) -> tuple[HandOracleCase, ...]:
+    """Attach independently specified call/role/effect truth to selected cases."""
+    truth = {
+        "builtin_call": (
+            {0: {"randn"}, 1: {"mean"}},
+            {0: {"acquisition"}, 1: {"aggregation"}},
+            {0: {"call_or_index"}, 1: {"call_or_index"}},
+        ),
+        "aggregation": (
+            {0: {"randn"}, 1: {"sum"}},
+            {0: {"acquisition"}, 1: {"aggregation"}},
+            {0: {"call_or_index"}, 1: {"call_or_index"}},
+        ),
+        "normalization": (
+            {0: {"randn"}, 1: {"norm"}},
+            {0: {"acquisition"}, 1: {"aggregation", "normalization"}},
+            {0: {"call_or_index"}, 1: {"call_or_index"}},
+        ),
+        "shaping": (
+            {0: {"randn"}, 1: {"reshape"}},
+            {0: {"acquisition"}, 1: {"shaping"}},
+            {0: {"call_or_index"}, 1: {"call_or_index"}},
+        ),
+        "external_call": ({0: {"project_worker"}}, {0: {"unknown"}}, {0: {"call_or_index"}}),
+    }
+    return tuple(
+        HandOracleCase(
+            case.case_id,
+            case.source,
+            case.expected_definitions,
+            case.expected_reads,
+            case.expected_mutations,
+            *(truth.get(case.case_id, (None, None, None))),
+        )
+        for case in cases
+    )
+
+
 def run_hand_oracle() -> dict[str, object]:
     frontend = MatlabFrontend()
     observations: list[OracleObservation] = []
     case_results = {}
-    for case in hand_oracle_cases():
+    for case in _enrich_oracle_cases(hand_oracle_cases()):
         program = frontend.analyze_source(case.source, f"{case.case_id}.m")
         region = program.regions[0]
         items = region_observations(
@@ -121,6 +162,19 @@ def run_hand_oracle() -> dict[str, object]:
             expected_reads=case.expected_reads,
             expected_mutations=case.expected_mutations,
         )
+        for family, expected, attribute in (
+            ("calls", case.expected_calls, "calls"),
+            ("roles", case.expected_roles, "roles"),
+            ("effects", case.expected_effects, "effects"),
+        ):
+            if expected is None:
+                continue
+            for index, values in expected.items():
+                observed = {
+                    item.value if hasattr(item, "value") else item
+                    for item in getattr(region.statements[index], attribute)
+                }
+                items.append(OracleObservation(family, frozenset(values), frozenset(observed)))
         observations.extend(items)
         case_results[case.case_id] = evaluate_oracle(items)["overall"]
     report = evaluate_oracle(observations)
@@ -132,16 +186,18 @@ def run_hand_oracle() -> dict[str, object]:
 def materialize_hand_oracle(directory: Path) -> dict[str, object]:
     directory.mkdir(parents=True, exist_ok=True)
     manifest = {"schema_version": "semantic-oracle-v2", "cases": []}
-    for case in hand_oracle_cases():
+    for case in _enrich_oracle_cases(hand_oracle_cases()):
         source_path = directory / f"{case.case_id}.m"
         truth_path = directory / f"{case.case_id}.json"
-        source_path.write_bytes(case.source)
+        if not source_path.exists():
+            source_path.write_bytes(case.source)
+        source_bytes = source_path.read_bytes()
         truth = {
             "schema_version": "semantic-oracle-v2",
             "case_id": case.case_id,
             "case_kind": "hand_authored",
             "source_path": source_path.name,
-            "source_sha256": hashlib.sha256(case.source).hexdigest(),
+            "source_sha256": hashlib.sha256(source_bytes).hexdigest(),
             "regions": [
                 {
                     "region_key": "top-level",
@@ -153,6 +209,18 @@ def materialize_hand_oracle(directory: Path) -> dict[str, object]:
                     },
                     "mutations": {
                         str(key): sorted(value) for key, value in case.expected_mutations.items()
+                    },
+                    "calls": {
+                        str(key): sorted(value)
+                        for key, value in (case.expected_calls or {}).items()
+                    },
+                    "roles": {
+                        str(key): sorted(value)
+                        for key, value in (case.expected_roles or {}).items()
+                    },
+                    "effects": {
+                        str(key): sorted(value)
+                        for key, value in (case.expected_effects or {}).items()
                     },
                 }
             ],

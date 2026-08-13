@@ -37,272 +37,179 @@
     "factor_label": {
       "completion": {
         "cells": {
-          "high|ambiguous": 0,
-          "high|cut": 13,
-          "high|no_cut": 13,
-          "low|ambiguous": 0,
-          "low|cut": 66,
-          "low|no_cut": 66
+          "high|cut": 7,
+          "high|no_cut": 17,
+          "low|cut": 33,
+          "low|no_cut": 187
         },
-        "coverage_ratio": 0.6666666666666667,
-        "empty_cells": [
-          [
-            "low",
-            "ambiguous"
-          ],
-          [
-            "high",
-            "ambiguous"
-          ]
-        ]
+        "coverage_ratio": 1.0,
+        "empty_cells": []
       },
       "control": {
         "cells": {
-          "high|ambiguous": 0,
-          "high|cut": 2,
-          "high|no_cut": 2,
-          "low|ambiguous": 0,
-          "low|cut": 77,
-          "low|no_cut": 77
+          "high|cut": 5,
+          "high|no_cut": 1,
+          "low|cut": 35,
+          "low|no_cut": 203
         },
-        "coverage_ratio": 0.6666666666666667,
-        "empty_cells": [
-          [
-            "low",
-            "ambiguous"
-          ],
-          [
-            "high",
-            "ambiguous"
-          ]
-        ]
+        "coverage_ratio": 1.0,
+        "empty_cells": []
       },
       "dependency": {
         "cells": {
-          "high|ambiguous": 0,
-          "high|cut": 4,
-          "high|no_cut": 4,
-          "low|ambiguous": 0,
-          "low|cut": 75,
-          "low|no_cut": 75
+          "high|cut": 7,
+          "high|no_cut": 12,
+          "low|cut": 33,
+          "low|no_cut": 192
         },
-        "coverage_ratio": 0.6666666666666667,
-        "empty_cells": [
-          [
-            "low",
-            "ambiguous"
-          ],
-          [
-            "high",
-            "ambiguous"
-          ]
-        ]
+        "coverage_ratio": 1.0,
+        "empty_cells": []
       },
       "interface": {
         "cells": {
-          "high|ambiguous": 0,
-          "high|cut": 4,
+          "high|cut": 5,
           "high|no_cut": 4,
-          "low|ambiguous": 0,
-          "low|cut": 75,
-          "low|no_cut": 75
+          "low|cut": 35,
+          "low|no_cut": 200
         },
-        "coverage_ratio": 0.6666666666666667,
-        "empty_cells": [
-          [
-            "low",
-            "ambiguous"
-          ],
-          [
-            "high",
-            "ambiguous"
-          ]
-        ]
+        "coverage_ratio": 1.0,
+        "empty_cells": []
       },
       "role": {
         "cells": {
-          "high|ambiguous": 0,
-          "high|cut": 4,
-          "high|no_cut": 4,
-          "low|ambiguous": 0,
-          "low|cut": 75,
-          "low|no_cut": 75
+          "high|cut": 14,
+          "high|no_cut": 14,
+          "low|cut": 26,
+          "low|no_cut": 190
         },
-        "coverage_ratio": 0.6666666666666667,
-        "empty_cells": [
-          [
-            "low",
-            "ambiguous"
-          ],
-          [
-            "high",
-            "ambiguous"
-          ]
-        ]
+        "coverage_ratio": 1.0,
+        "empty_cells": []
       }
     },
     "leakage": {
       "count": 0,
+      "leaked_renderer_variants": [],
       "leaked_semantic_programs": [],
-      "pass": true
+      "pass": true,
+      "renderer_count": 0
     },
     "novelty": {
       "test": {
-        "count": 4,
-        "exact_duplicate_rate": 0.0,
-        "max": 0.09848516692268486,
-        "p0": 0.09544537304971697,
-        "p25": 0.09544537304971697,
-        "p50": 0.09848516692268486,
-        "p90": 0.09848516692268486,
-        "p95": 0.09848516692268486
+        "count": 22,
+        "exact_duplicate_rate": 0.8636363636363636,
+        "max": 0.003943310959821609,
+        "p0": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p90": 0.0019716554799108043,
+        "p95": 0.003125
       },
       "train": {
-        "count": 74,
-        "exact_duplicate_rate": 1.0,
-        "max": 0.0,
+        "count": 184,
+        "exact_duplicate_rate": 0.8315217391304348,
+        "max": 0.04918438768335241,
         "p0": 0.0,
         "p25": 0.0,
         "p50": 0.0,
-        "p90": 0.0,
-        "p95": 0.0
+        "p90": 0.003943310959821609,
+        "p95": 0.011711775562836431
       },
       "validation": {
-        "count": 80,
-        "exact_duplicate_rate": 0.9,
-        "max": 0.03333657824194484,
+        "count": 38,
+        "exact_duplicate_rate": 0.7368421052631579,
+        "max": 0.029107233898443143,
         "p0": 0.0,
         "p25": 0.0,
         "p50": 0.0,
-        "p90": 0.0,
-        "p95": 0.02199423634426941
+        "p90": 0.018632561556811044,
+        "p95": 0.023471687751191246
       }
     },
     "pairwise": {
       "control\u00d7completion": {
         "counts": {
-          "high|high": 0,
-          "high|low": 4,
-          "low|high": 26,
-          "low|low": 128
+          "high|high": 1,
+          "high|low": 5,
+          "low|high": 7,
+          "low|low": 43
         },
-        "empty_cells": [
-          [
-            "high",
-            "high"
-          ]
-        ],
+        "empty_cells": [],
         "expected_cells": 4,
-        "observed_cells": 3
+        "observed_cells": 4
       },
       "control\u00d7dependency": {
         "counts": {
-          "high|high": 0,
-          "high|low": 4,
-          "low|high": 8,
-          "low|low": 146
+          "high|high": 1,
+          "high|low": 5,
+          "low|high": 7,
+          "low|low": 43
         },
-        "empty_cells": [
-          [
-            "high",
-            "high"
-          ]
-        ],
+        "empty_cells": [],
         "expected_cells": 4,
-        "observed_cells": 3
+        "observed_cells": 4
       },
       "dependency\u00d7completion": {
         "counts": {
-          "high|high": 0,
-          "high|low": 8,
-          "low|high": 26,
-          "low|low": 124
+          "high|high": 1,
+          "high|low": 7,
+          "low|high": 7,
+          "low|low": 41
         },
-        "empty_cells": [
-          [
-            "high",
-            "high"
-          ]
-        ],
+        "empty_cells": [],
         "expected_cells": 4,
-        "observed_cells": 3
+        "observed_cells": 4
       },
       "interface\u00d7dependency": {
         "counts": {
-          "high|high": 0,
-          "high|low": 8,
-          "low|high": 8,
-          "low|low": 142
+          "high|high": 1,
+          "high|low": 5,
+          "low|high": 7,
+          "low|low": 43
         },
-        "empty_cells": [
-          [
-            "high",
-            "high"
-          ]
-        ],
+        "empty_cells": [],
         "expected_cells": 4,
-        "observed_cells": 3
+        "observed_cells": 4
       },
       "interface\u00d7role": {
         "counts": {
-          "high|high": 0,
-          "high|low": 8,
-          "low|high": 8,
-          "low|low": 142
+          "high|high": 1,
+          "high|low": 5,
+          "low|high": 16,
+          "low|low": 34
         },
-        "empty_cells": [
-          [
-            "high",
-            "high"
-          ]
-        ],
+        "empty_cells": [],
         "expected_cells": 4,
-        "observed_cells": 3
+        "observed_cells": 4
       },
       "role\u00d7completion": {
         "counts": {
-          "high|high": 0,
-          "high|low": 8,
-          "low|high": 26,
-          "low|low": 124
+          "high|high": 7,
+          "high|low": 10,
+          "low|high": 1,
+          "low|low": 38
         },
-        "empty_cells": [
-          [
-            "high",
-            "high"
-          ]
-        ],
+        "empty_cells": [],
         "expected_cells": 4,
-        "observed_cells": 3
+        "observed_cells": 4
       }
     },
     "three_way": {
       "interface\u00d7dependency\u00d7completion": {
         "counts": {
           "high|high|high": 0,
-          "high|high|low": 0,
+          "high|high|low": 1,
           "high|low|high": 0,
-          "high|low|low": 8,
-          "low|high|high": 0,
-          "low|high|low": 8,
-          "low|low|high": 26,
-          "low|low|low": 116
+          "high|low|low": 5,
+          "low|high|high": 1,
+          "low|high|low": 6,
+          "low|low|high": 7,
+          "low|low|low": 36
         },
         "empty_cells": [
           [
-            "low",
-            "high",
-            "high"
-          ],
-          [
             "high",
             "low",
             "high"
-          ],
-          [
-            "high",
-            "high",
-            "low"
           ],
           [
             "high",
@@ -311,15 +218,15 @@
           ]
         ],
         "expected_cells": 8,
-        "observed_cells": 4
+        "observed_cells": 6
       }
     }
   },
   "metadata": {
     "command": "python -m codeseam.evaluation.dataset_validation",
-    "dataset_hash": "10ae1868a31451a6918632e0b1b8fadd88c7af83a642b1e29fad284f13a7371f",
-    "fingerprint_schema_hash": "4f289c4030c5e1c3d013cfeea491253ca6dff081bc9de18861060635da9e1e8f",
-    "generated_at": "2026-08-13T02:40:12.617509+00:00",
+    "dataset_hash": "953f9dffa7855244f9d349eaef3bd0e77aebc02121be44053dbf7acb5e1fb6fd",
+    "fingerprint_schema_hash": "c91fd2fa90fd4b3beb530cf58b2e74bef45b572839aa156351dee4632160caab",
+    "generated_at": "2026-08-13T03:15:59.516032+00:00",
     "policy_version": "training-readiness-v2",
     "threshold_source": "CODESEAM_V2_DATASET_ANALYZER_VALIDATION_TASK.md; thresholds fixed before report evaluation"
   }

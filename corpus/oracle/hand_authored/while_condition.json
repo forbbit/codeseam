@@ -3,6 +3,7 @@
   "case_kind": "hand_authored",
   "regions": [
     {
+      "calls": {},
       "definitions": {
         "0": [
           "x"
@@ -11,6 +12,7 @@
           "x"
         ]
       },
+      "effects": {},
       "mutations": {
         "0": [],
         "1": []
@@ -21,10 +23,11 @@
           "x"
         ]
       },
-      "region_key": "top-level"
+      "region_key": "top-level",
+      "roles": {}
     }
   ],
   "schema_version": "semantic-oracle-v2",
   "source_path": "while_condition.m",
-  "source_sha256": "be144bf14654bb0ece725d38e0fe4d12af7a69d0cdf2d513cee7b72a236c9b32"
+  "source_sha256": "2a0b92f385602de038d754b46f288a15b9d738ca050e4e5edc126f169cbc0e2b"
 }

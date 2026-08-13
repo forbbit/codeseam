@@ -3,12 +3,14 @@
   "case_kind": "hand_authored",
   "regions": [
     {
+      "calls": {},
       "definitions": {
         "0": [
           "x"
         ],
         "1": []
       },
+      "effects": {},
       "mutations": {
         "0": [],
         "1": [
@@ -19,10 +21,11 @@
         "0": [],
         "1": []
       },
-      "region_key": "top-level"
+      "region_key": "top-level",
+      "roles": {}
     }
   ],
   "schema_version": "semantic-oracle-v2",
   "source_path": "index_mutation.m",
-  "source_sha256": "d6418b741c16bae3386c161d0ca793dbf7012134905e8a98134c619cd1d653b7"
+  "source_sha256": "33e490e2e30553fb9f872d9ccdd5a4607a9327db1e9a9ccf9b39d02583967b89"
 }

@@ -73,18 +73,26 @@ def controlled_pair_observability(
             for key in keys - set(pair.target_features)
         ]
         signed = max(target.values(), key=abs, default=0.0) * pair.expected_direction
+        target_magnitude = sum(abs(value) for value in target.values())
+        non_target_sum = sum(non_target)
         results.append(
             {
                 "pair_id": pair.pair_id,
                 "target_family": pair.target_family,
                 "target_delta": target,
                 "max_non_target_delta": max(non_target, default=0.0),
+                "non_target_delta_sum": non_target_sum,
+                "isolation_ratio": target_magnitude / (non_target_sum + 1e-9),
                 "direction_pass": signed > tolerance,
+                "observability_pass": signed > tolerance
+                and target_magnitude / (non_target_sum + 1e-9) >= 0.05,
             }
         )
     return {
         "pairs": results,
         "all_direction_pass": all(item["direction_pass"] for item in results),
+        "all_observability_pass": bool(results)
+        and all(item["observability_pass"] for item in results),
         "families": sorted({item.target_family for item in pairs}),
     }
 

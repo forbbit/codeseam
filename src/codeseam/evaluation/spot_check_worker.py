@@ -10,6 +10,8 @@ from codeseam.languages.matlab import MatlabFrontend
 
 
 def main() -> int:
+    # Real GitHub MATLAB is detection/stress input only. This worker emits no
+    # ground truth and its predictions must never be recycled into training.
     path = Path(sys.argv[1])
     program = MatlabFrontend().analyze_source(path.read_bytes(), str(path))
     result = analyze_program(program)

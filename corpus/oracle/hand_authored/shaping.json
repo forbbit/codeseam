@@ -3,12 +3,28 @@
   "case_kind": "hand_authored",
   "regions": [
     {
+      "calls": {
+        "0": [
+          "randn"
+        ],
+        "1": [
+          "reshape"
+        ]
+      },
       "definitions": {
         "0": [
           "x"
         ],
         "1": [
           "y"
+        ]
+      },
+      "effects": {
+        "0": [
+          "call_or_index"
+        ],
+        "1": [
+          "call_or_index"
         ]
       },
       "mutations": {
@@ -21,10 +37,18 @@
           "x"
         ]
       },
-      "region_key": "top-level"
+      "region_key": "top-level",
+      "roles": {
+        "0": [
+          "acquisition"
+        ],
+        "1": [
+          "shaping"
+        ]
+      }
     }
   ],
   "schema_version": "semantic-oracle-v2",
   "source_path": "shaping.m",
-  "source_sha256": "c8a4bd6e7a1f564c212bc743bfb4276e3112dec5159a3fbc95eda6270cefef4e"
+  "source_sha256": "1ebefa57fd2a0910e39f3afa1cd9b9598f3076d10d2f091a4ecad14003c0b8b6"
 }

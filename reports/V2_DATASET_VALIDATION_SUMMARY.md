@@ -4,16 +4,24 @@ Formal training remained frozen; only the differentiable smoke check ran (loss=1
 
 ## Required answers
 
-1. **Supported subset accuracy:** 12 hand-authored cases / 69 fact units give 91.30% exact-set accuracy and 91.89% micro F1. Edge/call/role/completion oracle families remain incomplete.
-2. **Most error-prone structures:** indexed/field mutation, `for` compound aggregation, and condition/body projection contain the observed FP/FN clusters.
-3. **UNKNOWN:** the hand oracle has zero UNKNOWN because all selected oracle cases parse reliably. The five-file real-data spot check is too small to characterize UNKNOWN sources, so no population-level claim is made. UNKNOWN is never numeric zero.
-4. **Real-data detection:** only five fixed parser-clean files were checked. They contain 34 candidate boundaries and 3 recommendations, with 0 low-parse boundaries. No population-level dependency-confidence conclusion is drawn.
-5. **Covered fingerprint regions:** train-fitted typed blocks and cut/no-cut low/high quadrants for all eight families; semantic split leakage is 0.
-6. **Empty regions:** 10 single-factor×label cells and 6 required pair cells remain empty.
-7. **High correlations:** completion↔dependency-mass (0.988), dependency-mass↔interface-compactness (0.973), completion↔interface-compactness (0.929).
-8. **Independent activation:** several factors have low/high variants, but activation and suppression evidence for every numerical feature is incomplete.
-9. **Opposite labels with near-identical Raw Fingerprints:** yes—439 unexplainable pairs at radii ≤0.05.
-10. **Missing semantics:** target-factor deltas for dependency, vocabulary and long-range variants, plus precise control depth and operation projection.
-11. **Formal training readiness:** no. Gates A, B, D and E fail; Gate F is intentionally NOT_EVALUATED because the selected real files are detection examples, not a training population.
+1. **P0 label bug:** fixed. Candidate labels come from `RenderedMatlab.candidate_labels`, projected from explicit `SemanticBoundaryTruth`; case metadata no longer labels every boundary.
+2. **Candidate truth source:** mapped semantic boundary IDs plus internal no-cut candidates; ambiguous is unsupported in this synthetic corpus.
+3. **Real semantic no-cut:** yes. It uses the same final `module_id` on both semantic units and the mapped boundary is excluded from `true_cuts`.
+4. **Renderer fidelity:** all declared operation reads enter emitted MATLAB expressions; operation and boundary mappings are recorded in the renderer trace.
+5. **Dependency:** high changes observed cross edges/reuse; requested-vs-observed audit matches all generated records.
+6. **Long range:** high changes observed dependency span; benign shared-config intent remains distinct from segmentation truth.
+7. **Role transition:** low/high changes the analyzer-observed left/right primary role relation.
+8. **Interface:** high produces three observed cross-boundary inputs instead of one.
+9. **Completion/control/module-size/vocabulary:** each changes rendered operations or surface form while truth remains explicit; all eight controlled families pass target-direction audit.
+10. **Pairwise coverage:** all four cells are generated and observed for the six required pairs; requested-vs-observed records have zero mismatches.
+11. **Collision recomputation:** candidate-level recomputation found 0 data bugs and 936 potential missing-observation pairs. The old collision report is superseded.
+12. **Analyzer oracle:** 12 hand-authored cases now cover definitions/reads/mutations plus selected calls/roles/effects; exact-set accuracy is 93.75%, micro F1 95.38%. Data/control edges and completion truth remain incomplete, so Gate A fails.
+13. **Controlled reliability:** clean and deliberate eval/assignin/unresolved-external cases pass the controlled confidence policy.
+14. **GitHub real MATLAB:** remains excluded from training, calibration and model selection; it is non-blocking stress/spot-check input only until independently human-labeled.
+15. **Formal training readiness:** no. Gates A, B and E remain failed.
+
+## Previous validation context
+
+The hand oracle contains zero UNKNOWN because selected cases parse reliably. Five real files were spot-checked without population inference. Fingerprint coverage has 0 single-factor×label holes and 0 required pair holes; semantic split leakage is 0.
 
 READY FOR FORMAL TRAINING: NO

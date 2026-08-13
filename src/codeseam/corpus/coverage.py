@@ -22,6 +22,11 @@ class FingerprintSample:
     pair_id: str = ""
     polarity: str = ""
     fingerprint: NormalizedFingerprint | None = None
+    boundary_index: int = 0
+    target_boundary: bool = False
+    requested_factors: tuple[tuple[str, str], ...] | Mapping[str, str] = ()
+    observed_factors: tuple[tuple[str, str], ...] | Mapping[str, str] = ()
+    renderer_trace_id: str = ""
 
     def factor_map(self) -> dict[str, str]:
         return dict(self.factors)
@@ -93,16 +98,27 @@ def collision_audit(
         for right in items[index + 1 :]:
             if left.label == right.label or "ambiguous" in {left.label, right.label}:
                 continue
+            same_boundary = (
+                left.semantic_program_id
+                and left.semantic_program_id == right.semantic_program_id
+                and left.renderer_variant_id == right.renderer_variant_id
+                and left.boundary_index == right.boundary_index
+            )
             distance, blocks, missing = _sample_distance(left, right)
             if distance > radius:
                 continue
             exact = distance == 0.0 and missing == 0.0
-            if missing >= 0.5:
+            if same_boundary:
+                classification, reason = (
+                    "data_bug",
+                    "same semantic program, render and candidate boundary has opposite truth",
+                )
+            elif missing >= 0.5:
                 classification, reason = "unresolved", "missingness dominates observable distance"
             elif exact:
                 classification, reason = (
-                    "unexplainable",
-                    "opposite labels have identical typed observations",
+                    "potential_missing_raw_fact",
+                    "opposite candidate-level truths have identical typed observations",
                 )
             elif left.factor_map() != right.factor_map():
                 classification, reason = (
@@ -111,8 +127,8 @@ def collision_audit(
                 )
             else:
                 classification, reason = (
-                    "unexplainable",
-                    "opposite labels lack an observable semantic delta",
+                    "potential_missing_raw_fact",
+                    "candidate-level semantic truth differs without sufficient observed delta",
                 )
             records.append(
                 CollisionRecord(
@@ -163,7 +179,9 @@ def audit_coverage(items: list[FingerprintSample], design: CoverageDesign) -> di
     cf = {}
     for family in design.required_cf_families:
         observed = {
-            (item.label, item.polarity) for item in items if item.counterfactual_family == family
+            (item.label, item.polarity)
+            for item in items
+            if item.counterfactual_family == family and item.target_boundary
         }
         expected = {
             (label, polarity) for label in ("cut", "no_cut") for polarity in ("low", "high")
@@ -202,6 +220,9 @@ def novelty_report(items: list[FingerprintSample]) -> dict[str, object]:
 
 
 def _combination_coverage(items, design, factors):
+    target_items = [item for item in items if item.target_boundary]
+    if target_items:
+        items = target_items
     expected = list(product(*(design.factor_domains[name] for name in factors)))
     observed = Counter(tuple(item.factor_map().get(name) for name in factors) for item in items)
     return {
@@ -214,11 +235,21 @@ def _combination_coverage(items, design, factors):
 
 def _leakage(items):
     splits = defaultdict(set)
+    render_splits = defaultdict(set)
     for item in items:
         if item.semantic_program_id:
             splits[item.semantic_program_id].add(item.split)
+        if item.renderer_variant_id:
+            render_splits[item.renderer_variant_id].add(item.split)
     leaked = sorted(key for key, values in splits.items() if len(values) > 1)
-    return {"leaked_semantic_programs": leaked, "count": len(leaked), "pass": not leaked}
+    render_leaked = sorted(key for key, values in render_splits.items() if len(values) > 1)
+    return {
+        "leaked_semantic_programs": leaked,
+        "count": len(leaked),
+        "leaked_renderer_variants": render_leaked,
+        "renderer_count": len(render_leaked),
+        "pass": not leaked and not render_leaked,
+    }
 
 
 def _sample_novelty(item, selected):

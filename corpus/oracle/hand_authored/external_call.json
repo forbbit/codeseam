@@ -3,9 +3,19 @@
   "case_kind": "hand_authored",
   "regions": [
     {
+      "calls": {
+        "0": [
+          "project_worker"
+        ]
+      },
       "definitions": {
         "0": [
           "x"
+        ]
+      },
+      "effects": {
+        "0": [
+          "call_or_index"
         ]
       },
       "mutations": {
@@ -16,10 +26,15 @@
           "input"
         ]
       },
-      "region_key": "top-level"
+      "region_key": "top-level",
+      "roles": {
+        "0": [
+          "unknown"
+        ]
+      }
     }
   ],
   "schema_version": "semantic-oracle-v2",
   "source_path": "external_call.m",
-  "source_sha256": "9bda0965727e14f68cbb0193c35149a8e3fd59314c04133fed93b7839e772422"
+  "source_sha256": "919c6e60ef9faaaf8987cd20dad9a849efe291269c0f11fcc37017cb989bb302"
 }

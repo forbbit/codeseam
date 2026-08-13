@@ -1,3 +1,3 @@
 ﻿# Fingerprint Collisions
 
-Pre-registered radii: 0, 0.02, 0.05. Opposite-label near/exact pairs: 1753. Classifications: {'unexplainable': 439, 'healthy': 1314}. Exact/near unexplainable collisions block training.
+This report supersedes the invalidated pre-P0 collision report that used case-level labels. Candidate-level truth and radii 0, 0.02, 0.05 produce 3871 opposite-label near/exact pairs. Classifications: {'potential_missing_raw_fact': 936, 'healthy': 2935}. Data bugs and potential missing-observation pairs block training.
