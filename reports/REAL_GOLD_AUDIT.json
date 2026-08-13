@@ -1,0 +1,83 @@
+{
+  "counts": {
+    "annotated_regions": 118,
+    "modules": 694,
+    "preferred_cuts": 576,
+    "projects": 40,
+    "records": 118,
+    "same_line_candidate_boundaries": 173
+  },
+  "dataset_sha256": "eed2235518fd7d5058079f5f343e98d4527432f5b6aa1ba9ffae2454fca77f6b",
+  "errors": [],
+  "passed": true,
+  "reliability": {
+    "call_resolution": {
+      "count": 5739,
+      "mean": 0.45344260640977607,
+      "median": 0.4444444444444444,
+      "minimum": 0.0,
+      "p10": 0.0
+    },
+    "dependency": {
+      "count": 5739,
+      "mean": 0.7272625893012721,
+      "median": 0.7,
+      "minimum": 0.24499999999999997,
+      "p10": 0.7
+    },
+    "effect": {
+      "count": 5739,
+      "mean": 1.0,
+      "median": 1.0,
+      "minimum": 1.0,
+      "p10": 1.0
+    },
+    "parse": {
+      "count": 5739,
+      "mean": 1.0,
+      "median": 1.0,
+      "minimum": 1.0,
+      "p10": 1.0
+    },
+    "role": {
+      "count": 5739,
+      "mean": 0.7049137480397281,
+      "median": 0.7,
+      "minimum": 0.7,
+      "p10": 0.7
+    }
+  },
+  "reliability_reason_codes": {
+    "ambiguous_call_index": 5083,
+    "dynamic_workspace": 88,
+    "external_dependency": 381,
+    "indirect_call": 484,
+    "path_dependency": 77,
+    "unknown_role": 5645,
+    "unresolved_call": 5102
+  },
+  "schema_version": "real-gold-audit",
+  "splits": {
+    "test": {
+      "cuts": 86,
+      "files": 18,
+      "modules": 104,
+      "projects": 9,
+      "regions": 18
+    },
+    "train": {
+      "cuts": 405,
+      "files": 82,
+      "modules": 487,
+      "projects": 22,
+      "regions": 82
+    },
+    "validation": {
+      "cuts": 85,
+      "files": 18,
+      "modules": 103,
+      "projects": 9,
+      "regions": 18
+    }
+  }
+}

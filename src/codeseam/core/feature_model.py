@@ -9,7 +9,7 @@ from torch.nn import functional as F
 
 from codeseam.core.raw_facts import BoundaryRawFacts
 
-FEATURE_MODEL_VERSION = "boundary-features-v2-structured"
+FEATURE_MODEL_VERSION = "boundary-features-structured-callsite"
 FEATURE_NAMES = (
     "variable_death",
     "variable_birth",
@@ -23,6 +23,14 @@ FEATURE_NAMES = (
     "effect_set_change",
     "completion",
     "structural_support",
+    "access_domain_shift",
+    "terminal_control",
+    "call_kind_transition",
+    "standalone_call_transition",
+    "artifact_handoff",
+    "call_setup_completion",
+    "call_finalization_completion",
+    "nonprimitive_call_chain",
 )
 
 
@@ -33,6 +41,7 @@ class FeatureDecomposition:
     reliability: Tensor
     contributions: Tensor
     boundary_energy: Tensor
+    interaction_energy: Tensor
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -42,6 +51,7 @@ class FeatureDecomposition:
                 zip(self.names, self.contributions.detach().tolist(), strict=True)
             ),
             "boundary_energy": float(self.boundary_energy.detach()),
+            "interaction_energy": float(self.interaction_energy.detach()),
         }
 
 
@@ -53,25 +63,39 @@ class ContinuousFeatureModel(nn.Module):
         self.raw_alpha = nn.Parameter(torch.full((5,), _inverse_softplus(1.0)))
         self.raw_dependency_tau = nn.Parameter(torch.tensor(_inverse_softplus(4.0)))
         self.raw_completion_bias = nn.Parameter(torch.tensor(1.0))
-        self.weights = nn.Parameter(torch.full((len(FEATURE_NAMES),), 0.1))
+        self.raw_weights = nn.Parameter(
+            torch.full((len(FEATURE_NAMES),), _inverse_softplus(0.1))
+        )
         self.bias = nn.Parameter(torch.tensor(0.0))
         self.unreliable_baseline = nn.Parameter(torch.zeros(len(FEATURE_NAMES)))
+        self.interactions = nn.Sequential(
+            nn.Linear(len(FEATURE_NAMES), 16),
+            nn.Tanh(),
+            nn.Linear(16, 1, bias=False),
+        )
+        nn.init.zeros_(self.interactions[-1].weight)
 
     def forward(self, facts: list[BoundaryRawFacts]) -> FeatureDecomposition:
+        weights = F.softplus(self.raw_weights)
         if not facts:
-            empty = self.weights.new_empty((0, len(FEATURE_NAMES)))
-            return FeatureDecomposition(FEATURE_NAMES, empty, empty, empty, empty[:, 0])
+            empty = weights.new_empty((0, len(FEATURE_NAMES)))
+            return FeatureDecomposition(
+                FEATURE_NAMES, empty, empty, empty, empty[:, 0], empty[:, 0]
+            )
         rows = torch.stack([self._features(item) for item in facts])
         reliability = torch.stack([self._reliability(item) for item in facts])
         baseline = torch.sigmoid(self.unreliable_baseline)
         effective = reliability * rows + (1.0 - reliability) * baseline
-        contributions = effective * self.weights
-        energy = self.bias + contributions.sum(dim=-1)
-        return FeatureDecomposition(FEATURE_NAMES, rows, reliability, contributions, energy)
+        contributions = effective * weights
+        interaction_energy = self.interactions(effective).squeeze(-1)
+        energy = self.bias + contributions.sum(dim=-1) + interaction_energy
+        return FeatureDecomposition(
+            FEATURE_NAMES, rows, reliability, contributions, energy, interaction_energy
+        )
 
     def _features(self, facts: BoundaryRawFacts) -> Tensor:
-        dtype = self.weights.dtype
-        device = self.weights.device
+        dtype = self.raw_weights.dtype
+        device = self.raw_weights.device
         value = lambda x: torch.tensor(float(x), dtype=dtype, device=device)
         alpha = F.softplus(self.raw_alpha) + 1e-6
         dead_ratio = value(facts.dead_symbol_count / max(1, facts.left_symbol_count))
@@ -96,6 +120,14 @@ class ContinuousFeatureModel(nn.Module):
         effects = value(
             _histogram_set_distance(facts.left_effect_histogram, facts.right_effect_histogram)
         )
+        access_domains = value(
+            _set_distance(facts.left_access_domains, facts.right_access_domains)
+        )
+        call_kinds = value(
+            _histogram_cosine_distance(
+                facts.left_call_kind_histogram, facts.right_call_kind_histogram
+            )
+        )
         unfinished = value(facts.unfinished_work_mass)
         tau = F.softplus(self.raw_dependency_tau) + 1e-6
         completion = torch.sigmoid(self.raw_completion_bias - alpha[4] * unfinished / tau)
@@ -115,6 +147,14 @@ class ContinuousFeatureModel(nn.Module):
                 effects,
                 completion,
                 value(facts.compound_ends_here) * completion,
+                access_domains,
+                value(facts.terminal_control_left),
+                call_kinds,
+                value(facts.standalone_call_transition),
+                value(facts.artifact_handoff),
+                value(1.0 - facts.unfinished_call_setup),
+                value(1.0 - facts.unfinished_call_finalization),
+                value(1.0 - facts.primitive_call_chain),
             )
         )
 
@@ -133,8 +173,16 @@ class ContinuousFeatureModel(nn.Module):
             r.effect,
             r.dependency,
             r.parse,
+            r.parse,
+            r.parse,
+            r.call_resolution,
+            r.callsite,
+            r.callsite,
+            r.callsite,
+            r.callsite,
+            r.callsite,
         )
-        return self.weights.new_tensor(values)
+        return self.raw_weights.new_tensor(values)
 
 
 def _inverse_softplus(value: float) -> float:

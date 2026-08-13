@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from codeseam.core.ir import Effect, OperationRole, Risk
+from codeseam.core.ir import CallAbstraction, CallForm, Effect, OperationRole, Risk
 from codeseam.languages.matlab import MatlabFrontend
 
 FIXTURES = Path(__file__).parent / "fixtures" / "matlab"
@@ -120,3 +120,47 @@ def test_deeply_nested_cell_index_fixture_is_stable() -> None:
     program = MatlabFrontend().analyze_source(path.read_bytes(), str(path))
     assert program.regions
     assert any(statement.mutations for region in program.regions for statement in region.statements)
+
+
+def test_call_sites_preserve_direct_nested_and_effect_only_structure() -> None:
+    source = (
+        b"raw = load_data(path);\n"
+        b"score = mean(normalize(raw));\n"
+        b"save_results(score, output_path);\n"
+    )
+    statements = MatlabFrontend().analyze_source(source, "memory.m").regions[0].statements
+    load_call = statements[0].call_sites[0]
+    assert load_call.form is CallForm.DIRECT_ASSIGNMENT
+    assert load_call.is_standalone_statement and load_call.is_only_operation
+    assert load_call.input_symbols == {"path"}
+    assert load_call.output_symbols == {"raw"}
+    assert [call.form for call in statements[1].call_sites] == [
+        CallForm.DIRECT_ASSIGNMENT,
+        CallForm.NESTED_EXPRESSION,
+    ]
+    assert not any(call.is_only_operation for call in statements[1].call_sites)
+    assert statements[2].call_sites[0].form is CallForm.EFFECT_ONLY
+
+
+def test_matlab_primitive_classification_is_frontend_evidence() -> None:
+    statement = MatlabFrontend().analyze_source(
+        b"flat = reshape(data, [], 1);\n", "memory.m"
+    ).regions[0].statements[0]
+    assert statement.call_sites[0].abstraction is CallAbstraction.PRIMITIVE
+
+
+def test_index_access_is_not_a_high_level_call_candidate() -> None:
+    statements = MatlabFrontend().analyze_source(
+        b"x = zeros(3, 1);\ny = x(1);\n", "memory.m"
+    ).regions[0].statements
+    assert statements[1].call_sites[0].origin.value == "index_access"
+    assert statements[1].call_sites[0].abstraction is CallAbstraction.PRIMITIVE
+
+
+def test_object_method_call_includes_receiver_in_structural_inputs() -> None:
+    statement = MatlabFrontend().analyze_source(
+        b"result = engine.process(data);\n", "memory.m"
+    ).regions[0].statements[0]
+    call = statement.call_sites[0]
+    assert call.form is CallForm.DIRECT_ASSIGNMENT
+    assert call.input_symbols == {"engine", "data"}

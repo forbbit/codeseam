@@ -1,1 +1,1 @@
-"""Reproducible supervised-corpus generation."""
+"""Finalized real-gold corpus support."""

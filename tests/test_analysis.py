@@ -20,7 +20,8 @@ def test_analysis_produces_bounded_explainable_scores() -> None:
         "cross_dependency_sparsity" not in boundary.features for boundary in result.boundaries
     )
     assert all(
-        boundary.normalization_version == "boundary-features-v6" for boundary in result.boundaries
+        boundary.normalization_version == "boundary-features-callsite"
+        for boundary in result.boundaries
     )
     assert all(boundary.left_module_quality for boundary in result.boundaries)
     assert all(boundary.right_module_quality for boundary in result.boundaries)

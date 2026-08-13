@@ -1,0 +1,189 @@
+function strata_trapped = strata_trapper(grid, sub_rock, params, args)
+arguments
+    grid            (1,1) struct
+    sub_rock        (1,:) struct
+    params          (1,:) Params {mustBeNonempty}
+    args.options         (1,1) Options = Options();
+    args.enable_waitbar  (1,1) logical = false;
+    args.mask            (:,1) ...
+        {mustBeOfClass(args.mask,"uint8"), must_be_param_id(args.mask, params)} ...
+        = ones(grid.cells.num,1); % cell to param correspondence
+    args.parfor_arg = parforOptions(gcp('nocreate'),...
+        "RangePartitionMethod","fixed",...
+        "SubrangeSize",1,...
+        'MaxNumWorkers',Inf);
+    % disable misleading linear solver warnings from `upscale_permeability`
+    args.disable_linsol_warnings (1,1) logical = true;
+end
+
+cells_num = min(length(args.mask),grid.cells.num);
+cell_idxs = 1:cells_num;
+mask = args.mask(cell_idxs)~=0;
+subset_len = sum(mask);
+param_ids = args.mask(mask);
+
+[par_wb, update_queue] = ParWaitBar(subset_len * args.enable_waitbar);
+
+perm_upscaled = zeros(subset_len, 3);
+poro_upscaled = zeros(subset_len,1);
+
+saturations = nan(numel(params),args.options.sat_num_points);
+for i=1:numel(params)
+    saturations(i,:) = linspace(params(i).sw_resid,1,args.options.sat_num_points);
+end
+
+cap_pres_upscaled = nan(subset_len,args.options.sat_num_points);
+krw = nan(subset_len,3,args.options.sat_num_points);
+krg = nan(subset_len,3,args.options.sat_num_points);
+
+DR = [grid.DX(mask),grid.DY(mask),grid.DZ(mask)];
+
+sub_rock = sub_rock(mask);
+options = args.options;
+num_sub = zeros(subset_len,1);
+elapsed = zeros(subset_len,1);
+
+if options.m_save_mip_step
+    mip(1:subset_len,1:args.options.sat_num_points) = struct('sw',nan,'sub_sw',[]);
+else
+    mip = struct([]);
+end
+
+disable_linsol_warnings = args.disable_linsol_warnings;
+
+% for cell_index = 1:subset_len
+parfor (cell_index = 1:subset_len, args.parfor_arg)
+    original_warning_states = warnings_off(disable_linsol_warnings);
+
+    sub_porosity = sub_rock(cell_index).poro;
+    sub_permeability = sub_rock(cell_index).perm;
+
+    timer_start = tic;
+
+    param_id_cell = param_ids(cell_index);
+    params_cell = params(param_id_cell); %#ok<PFBNS>
+    saturations_cell = saturations(param_id_cell,:); %#ok<PFBNS>
+
+    [perm_upscaled_cell, pc_upscaled, krw_cell, krg_cell, mip_cell] = upscale(...
+        DR(cell_index,:), saturations_cell, params_cell, options, ...
+        sub_porosity, sub_permeability);
+
+    if options.m_save_mip_step
+        mip(cell_index,:) = mip_cell;
+    end
+
+    for i = 1:3
+        krg_cell(i,:) = monotonize(saturations_cell, krg_cell(i,:), -1);
+        krw_cell(i,end:-1:1) = monotonize(saturations_cell(end:-1:1), krw_cell(i,end:-1:1), -1);
+    end
+
+    krw_cell(:,saturations_cell<=params_cell.sw_resid) = 0;
+    krg_cell(:,saturations_cell>=1)=0;
+
+    krw(cell_index,:,:) = krw_cell;
+    krg(cell_index,:,:) = krg_cell;
+
+    timer_stop = toc(timer_start);
+    elapsed(cell_index) = timer_stop;
+
+    perm_upscaled(cell_index,:) = perm_upscaled_cell;
+    poro_upscaled(cell_index) = sum(sub_porosity,'all')./numel(sub_porosity);
+    cap_pres_upscaled(cell_index,:) = pc_upscaled;
+
+    num_sub(cell_index) = numel(sub_porosity);
+
+    send(update_queue,[]);
+
+    warnings_on(original_warning_states);
+end
+
+krg(krg<0) = 0;
+
+% TODO: turn into a proper StrataTrapper class with attached methods
+strata_trapped = struct(...
+    'permeability', perm_upscaled, ...
+    'saturation', saturations,...
+    'capillary_pressure', cap_pres_upscaled, ...
+    'rel_perm_wat', krw, ...
+    'rel_perm_gas', krg, ...
+    'idx', cell_idxs(mask), ...
+    'porosity',poro_upscaled, ...
+    'params', params, ...
+    'options', args.options, ...
+    'grid', grid, ...
+    'mip', mip, ...
+    'param_ids',param_ids...
+    );
+
+perf.num_coarse = subset_len;
+
+if canUseParallelPool && ~isempty(gcp('nocreate'))
+    num_pool_workers = gcp('nocreate').NumWorkers;
+    if isnumeric(args.parfor_arg)
+        max_num_workers = args.parfor_arg;
+    else
+        max_num_workers = args.parfor_arg.MaxNumWorkers;
+    end
+    perf.num_workers = max(min(num_pool_workers,max_num_workers),1);
+else
+    perf.num_workers = 1;
+end
+
+perf.num_sub = num_sub;
+perf.elapsed = elapsed;
+perf.num_sat = args.options.sat_num_points;
+
+strata_trapped.perf = compute_performance(perf,1);
+
+strata_trapped = organize(strata_trapped);
+
+par_wb.finish();
+
+end
+
+function original_warning_states = warnings_off(disable_linsol_warnings)
+
+original_warning_states(1) = warning("query",'MATLAB:nearlySingularMatrix');
+original_warning_states(2) = warning("query",'MATLAB:singularMatrix');
+
+if ~disable_linsol_warnings
+    return;
+end
+
+for warning_state=original_warning_states
+    if strcmp(warning_state.state,'on')
+        warning("off",warning_state.identifier);
+    end
+end
+end
+
+function warnings_on(original_warning_states)
+for warning_state=original_warning_states
+    warning(warning_state);
+end
+end
+
+function output = organize(strata_trapped)
+% organize tables by param_id and direction, and convert Pc to J
+
+tables = repmat(UpscaledTables(),numel(strata_trapped.params),3);
+
+for param_id=1:numel(strata_trapped.params)
+
+    mask = strata_trapped.param_ids == param_id;
+
+    leverett_j= strata_trapped.params(param_id).cap_pressure.inv_lj(...
+        strata_trapped.capillary_pressure(mask,:),...
+        strata_trapped.porosity(mask,:),...
+        strata_trapped.permeability(mask,:));
+
+    for dir=1:3
+        tables(param_id,dir).leverett_j = leverett_j;
+        tables(param_id,dir).krw = squeeze(strata_trapped.rel_perm_wat(mask,dir,:));
+        tables(param_id,dir).krg = squeeze(strata_trapped.rel_perm_gas(mask,dir,:));
+        tables(param_id,dir).mapping = 1:numel(strata_trapped.idx(mask));
+    end
+end
+output = rmfield(strata_trapped,{'capillary_pressure','rel_perm_wat','rel_perm_gas'});
+output.tables = tables;
+end

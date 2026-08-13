@@ -1,5 +1,14 @@
 # Feature model
 
+All model evidence comes from executable code and the language frontend's syntax
+and control-flow analysis. Comments, section headings, and blank-line layout are
+excluded from raw facts and features.
+
+The structured model also records code-only access-domain transitions (for example,
+`obj.source` to `obj.detector`), terminal control flow immediately before a boundary,
+and transitions among resolved calls, external or unresolved calls, indirect calls,
+and indexing.
+
 Boundary feature schema `boundary-features-v6` stores two representations:
 
 - normalized desirability values used by the linear score;
@@ -55,10 +64,26 @@ These scores are attached to each boundary's adjacent windows for diagnostics an
 evaluated over arbitrary intervals during global cut selection. Proposed modules below
 the quality floor pay a deficit cost independently of interval length.
 
-## Current synthetic ablation
+The formal model learns feature contributions jointly with module quality and cut
+penalty through Structured Energy and Soft-DP. Validation and test performance are
+reported only against the finalized real-gold corpus.
 
-On family-held-out adversarial generators, the expanded set still corrects the false
-peak after an unfinished loop reduction. It no longer forces a win on the synthetic
-large-interface family after removal of an unbounded feature; that case remains an
-explicit known weakness rather than a manufactured success. Synthetic regression
-results are not evidence of real-project accuracy.
+## Call-site structure
+
+The language-neutral IR records direct, nested, effect-only, command, and multi-output
+call sites together with their explicit inputs, outputs, origin, abstraction level,
+and resolution reliability. MATLAB supplies only language-specific syntax and a
+conservative primitive-function classification; the common core derives five
+code-only boundary features:
+
+- standalone call transition;
+- artifact handoff between adjacent calls;
+- completion of local call setup (the complement of setup crossing a boundary);
+- completion of direct call finalization;
+- non-primitive call-chain support.
+
+Call-site reliability attenuates those five values and is not itself cut evidence.
+Index access is classified separately from calls. A single direct non-primitive call
+with a clear interface can receive module-size and orphan-resistance support, while
+single primitive, display, simple save, and low-level shaping operations retain the
+normal singleton penalty.

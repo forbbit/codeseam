@@ -4,16 +4,8 @@ import argparse
 import json
 from pathlib import Path
 
-from codeseam.corpus.ablation import ablation_report
-from codeseam.corpus.annotations import (
-    agreement,
-    create_annotation_template,
-    validate_annotation,
-)
-from codeseam.corpus.generator import audit_corpus, evaluate_corpus, generate_corpus
-from codeseam.corpus.real_projects import fetch_projects, validate_registry
-from codeseam.corpus.selection_tuning import load_selection_config, tune_selection
-from codeseam.corpus.training import evaluate_weight_artifact, train_weights
+from codeseam.core.scoring_artifact import load_selection_config
+from codeseam.evaluation.real_gold_audit import write_real_gold_audit
 from codeseam.languages.matlab.project import MatlabProjectIndex, scan_matlab_project
 from codeseam.reporting.console import render_analysis, render_explanation
 from codeseam.reporting.json_report import write_json
@@ -33,64 +25,36 @@ def build_parser() -> argparse.ArgumentParser:
     project = subparsers.add_parser("project-scan", help="index a MATLAB project")
     project.add_argument("root", type=Path)
     project.add_argument("--json", type=Path, dest="json_path")
-    corpus = subparsers.add_parser("corpus", help="generate or audit supervised MATLAB corpus")
+    corpus = subparsers.add_parser("corpus", help="audit or train the finalized gold corpus")
     corpus_subparsers = corpus.add_subparsers(dest="corpus_command", required=True)
-    generate = corpus_subparsers.add_parser("generate", help="generate deterministic samples")
-    generate.add_argument("output", type=Path)
-    generate.add_argument("--count", type=int, default=40)
-    generate.add_argument("--seed", type=int, default=1729)
-    audit = corpus_subparsers.add_parser(
-        "audit", help="verify manifest, hashes, parses, and labels"
+    audit_real = corpus_subparsers.add_parser(
+        "audit-real-gold", help="audit finalized real-code training truth without training"
     )
-    audit.add_argument("output", type=Path)
-    evaluate = corpus_subparsers.add_parser("evaluate", help="measure frozen-weight baseline")
-    evaluate.add_argument("output", type=Path)
-    evaluate.add_argument("--split", choices=("train", "validation", "test"))
-    evaluate.add_argument("--tolerance", type=int, default=2)
-    evaluate.add_argument("--selection-policy", type=Path)
-    train = corpus_subparsers.add_parser("train", help="fit explainable non-negative weights")
-    train.add_argument("output", type=Path, help="generated corpus directory")
-    train.add_argument("--artifact", type=Path, required=True)
-    structured_train = corpus_subparsers.add_parser(
-        "train-structured", help="fit the V2 structured energy model with Adam"
+    audit_real.add_argument("output", type=Path)
+    audit_real.add_argument("--json", type=Path, required=True, dest="json_path")
+    formal_train = corpus_subparsers.add_parser(
+        "train-formal", help="run sealed real-gold training with validation early stopping"
     )
-    structured_train.add_argument("output", type=Path)
-    structured_train.add_argument("--artifact", type=Path, required=True)
-    structured_train.add_argument("--epochs", type=int, default=30)
-    structured_train.add_argument("--learning-rate", type=float, default=0.01)
-    structured_evaluate = corpus_subparsers.add_parser(
-        "evaluate-structured", help="evaluate V2 Hard-DP using a structured artifact"
+    formal_train.add_argument("output", type=Path)
+    formal_train.add_argument("--artifact", type=Path, required=True)
+    formal_train.add_argument("--epochs", type=int, default=50)
+    formal_train.add_argument("--batch-size", type=int, default=8)
+    formal_train.add_argument("--learning-rate", type=float, default=0.01)
+    formal_train.add_argument("--seed", type=int, default=1729)
+    formal_train.add_argument("--patience", type=int, default=10)
+    formal_train.add_argument("--minimum-epochs", type=int, default=15)
+    formal_train.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
+    formal_train.add_argument("--temperature", type=float, default=1.0)
+    formal_train.add_argument("--boundary-aux-weight", type=float, default=0.5)
+    formal_train.add_argument("--final-boundary-aux-weight", type=float, default=0.5)
+    formal_train.add_argument("--final-learning-rate-ratio", type=float, default=1.0)
+    formal_train.add_argument("--schedule-epochs", type=int, default=50)
+    sealed_test = corpus_subparsers.add_parser(
+        "open-sealed-test", help="evaluate a frozen formal model on test exactly once"
     )
-    structured_evaluate.add_argument("output", type=Path)
-    structured_evaluate.add_argument("--artifact", type=Path, required=True)
-    structured_evaluate.add_argument(
-        "--split", choices=("train", "validation", "test"), default="test"
-    )
-    registry = corpus_subparsers.add_parser("registry", help="validate real-project registry")
-    registry.add_argument("path", type=Path)
-    fetch = corpus_subparsers.add_parser("fetch-real", help="fetch pinned licensed projects")
-    fetch.add_argument("registry", type=Path)
-    fetch.add_argument("output", type=Path)
-    annotate = corpus_subparsers.add_parser("annotate", help="create full boundary template")
-    annotate.add_argument("source", type=Path)
-    annotate.add_argument("output", type=Path)
-    annotate.add_argument("--annotator", required=True)
-    validate = corpus_subparsers.add_parser("validate-annotation")
-    validate.add_argument("annotation", type=Path)
-    validate.add_argument("source", type=Path)
-    compare = corpus_subparsers.add_parser("agreement", help="compare two annotations")
-    compare.add_argument("left", type=Path)
-    compare.add_argument("right", type=Path)
-    ablation = corpus_subparsers.add_parser("ablation", help="compare legacy and expanded features")
-    ablation.add_argument("output", type=Path)
-    ablation.add_argument("--split", choices=("train", "validation", "test"), default="test")
-    tune_selector = corpus_subparsers.add_parser(
-        "tune-selection", help="tune selector on non-test families"
-    )
-    tune_selector.add_argument("output", type=Path)
-    tune_selector.add_argument("--artifact", type=Path, required=True)
-    tune_selector.add_argument("--tolerance", type=int, default=2)
-    tune_selector.add_argument("--weights", type=Path, dest="weights_artifact")
+    sealed_test.add_argument("output", type=Path)
+    sealed_test.add_argument("--artifact", type=Path, required=True)
+    sealed_test.add_argument("--report", type=Path, required=True)
     return parser
 
 
@@ -122,106 +86,62 @@ def main(argv: list[str] | None = None) -> int:
             index.write_json(args.json_path)
         return 0
     if args.command == "corpus":
-        if args.corpus_command == "train-structured":
-            raise SystemExit(
-                "formal V2 structured training is frozen until reports/"
-                "TRAINING_READINESS_GATE.md says READY FOR FORMAL TRAINING: YES; "
-                "use the test-suite smoke checks for pipeline validation"
-            )
-        if args.corpus_command == "evaluate-structured":
-            from codeseam.core.structured_energy import StructuredScorer
-            from codeseam.evaluation.structured_report import evaluate_structured
-            from codeseam.training.config import load_artifact
-            from codeseam.training.corpus import load_structured_examples
-
-            model = StructuredScorer()
-            load_artifact(args.artifact, model)
-            print(
-                json.dumps(
-                    evaluate_structured(model, load_structured_examples(args.output, args.split)),
-                    indent=2,
-                    sort_keys=True,
-                )
-            )
-            return 0
-        if args.corpus_command == "registry":
-            errors = validate_registry(args.path)
-            if errors:
-                for error in errors:
-                    print(f"ERROR: {error}")
-                return 1
-            print(f"Registry validation passed: {args.path}")
-            return 0
-        if args.corpus_command == "fetch-real":
-            projects = fetch_projects(args.registry, args.output)
-            print(f"Fetched {len(projects)} pinned projects into {args.output}")
-            return 0
-        if args.corpus_command == "annotate":
-            document = create_annotation_template(args.source, args.output, args.annotator)
-            print(f"Wrote {len(document['boundaries'])} boundaries: {args.output}")
-            return 0
-        if args.corpus_command == "validate-annotation":
-            errors = validate_annotation(args.annotation, args.source)
-            if errors:
-                for error in errors:
-                    print(f"ERROR: {error}")
-                return 1
-            print(f"Annotation validation passed: {args.annotation}")
-            return 0
-        if args.corpus_command == "agreement":
-            for name, value in agreement(args.left, args.right).items():
-                rendered = f"{value:.3f}" if isinstance(value, float) else str(value)
-                print(f"{name}: {rendered}")
-            return 0
-        if args.corpus_command == "ablation":
-            report = ablation_report(args.output, args.split)
+        if args.corpus_command == "audit-real-gold":
+            report = write_real_gold_audit(args.output, args.json_path)
             print(json.dumps(report, indent=2, sort_keys=True))
-            return 0
-        if args.corpus_command == "tune-selection":
-            report = tune_selection(
+            return 0 if report["passed"] else 1
+        if args.corpus_command == "train-formal":
+            from codeseam.training.config import TrainingConfig
+            from codeseam.training.protocol import train_formal
+
+            def print_epoch(event: dict[str, object]) -> None:
+                marker = " *best*" if event["improved"] else ""
+                print(
+                    f"epoch {event['epoch']:>3}/{event['epochs']} | "
+                    f"updates {event['optimizer_updates']:>4} | "
+                    f"lr {event['learning_rate']:.5f} | "
+                    f"aux_w {event['boundary_auxiliary_weight']:.3f} | "
+                    f"train_nll/n {event['train_normalized_structured_nll']:.4f} | "
+                    f"val_nll/n {event['validation_normalized_structured_nll']:.4f} | "
+                    f"val_f1 {event['validation_f1_exact']:.3f} | "
+                    f"val_f1@1 {event['validation_f1_tolerance_1']:.3f} | "
+                    f"cuts {event['validation_predicted_cuts']}/"
+                    f"{event['validation_truth_cuts']} | "
+                    f"stale {event['stale_epochs']}/"
+                    f"{event['early_stopping_patience']}{marker}",
+                    flush=True,
+                )
+
+            result = train_formal(
                 args.output,
                 args.artifact,
-                tolerance=args.tolerance,
-                weights_artifact=args.weights_artifact,
+                config=TrainingConfig(
+                    epochs=args.epochs,
+                    batch_size=args.batch_size,
+                    learning_rate=args.learning_rate,
+                    random_seed=args.seed,
+                    early_stopping_patience=args.patience,
+                    minimum_epochs=args.minimum_epochs,
+                    device=args.device,
+                    soft_dp_temperature=args.temperature,
+                    boundary_auxiliary_weight=args.boundary_aux_weight,
+                    final_boundary_auxiliary_weight=args.final_boundary_aux_weight,
+                    final_learning_rate_ratio=args.final_learning_rate_ratio,
+                    schedule_epochs=args.schedule_epochs,
+                ),
+                progress=print_epoch,
             )
-            print(json.dumps(report, indent=2, sort_keys=True))
+            print(json.dumps(result["selection"], indent=2, sort_keys=True))
+            print(f"Wrote frozen formal model: {args.artifact}")
+            print("Test split remains sealed and was not loaded.")
             return 0
-        if args.corpus_command == "generate":
-            records = generate_corpus(args.output, count=args.count, seed=args.seed)
-            counts: dict[str, int] = {}
-            for record in records:
-                counts[record.split] = counts.get(record.split, 0) + 1
-            summary = ", ".join(f"{name}={count}" for name, count in sorted(counts.items()))
-            print(f"Generated {len(records)} samples at {args.output} ({summary})")
+        if args.corpus_command == "open-sealed-test":
+            from codeseam.training.protocol import evaluate_sealed_test
+
+            result = evaluate_sealed_test(args.output, args.artifact, args.report)
+            print(json.dumps(result["test_metrics"], indent=2, sort_keys=True))
+            print(f"Wrote sealed test report: {args.report}")
             return 0
-        if args.corpus_command == "evaluate":
-            scoring_config = (
-                load_selection_config(args.selection_policy) if args.selection_policy else None
-            )
-            report = evaluate_corpus(
-                args.output,
-                args.split,
-                tolerance=args.tolerance,
-                scoring_config=scoring_config,
-            )
-            print(json.dumps(report, indent=2, sort_keys=True))
-            return 0
-        if args.corpus_command == "train":
-            artifact = train_weights(args.output, args.artifact)
-            print(f"Wrote weights: {args.artifact}")
-            for name, value in artifact["metrics"].items():
-                print(f"{name}: {value:.3f}" if isinstance(value, float) else f"{name}: {value}")
-            if any(record.get("split") == "test" for record in _read_manifest(args.output)):
-                score = evaluate_weight_artifact(args.output, args.artifact, "test")
-                print(f"held_out_test_pairwise_accuracy: {score:.3f}")
-            return 0
-        errors = audit_corpus(args.output)
-        if errors:
-            for error in errors:
-                print(f"ERROR: {error}")
-            return 1
-        print(f"Corpus audit passed: {args.output}")
-        return 0
     try:
         scoring_config = (
             load_selection_config(args.selection_policy) if args.selection_policy else None
@@ -233,10 +153,10 @@ def main(argv: list[str] | None = None) -> int:
             from codeseam.core.structured_analyzer import analyze_program_structured
             from codeseam.core.structured_energy import StructuredScorer
             from codeseam.languages.matlab import MatlabFrontend
-            from codeseam.training.config import load_artifact
+            from codeseam.training.protocol import load_formal_artifact
 
             model = StructuredScorer()
-            load_artifact(args.structured_model, model)
+            load_formal_artifact(args.structured_model, model)
             program = MatlabFrontend().analyze_source(args.file.read_bytes(), str(args.file))
             result = analyze_program_structured(program, model).result
         else:
@@ -271,9 +191,3 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit(f"error: boundary is ambiguous; choose --region from: {regions}")
     print(render_explanation(matches[0]))
     return 0
-
-
-def _read_manifest(path: Path) -> list[dict]:
-    import json
-
-    return [json.loads(line) for line in (path / "manifest.jsonl").read_text().splitlines()]

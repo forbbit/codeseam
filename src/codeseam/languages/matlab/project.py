@@ -6,7 +6,7 @@ import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-from codeseam.core.ir import Risk
+from codeseam.core.ir import CallAbstraction, CallOrigin, Risk
 
 
 @dataclass(frozen=True, slots=True)
@@ -116,5 +116,10 @@ def apply_project_context(program, index: MatlabProjectIndex) -> None:
             project_calls = statement.unresolved_calls & visible
             statement.resolved_calls |= project_calls
             statement.unresolved_calls -= project_calls
+            for call in statement.call_sites:
+                if call.name in project_calls:
+                    call.origin = CallOrigin.PROJECT
+                    call.abstraction = CallAbstraction.USER_FUNCTION
+                    call.resolution_reliability = 1.0
             if not statement.unresolved_calls:
                 statement.risks.discard(Risk.AMBIGUOUS_CALL_OR_INDEX)

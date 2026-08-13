@@ -8,12 +8,13 @@ import torch
 from torch import Tensor, nn
 from torch.nn import functional as F
 
+from codeseam.core.dependencies import projected_dependence_edges, symbol_occurrences
 from codeseam.core.feature_model import ContinuousFeatureModel, FeatureDecomposition
 from codeseam.core.ir import ExecutableRegion
 from codeseam.core.module_quality import evaluate_module
 from codeseam.core.raw_facts import BoundaryRawFacts, extract_raw_facts
 
-ENERGY_SCHEMA_VERSION = "structured-energy-v2"
+ENERGY_SCHEMA_VERSION = "structured-energy"
 MODULE_FEATURE_NAMES = (
     "internal_cohesion", "external_compactness", "symbol_locality",
     "size_fitness", "finalization_completeness", "orphan_resistance",
@@ -35,34 +36,84 @@ class StructuredEnergy:
 class ContinuousModuleQuality(nn.Module):
     def __init__(self) -> None:
         super().__init__()
-        self.weights = nn.Parameter(torch.tensor([0.27, 0.22, 0.18, 0.14, 0.12, 0.07]))
+        initial = torch.tensor([0.27, 0.22, 0.18, 0.14, 0.12, 0.07])
+        self.raw_weights = nn.Parameter(torch.log(torch.expm1(initial)))
         self.raw_size_scale = nn.Parameter(torch.tensor(_inverse_softplus(3.0)))
         self.raw_orphan_temperature = nn.Parameter(torch.tensor(_inverse_softplus(0.5)))
+        self._static_cache: dict[int, tuple[Tensor, Tensor, Tensor, Tensor, Tensor]] = {}
 
     def forward(self, region: ExecutableRegion) -> Tensor:
-        count = len(region.statements)
-        matrix = self.weights.new_full((count + 1, count + 1), float("-inf"))
+        base, lengths, terminal_strength, existing_call_support, valid = self._static(region)
+        weights = F.softplus(self.raw_weights)
+        base = base.to(dtype=weights.dtype, device=weights.device)
+        lengths = lengths.to(dtype=weights.dtype, device=weights.device)
+        terminal_strength = terminal_strength.to(
+            dtype=weights.dtype, device=weights.device
+        )
+        existing_call_support = existing_call_support.to(
+            dtype=weights.dtype, device=weights.device
+        )
+        valid = valid.to(device=weights.device)
         size_scale = F.softplus(self.raw_size_scale) + 1e-6
         orphan_temperature = F.softplus(self.raw_orphan_temperature) + 1e-6
+        learned_size = (1.0 - torch.exp(-lengths / size_scale)) * torch.exp(
+            -torch.relu(lengths - 40.0) / 100.0
+        )
+        learned_size = torch.maximum(learned_size, existing_call_support)
+        learned_orphan = torch.sigmoid((lengths - 1.5) / orphan_temperature) * (
+            1.0 - terminal_strength
+        )
+        learned_orphan = torch.maximum(learned_orphan, existing_call_support)
+        features = torch.stack(
+            (
+                base[..., 0],
+                base[..., 1],
+                base[..., 2],
+                learned_size,
+                base[..., 4],
+                learned_orphan,
+            ),
+            dim=-1,
+        )
+        scores = torch.sum(features * weights, dim=-1)
+        return torch.where(valid, scores, torch.full_like(scores, float("-inf")))
+
+    def _static(self, region: ExecutableRegion) -> tuple[Tensor, Tensor, Tensor, Tensor, Tensor]:
+        key = id(region)
+        cached = self._static_cache.get(key)
+        if cached is not None:
+            return cached
+        count = len(region.statements)
+        base = torch.zeros((count + 1, count + 1, len(MODULE_FEATURE_NAMES)))
+        lengths = torch.zeros((count + 1, count + 1))
+        terminal_strength = torch.zeros((count + 1, count + 1))
+        existing_call_support = torch.zeros((count + 1, count + 1))
+        valid = torch.zeros((count + 1, count + 1), dtype=torch.bool)
+        dependence_edges = projected_dependence_edges(region, include_internal=True)
+        occurrences = symbol_occurrences(region)
         for start in range(count):
             for end in range(start + 1, count + 1):
-                legacy = evaluate_module(region, start, end - 1)
-                raw = legacy.raw_features
-                length = self.weights.new_tensor(raw["statement_count"])
-                terminal_strength = self.weights.new_tensor(
-                    float(length.item() == 1 and legacy.features["orphan_resistance"] == 0)
+                quality = evaluate_module(
+                    region,
+                    start,
+                    end - 1,
+                    dependence_edges=dependence_edges,
+                    occurrences=occurrences,
                 )
-                features = self.weights.new_tensor(
-                    [legacy.features[name] for name in MODULE_FEATURE_NAMES]
+                raw = quality.raw_features
+                lengths[start, end] = raw["statement_count"]
+                terminal_strength[start, end] = float(
+                    raw["statement_count"] == 1
+                    and quality.features["orphan_resistance"] == 0
                 )
-                features[3] = (1.0 - torch.exp(-length / size_scale)) * torch.exp(
-                    -torch.relu(length - 40.0) / 100.0
+                existing_call_support[start, end] = raw["existing_call_module_support"]
+                base[start, end] = torch.tensor(
+                    [quality.features[name] for name in MODULE_FEATURE_NAMES]
                 )
-                features[5] = torch.sigmoid((length - 1.5) / orphan_temperature) * (
-                    1.0 - terminal_strength
-                )
-                matrix[start, end] = torch.dot(self.weights, features)
-        return matrix
+                valid[start, end] = True
+        cached = (base, lengths, terminal_strength, existing_call_support, valid)
+        self._static_cache[key] = cached
+        return cached
 
 
 class StructuredScorer(nn.Module):
@@ -71,6 +122,7 @@ class StructuredScorer(nn.Module):
         self.feature_model = ContinuousFeatureModel()
         self.module_model = ContinuousModuleQuality()
         self.raw_cut_penalty = nn.Parameter(torch.tensor(_inverse_softplus(0.5)))
+        self._facts_cache: dict[int, list[BoundaryRawFacts]] = {}
 
     @property
     def cut_penalty(self) -> Tensor:
@@ -79,7 +131,11 @@ class StructuredScorer(nn.Module):
     def forward(
         self, region: ExecutableRegion, facts: list[BoundaryRawFacts] | None = None
     ) -> StructuredEnergy:
-        facts = facts or extract_raw_facts(region)
+        if facts is None:
+            facts = self._facts_cache.get(id(region))
+            if facts is None:
+                facts = extract_raw_facts(region)
+                self._facts_cache[id(region)] = facts
         decomposition = self.feature_model(facts)
         legal = torch.tensor(
             [not item.constraints and item.after_line != item.before_line for item in facts],

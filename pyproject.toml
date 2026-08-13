@@ -5,12 +5,13 @@ build-backend = "hatchling.build"
 [project]
 name = "codeseam"
 version = "0.1.0"
-description = "Find natural function boundaries in long MATLAB scripts"
+description = "Find natural function boundaries through language-neutral program semantics"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 keywords = [
   "matlab",
+  "multi-language",
   "static-analysis",
   "program-dependence-graph",
   "refactoring",

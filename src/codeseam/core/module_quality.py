@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from codeseam.core.callsites import existing_call_module_support
 from codeseam.core.dependencies import projected_dependence_edges, symbol_occurrences
-from codeseam.core.ir import DependenceKind, ExecutableRegion, ModuleQuality
+from codeseam.core.ir import DependenceKind, DependencyEdge, ExecutableRegion, ModuleQuality
 
 MODULE_WEIGHTS = {
     "internal_cohesion": 0.27,
@@ -13,12 +14,19 @@ MODULE_WEIGHTS = {
 }
 
 
-def evaluate_module(region: ExecutableRegion, start: int, end: int) -> ModuleQuality:
+def evaluate_module(
+    region: ExecutableRegion,
+    start: int,
+    end: int,
+    *,
+    dependence_edges: list[DependencyEdge] | None = None,
+    occurrences: dict[str, list[int]] | None = None,
+) -> ModuleQuality:
     """Evaluate the inclusive statement interval [start, end]."""
     if not (0 <= start <= end < len(region.statements)):
         raise ValueError("invalid module interval")
     statements = region.statements[start : end + 1]
-    dependence_edges = projected_dependence_edges(region, include_internal=True)
+    dependence_edges = dependence_edges or projected_dependence_edges(region, include_internal=True)
     all_edges = [edge for edge in dependence_edges if edge.kind == DependenceKind.DATA]
     internal_edges = [edge for edge in all_edges if start <= edge.source <= edge.target <= end]
     incoming_edges = [edge for edge in all_edges if edge.source < start <= edge.target <= end]
@@ -31,7 +39,7 @@ def evaluate_module(region: ExecutableRegion, start: int, end: int) -> ModuleQua
     inputs = sorted({edge.symbol for edge in incoming_edges})
     outputs = sorted({edge.symbol for edge in outgoing_edges})
     symbols = set().union(*(item.definitions | item.reads | item.mutations for item in statements))
-    occurrences = symbol_occurrences(region)
+    occurrences = occurrences or symbol_occurrences(region)
     local_symbols = {
         symbol
         for symbol in symbols
@@ -39,6 +47,9 @@ def evaluate_module(region: ExecutableRegion, start: int, end: int) -> ModuleQua
         and start <= occurrences[symbol][0] <= occurrences[symbol][-1] <= end
     }
     statement_count = len(statements)
+    existing_call_support = (
+        existing_call_module_support(statements[0]) if statement_count == 1 else 0.0
+    )
     possible_links = max(1, statement_count - 1)
     # Control edges are structural cohesion evidence, but deliberately count less
     # than value flow so a large conditional cannot dominate module quality.
@@ -47,13 +58,13 @@ def evaluate_module(region: ExecutableRegion, start: int, end: int) -> ModuleQua
     interface_count = len(inputs) + len(outputs)
     external_compactness = 1.0 / (1.0 + 0.35 * interface_count)
     locality = len(local_symbols) / len(symbols) if symbols else 1.0
-    size_fitness = _size_fitness(statement_count)
+    size_fitness = max(_size_fitness(statement_count), existing_call_support)
     trailing_compound = statements[-1].is_compound
     trailing_outputs = len(
         {edge.symbol for edge in outgoing_edges if edge.source == statements[-1].index}
     )
     finalization = 1.0 / (1.0 + trailing_outputs) if trailing_compound else 1.0
-    orphan = 0.0 if statement_count == 1 and _is_terminal_effect(statements[0]) else 1.0
+    orphan = existing_call_support if statement_count == 1 else 1.0
     features = {
         "internal_cohesion": cohesion,
         "external_compactness": external_compactness,
@@ -79,6 +90,7 @@ def evaluate_module(region: ExecutableRegion, start: int, end: int) -> ModuleQua
             "local_symbol_count": float(len(local_symbols)),
             "symbol_count": float(len(symbols)),
             "trailing_compound_output_count": float(trailing_outputs),
+            "existing_call_module_support": existing_call_support,
         },
         inputs=inputs,
         outputs=outputs,

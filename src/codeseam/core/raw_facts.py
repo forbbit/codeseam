@@ -4,11 +4,16 @@ from collections import Counter
 from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 
+from codeseam.core.callsites import (
+    callsite_reliability,
+    existing_call_module_support,
+    standalone_calls,
+)
 from codeseam.core.completion import completion_frontiers
 from codeseam.core.dependencies import semantic_def_use_edges, symbol_occurrences
-from codeseam.core.ir import DependencyEdge, ExecutableRegion, OperationRole, Risk
+from codeseam.core.ir import ControlEffect, DependencyEdge, ExecutableRegion, OperationRole, Risk
 
-RAW_FACT_SCHEMA_VERSION = "boundary-raw-facts-v2"
+RAW_FACT_SCHEMA_VERSION = "boundary-raw-facts-callsite"
 
 
 @dataclass(frozen=True, slots=True)
@@ -20,6 +25,7 @@ class Reliability:
     dependency: float = 1.0
     role: float = 1.0
     effect: float = 1.0
+    callsite: float = 1.0
     dynamic_workspace_risk: float = 0.0
     alias_uncertainty: float = 0.0
     dependency_reason_codes: tuple[str, ...] = ()
@@ -31,6 +37,7 @@ class Reliability:
             "dependency",
             "role",
             "effect",
+            "callsite",
             "dynamic_workspace_risk",
             "alias_uncertainty",
         ):
@@ -68,6 +75,16 @@ class BoundaryRawFacts:
     dependency_reuse_mass: float
     left_calls: tuple[str, ...]
     right_calls: tuple[str, ...]
+    left_access_domains: tuple[str, ...]
+    right_access_domains: tuple[str, ...]
+    left_call_kind_histogram: tuple[tuple[str, int], ...]
+    right_call_kind_histogram: tuple[tuple[str, int], ...]
+    standalone_call_transition: float
+    artifact_handoff: float
+    unfinished_call_setup: float
+    unfinished_call_finalization: float
+    primitive_call_chain: float
+    terminal_control_left: bool
     left_effect_histogram: tuple[tuple[str, int], ...]
     right_effect_histogram: tuple[tuple[str, int], ...]
     left_role_histogram: tuple[tuple[str, int], ...]
@@ -141,7 +158,7 @@ class BoundaryRawFacts:
 def extract_raw_facts(
     region: ExecutableRegion, *, window: int = 4, medium_window: int = 12
 ) -> list[BoundaryRawFacts]:
-    del medium_window  # retained in the API for V1 adapter compatibility
+    del medium_window  # retained for the public analysis API
     statements = region.statements
     if len(statements) < 2:
         return []
@@ -156,6 +173,8 @@ def extract_raw_facts(
         right_end = min(len(statements) - 1, boundary + window)
         left_slice = statements[left_start : boundary + 1]
         right_slice = statements[boundary + 1 : right_end + 1]
+        left_statement = statements[boundary]
+        right_statement = statements[boundary + 1]
         left_symbols = _symbols(left_slice)
         right_symbols = _symbols(right_slice)
         dead = {symbol for symbol in left_symbols if last[symbol] == boundary}
@@ -199,6 +218,42 @@ def extract_raw_facts(
             and edge.target_statement <= min(right_end, boundary + 2)
         )
         evidence = completion.get(boundary)
+        left_direct = standalone_calls(left_statement)
+        right_direct = standalone_calls(right_statement)
+        left_support = existing_call_module_support(left_statement)
+        right_support = existing_call_module_support(right_statement)
+        left_outputs = set().union(*(call.output_symbols for call in left_direct))
+        right_inputs = set().union(*(call.input_symbols for call in right_direct))
+        handoff_symbols = left_outputs & right_inputs
+        setup_target = next(
+            (
+                item
+                for item in statements[boundary + 1 : min(len(statements), boundary + 4)]
+                if existing_call_module_support(item) > 0.0
+            ),
+            None,
+        )
+        setup_target_inputs = (
+            set().union(*(call.input_symbols for call in standalone_calls(setup_target)))
+            if setup_target is not None
+            else set()
+        )
+        setup_symbols = (
+            (left_statement.definitions | left_statement.mutations) & setup_target_inputs
+            if setup_target is not None and left_support == 0.0
+            else set()
+        )
+        finalization_symbols = (
+            left_outputs & (right_statement.reads | right_statement.mutations)
+            if left_support > 0.0 and right_support == 0.0
+            else set()
+        )
+        left_primitive = bool(left_direct) and all(
+            call.abstraction.value == "primitive" for call in left_direct
+        )
+        right_primitive = bool(right_direct) and all(
+            call.abstraction.value == "primitive" for call in right_direct
+        )
         spans = [edge.target_statement - edge.source_statement for edge in cross_edges]
         reuse = Counter(edge.symbol for edge in cross_edges)
         reliability = _reliability(left_slice + right_slice)
@@ -242,6 +297,27 @@ def extract_raw_facts(
                 dependency_reuse_mass=sum(count * count for count in reuse.values()),
                 left_calls=tuple(sorted(_calls(left_slice))),
                 right_calls=tuple(sorted(_calls(right_slice))),
+                left_access_domains=tuple(sorted(_access_domains(left_slice))),
+                right_access_domains=tuple(sorted(_access_domains(right_slice))),
+                left_call_kind_histogram=_histogram(_call_kinds(left_slice)),
+                right_call_kind_histogram=_histogram(_call_kinds(right_slice)),
+                standalone_call_transition=min(left_support, right_support),
+                artifact_handoff=(
+                    len(handoff_symbols) / max(1, len(left_outputs | right_inputs))
+                    if left_support > 0.0 and right_support > 0.0
+                    else 0.0
+                ),
+                unfinished_call_setup=(
+                    len(setup_symbols) / max(1, len(setup_target_inputs))
+                ),
+                unfinished_call_finalization=(
+                    len(finalization_symbols) / max(1, len(left_outputs))
+                ),
+                primitive_call_chain=float(left_primitive and right_primitive),
+                terminal_control_left=bool(
+                    statements[boundary].control_effects
+                    & {ControlEffect.RETURN, ControlEffect.THROW}
+                ),
                 left_effect_histogram=_histogram(
                     effect.value for item in left_slice for effect in item.effects
                 ),
@@ -278,10 +354,28 @@ def _symbols(statements: Iterable) -> set[str]:
 def _calls(statements: Iterable) -> set[str]:
     return set().union(
         *(
-            item.resolved_calls if item.call_resolution_available else item.calls
+            (item.resolved_calls | item.unresolved_calls)
+            if item.call_resolution_available
+            else item.calls
             for item in statements
         )
     )
+
+
+def _access_domains(statements: Iterable) -> set[str]:
+    return set().union(*(item.access_domains for item in statements))
+
+
+def _call_kinds(statements: Iterable) -> Iterable[str]:
+    for item in statements:
+        if item.resolved_calls:
+            yield "resolved_call"
+        if item.unresolved_calls:
+            yield "external_or_unresolved_call"
+        if item.resolved_indexes:
+            yield "index_access"
+        if Risk.INDIRECT_CALL in item.risks:
+            yield "indirect_call"
 
 
 def _histogram(values: Iterable[str]) -> tuple[tuple[str, int], ...]:
@@ -332,6 +426,7 @@ def _reliability(statements: list) -> Reliability:
         dependency=dependency,
         role=role,
         effect=parse,
+        callsite=parse * callsite_reliability(statements),
         dynamic_workspace_risk=float(dynamic),
         alias_uncertainty=float(alias),
         dependency_reason_codes=tuple(reasons),

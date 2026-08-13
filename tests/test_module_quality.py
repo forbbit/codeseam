@@ -39,3 +39,23 @@ def test_size_fitness_does_not_penalize_normal_long_modules() -> None:
     region = MatlabFrontend().analyze_source(source, "memory.m").regions[0]
     quality = evaluate_module(region, 0, 19)
     assert quality.features["size_fitness"] == 1.0
+
+
+def test_single_existing_high_level_call_escapes_length_penalty() -> None:
+    region = MatlabFrontend().analyze_source(
+        b"registered = register_volume(volume, atlas);\n", "memory.m"
+    ).regions[0]
+    quality = evaluate_module(region, 0, 0)
+    assert quality.raw_features["existing_call_module_support"] > 0
+    assert quality.features["size_fitness"] > 0
+    assert quality.features["orphan_resistance"] > 0
+
+
+def test_single_primitive_call_keeps_length_penalty() -> None:
+    region = MatlabFrontend().analyze_source(
+        b"flat = reshape(volume, [], 1);\n", "memory.m"
+    ).regions[0]
+    quality = evaluate_module(region, 0, 0)
+    assert quality.raw_features["existing_call_module_support"] == 0
+    assert quality.features["size_fitness"] == 0
+    assert quality.features["orphan_resistance"] == 0

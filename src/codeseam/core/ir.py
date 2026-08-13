@@ -37,6 +37,33 @@ class OperationRole(StrEnum):
     UNKNOWN = "unknown"
 
 
+class CallForm(StrEnum):
+    DIRECT_ASSIGNMENT = "direct_assignment"
+    DIRECT_MULTI_OUTPUT = "direct_multi_output"
+    EFFECT_ONLY = "effect_only"
+    NESTED_EXPRESSION = "nested_expression"
+    CONDITION_CALL = "condition_call"
+    CALLBACK_OR_HANDLE = "callback_or_handle"
+    COMMAND = "command"
+
+
+class CallOrigin(StrEnum):
+    BUILTIN = "builtin"
+    SAME_FILE = "same_file"
+    PROJECT = "project"
+    EXTERNAL = "external"
+    UNRESOLVED = "unresolved"
+    INDIRECT = "indirect"
+    INDEX_ACCESS = "index_access"
+
+
+class CallAbstraction(StrEnum):
+    PRIMITIVE = "primitive"
+    LIBRARY = "library"
+    USER_FUNCTION = "user_function"
+    UNKNOWN = "unknown"
+
+
 class Risk(StrEnum):
     AMBIGUOUS_CALL_OR_INDEX = "ambiguous_call_or_index"
     DYNAMIC_EVALUATION = "dynamic_evaluation"
@@ -99,6 +126,21 @@ class ControlFlowGraph:
 
 
 @dataclass(slots=True)
+class CallSite:
+    """Language-neutral structural description of one syntactic call site."""
+
+    name: str
+    form: CallForm
+    origin: CallOrigin
+    abstraction: CallAbstraction
+    input_symbols: set[str] = field(default_factory=set)
+    output_symbols: set[str] = field(default_factory=set)
+    is_standalone_statement: bool = False
+    is_only_operation: bool = False
+    resolution_reliability: float = 1.0
+
+
+@dataclass(slots=True)
 class StatementIR:
     index: int
     kind: str
@@ -106,11 +148,15 @@ class StatementIR:
     definitions: set[str] = field(default_factory=set)
     reads: set[str] = field(default_factory=set)
     mutations: set[str] = field(default_factory=set)
+    # Language-neutral structured access domains such as ``obj.detector`` or
+    # ``config.training``. Frontends derive these from syntax, never comments.
+    access_domains: set[str] = field(default_factory=set)
     calls: set[str] = field(default_factory=set)
     resolved_calls: set[str] = field(default_factory=set)
     resolved_indexes: set[str] = field(default_factory=set)
     unresolved_calls: set[str] = field(default_factory=set)
     call_resolution_available: bool = False
+    call_sites: list[CallSite] = field(default_factory=list)
     effects: set[Effect] = field(default_factory=set)
     control_effects: set[ControlEffect] = field(default_factory=set)
     roles: set[OperationRole] = field(default_factory=set)

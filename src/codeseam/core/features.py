@@ -7,7 +7,7 @@ from codeseam.core.ir import BoundaryAnalysis, ExecutableRegion
 from codeseam.core.module_quality import attach_adjacent_module_quality
 from codeseam.core.raw_facts import BoundaryRawFacts, extract_raw_facts
 
-NORMALIZATION_VERSION = "boundary-features-v6"
+NORMALIZATION_VERSION = "boundary-features-callsite"
 
 
 @dataclass(frozen=True, slots=True)
@@ -19,7 +19,7 @@ class FeatureConfig:
 def extract_boundaries(
     region: ExecutableRegion, config: FeatureConfig | None = None
 ) -> list[BoundaryAnalysis]:
-    """Legacy V1 features reconstructed exclusively from stable Raw Facts."""
+    """Build explainable boundary output exclusively from stable Raw Facts."""
     config = config or FeatureConfig()
     edges = semantic_def_use_edges(region)
     results = [
@@ -74,6 +74,11 @@ def legacy_boundary_from_raw(facts: BoundaryRawFacts, edges, config: FeatureConf
         "control_followup_completion": control_completion,
         "dependency_target_dispersion": dependency_dispersion,
         "task_completion": float(facts.completion_chain_length == 0),
+        "standalone_call_transition": facts.standalone_call_transition,
+        "artifact_handoff": facts.artifact_handoff,
+        "call_setup_completion": 1.0 - facts.unfinished_call_setup,
+        "call_finalization_completion": 1.0 - facts.unfinished_call_finalization,
+        "nonprimitive_call_chain": 1.0 - facts.primitive_call_chain,
     }
     return BoundaryAnalysis(
         region_id=facts.region_id,
@@ -101,6 +106,9 @@ def legacy_boundary_from_raw(facts: BoundaryRawFacts, edges, config: FeatureConf
             "dependency_target_count": float(facts.dependency_target_count),
             "raw_structural_completion": float(facts.compound_ends_here),
             "unfinished_completion_chain": float(facts.completion_chain_length > 0),
+            "unfinished_call_setup": facts.unfinished_call_setup,
+            "unfinished_call_finalization": facts.unfinished_call_finalization,
+            "primitive_call_chain": facts.primitive_call_chain,
         },
         normalization_version=NORMALIZATION_VERSION,
         dead_symbols=list(facts.dead_symbols),

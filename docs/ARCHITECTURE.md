@@ -3,16 +3,50 @@
 ## Processing pipeline
 
 ```text
-MATLAB .m source
-  -> Tree-sitter runtime
-  -> MATLAB frontend
-  -> language-neutral ProgramIR
-  -> structured control-flow graph and program-dependence graph
-  -> dependency and lifetime analysis
-  -> boundary features, constraints, and risks
-  -> scoring, local peaks, and module-quality suppression
-  -> console or JSON report
+Source file
+  -> Language registry
+  -> Language Adapter / Frontend (MATLAB is the first plugin)
+  -> Common ProgramIR
+  -> CommonSemanticAnalyzer (CFG/PDG, Raw Facts, Reliability)
+  -> Common Continuous Features
+  -> Structured Energy
+  -> Soft-DP for formal structured training
+  -> Hard-DP for inference
 ```
+
+## Multi-language ownership
+
+`languages/registry.py` selects a frontend by explicit language ID or registered
+extension. A Python, C, C++, Java, or JavaScript plugin owns its grammar, symbol
+rules, call resolution, effects, risks, and CFG lowering. It must emit the same
+`ProgramIR`; it must not add language branches to `core`.
+
+`core/semantic_analyzer.py` is the shared semantic boundary. It compiles each
+`ExecutableRegion` into a language-neutral dependence graph plus boundary raw
+facts and reliability. Feature transforms, structured energy, and both DP
+implementations consume only shared IR/facts.
+
+`semantic/task_graph.py` owns the language-neutral task representation. Renderers
+are plugins under their language packages; MATLAB's first renderer is
+`languages/matlab/renderer.py`.
+
+To add a frontend, implement `LanguageFrontend`, register a `FrontendPlugin`, and
+add language conformance tests. A future renderer separately implements
+`SemanticRenderer`; analysis support does not require a renderer.
+
+## Training boundary
+
+Formal structured training uses the sealed protocol in `FORMAL_TRAINING_PROTOCOL.md`.
+Training loaders accept finalized `curated_real_gold` records only when
+they carry high-confidence final review plus immutable revision and source hashes.
+Unlabeled GitHub or other external sources remain detection-only and are rejected
+before parsing or feature extraction. Generated or model-produced labels are not
+accepted by the training loader.
+
+Structured truth is keyed by executable-region statement index, never physical line.
+MATLAB permits several statements on one line, so source lines are presentation
+metadata only. Unannotated local helper regions in an accepted file are skipped rather
+than silently interpreted as zero-cut negative examples.
 
 The MATLAB frontend owns all grammar node names and MATLAB semantics. The core
 owns no Tree-sitter or MATLAB dependencies. A future language frontend must emit

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from codeseam.core.feature_model import FEATURE_MODEL_VERSION
 from codeseam.core.features import FeatureConfig, extract_boundaries
 from codeseam.core.hard_dp import best_segmentation
 from codeseam.core.ir import AnalysisResult, ProgramIR
@@ -21,7 +22,7 @@ def analyze_program_structured(
     scorer: StructuredScorer,
     feature_config: FeatureConfig | None = None,
 ) -> StructuredAnalysis:
-    """Run deterministic Hard-DP with the exact energy used by V2 training."""
+    """Run deterministic Hard-DP with the exact energy used by formal training."""
     config = feature_config or FeatureConfig()
     boundaries = []
     energies = {}
@@ -38,7 +39,7 @@ def analyze_program_structured(
             structured.boundary.detach().tolist(),
             strict=True,
         ):
-            boundary.normalization_version = "boundary-features-v2-structured"
+            boundary.normalization_version = FEATURE_MODEL_VERSION
             boundary.features = dict(
                 zip(structured.decomposition.names, decomposition, strict=True)
             )

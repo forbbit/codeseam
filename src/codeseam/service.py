@@ -6,8 +6,8 @@ from codeseam.core.analyzer import analyze_program
 from codeseam.core.features import FeatureConfig
 from codeseam.core.ir import AnalysisResult
 from codeseam.core.scoring import ScoringConfig
-from codeseam.languages.matlab import MatlabFrontend
 from codeseam.languages.matlab.project import MatlabProjectIndex, apply_project_context
+from codeseam.languages.registry import DEFAULT_LANGUAGE_REGISTRY, LanguageRegistry
 
 
 def analyze_file(
@@ -23,12 +23,17 @@ def analyze_file(
     module_deficit_penalty: float = 0.20,
     scoring_config: ScoringConfig | None = None,
     project_index: MatlabProjectIndex | None = None,
+    language_id: str | None = None,
+    registry: LanguageRegistry | None = None,
 ) -> AnalysisResult:
-    if path.suffix.lower() != ".m":
-        raise ValueError("current version supports MATLAB .m files only")
     source = path.read_bytes()
-    program = MatlabFrontend().analyze_source(source, str(path))
+    frontend = (registry or DEFAULT_LANGUAGE_REGISTRY).frontend_for(
+        path, language_id=language_id
+    )
+    program = frontend.analyze_source(source, str(path))
     if project_index is not None:
+        if program.language != "matlab":
+            raise ValueError("MATLAB project context can only enrich MATLAB ProgramIR")
         apply_project_context(program, project_index)
     return analyze_program(
         program,

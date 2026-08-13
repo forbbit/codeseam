@@ -1,12 +1,17 @@
 from __future__ import annotations
 
 import hashlib
+import re
 from pathlib import Path
 
 import tree_sitter_matlab
 from tree_sitter import Node
 
 from codeseam.core.ir import (
+    CallAbstraction,
+    CallForm,
+    CallOrigin,
+    CallSite,
     ControlEffect,
     Effect,
     ExecutableRegion,
@@ -17,7 +22,7 @@ from codeseam.core.ir import (
     StatementIR,
 )
 from codeseam.languages.matlab.control_flow import MatlabControlFlowBuilder
-from codeseam.languages.matlab.symbols import BUILTIN_FUNCTIONS
+from codeseam.languages.matlab.symbols import BUILTIN_FUNCTIONS, PRIMITIVE_FUNCTIONS
 from codeseam.parsing.tree_sitter_runtime import TreeSitterRuntime
 
 COMMENT_NODES = {"comment"}
@@ -71,6 +76,21 @@ def _identifier_texts(node: Node, source: bytes) -> set[str]:
         else:
             stack.extend(reversed(current.named_children))
     return found
+
+
+def _access_domains(node: Node, source: bytes) -> set[str]:
+    """Return stable receiver/first-field domains from code syntax.
+
+    Deeper fields intentionally collapse to the first semantic namespace, so
+    ``obj.detector.imageHistory`` remains comparable with ``obj.detector``.
+    Dynamic field expressions are excluded because their namespace is unknown.
+    """
+    domains: set[str] = set()
+    for match in re.finditer(
+        r"\b([A-Za-z]\w*)\s*\.\s*([A-Za-z]\w*)", _text(node, source)
+    ):
+        domains.add(f"{match.group(1)}.{match.group(2)}")
+    return domains
 
 
 class MatlabFrontend:
@@ -138,6 +158,7 @@ class MatlabFrontend:
 
     @staticmethod
     def _classify_calls(program: ProgramIR) -> None:
+        same_file_functions = {region.name for region in program.regions if region.name}
         for region in program.regions:
             known_variables = set(region.parameters)
             for statement in region.statements:
@@ -153,8 +174,29 @@ class MatlabFrontend:
                         | OUTPUT_COMMANDS
                     )
                 else:
-                    statement.resolved_calls = remaining & BUILTIN_FUNCTIONS
+                    statement.resolved_calls = remaining & (BUILTIN_FUNCTIONS | same_file_functions)
                 statement.unresolved_calls = remaining - statement.resolved_calls
+                for call in statement.call_sites:
+                    if call.name in statement.resolved_indexes:
+                        call.origin = CallOrigin.INDEX_ACCESS
+                        call.abstraction = CallAbstraction.PRIMITIVE
+                        call.resolution_reliability = 1.0
+                    elif call.name in BUILTIN_FUNCTIONS:
+                        call.origin = CallOrigin.BUILTIN
+                        call.abstraction = (
+                            CallAbstraction.PRIMITIVE
+                            if call.name in PRIMITIVE_FUNCTIONS
+                            else CallAbstraction.LIBRARY
+                        )
+                        call.resolution_reliability = 1.0
+                    elif call.name in same_file_functions:
+                        call.origin = CallOrigin.SAME_FILE
+                        call.abstraction = CallAbstraction.USER_FUNCTION
+                        call.resolution_reliability = 1.0
+                    else:
+                        call.origin = CallOrigin.UNRESOLVED
+                        call.abstraction = CallAbstraction.UNKNOWN
+                        call.resolution_reliability = 0.65
                 if not statement.unresolved_calls:
                     statement.risks.discard(Risk.AMBIGUOUS_CALL_OR_INDEX)
                 known_variables |= statement.definitions | statement.mutations
@@ -192,8 +234,92 @@ class MatlabFrontend:
         if node.has_error:
             statement.risks.add(Risk.PARSE_ERROR)
         self._collect(node, statement, source)
+        statement.call_sites = self._extract_call_sites(node, statement, source)
         self._assign_roles(node, statement, source)
         return statement
+
+    @staticmethod
+    def _extract_call_sites(
+        node: Node, statement: StatementIR, source: bytes
+    ) -> list[CallSite]:
+        if node.type == "command" and statement.calls:
+            name = next(iter(statement.calls))
+            return [
+                CallSite(
+                    name=name,
+                    form=CallForm.COMMAND,
+                    origin=CallOrigin.UNRESOLVED,
+                    abstraction=CallAbstraction.UNKNOWN,
+                    input_symbols=set(statement.reads),
+                    is_standalone_statement=True,
+                    is_only_operation=True,
+                    resolution_reliability=0.65,
+                )
+            ]
+        calls: list[tuple[Node, bool]] = []
+
+        def visit(current: Node, nested: bool = False) -> None:
+            if current.type == "function_call":
+                calls.append((current, nested))
+                nested = True
+            for child in current.named_children:
+                visit(child, nested)
+
+        visit(node)
+        result: list[CallSite] = []
+        for call_node, nested in calls:
+            name_node = call_node.child_by_field_name("name")
+            if not name_node or name_node.type != "identifier":
+                continue
+            name = _text(name_node, source)
+            arguments = next(
+                (child for child in call_node.named_children if child.type == "arguments"), None
+            )
+            inputs = _identifier_texts(arguments, source) if arguments else set()
+            parent = call_node.parent
+            if parent is not None and parent.type == "field_expression":
+                object_node = parent.child_by_field_name("object")
+                if object_node is not None:
+                    inputs |= _identifier_texts(object_node, source)
+            nested_names = {
+                _text(descendant.child_by_field_name("name"), source)
+                for descendant in MatlabFrontend._walk(call_node)
+                if descendant is not call_node
+                and descendant.type == "function_call"
+                and descendant.child_by_field_name("name") is not None
+                and descendant.child_by_field_name("name").type == "identifier"
+            }
+            inputs -= nested_names
+            direct = not nested and not statement.is_compound
+            if nested:
+                form = CallForm.NESTED_EXPRESSION
+            elif node.type == "assignment":
+                left = node.child_by_field_name("left")
+                form = (
+                    CallForm.DIRECT_MULTI_OUTPUT
+                    if left is not None and left.type == "multioutput_variable"
+                    else CallForm.DIRECT_ASSIGNMENT
+                )
+            elif node.type == "command":
+                form = CallForm.COMMAND
+            elif node.type in {"function_call", "field_expression"}:
+                form = CallForm.EFFECT_ONLY
+            else:
+                form = CallForm.CONDITION_CALL
+            result.append(
+                CallSite(
+                    name=name,
+                    form=form,
+                    origin=CallOrigin.UNRESOLVED,
+                    abstraction=CallAbstraction.UNKNOWN,
+                    input_symbols=inputs,
+                    output_symbols=set(statement.definitions) if direct else set(),
+                    is_standalone_statement=direct,
+                    is_only_operation=direct and len(calls) == 1,
+                    resolution_reliability=0.65,
+                )
+            )
+        return result
 
     @staticmethod
     def _assign_roles(node: Node, statement: StatementIR, source: bytes) -> None:
@@ -262,6 +388,7 @@ class MatlabFrontend:
             statement.definitions |= _identifier_texts(node, source)
             return
         if node.type == "field_expression":
+            statement.access_domains |= _access_domains(node, source)
             object_node = node.child_by_field_name("object")
             if object_node:
                 object_symbols = _identifier_texts(object_node, source)
@@ -290,6 +417,8 @@ class MatlabFrontend:
     def _collect_expression(self, node: Node, statement: StatementIR, source: bytes) -> None:
         if node.type in COMMENT_NODES:
             return
+        if node.type == "field_expression":
+            statement.access_domains |= _access_domains(node, source)
         if node.type == "handle_operator":
             statement.effects.add(Effect.FUNCTION_HANDLE)
             statement.risks.add(Risk.INDIRECT_CALL)
