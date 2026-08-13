@@ -1,0 +1,4 @@
+# Curated sources are immutable byte artifacts whose SHA-256 values are part of Gold.
+# Never normalize their line endings during add or checkout.
+corpus/real-curation/sources/** -text
+corpus/real-curation/licenses/** -text
