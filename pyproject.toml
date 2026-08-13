@@ -29,6 +29,7 @@ classifiers = [
   "Topic :: Software Development :: Quality Assurance",
 ]
 dependencies = [
+  "torch>=2.4",
   "tree-sitter>=0.25,<0.27",
   "tree-sitter-matlab>=1.3,<2",
 ]
@@ -41,7 +42,6 @@ Documentation = "https://github.com/forbbit/codeseam#readme"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.3", "ruff>=0.11"]
-structured = ["numpy>=2.0", "torch>=2.4"]
 
 [project.scripts]
 codeseam = "codeseam.cli:main"
